@@ -2,7 +2,18 @@
 
 .navbar {
   @extend %flexbox;
-  height: 100px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.navLogo {
+  @include flex-grow(3);
+  background: red;
+  height: 3.5rem;
+}
+
+.navItems {
+  @include flex-grow(3.5);
 }
 
 .navItem {
@@ -10,7 +21,12 @@
   margin: 0.25rem;
 }
 
-.content {
-  background: green;
-  height: 300px;
+.profileItem {
+  @include flex-grow(1);
+}
+
+.player {
+  @extend %flexbox;
+  @include justify-content(center);
+  @include align-items(center);
 }
