@@ -8,7 +8,7 @@ const menubar = require('menubar');
 
 const options = {
   development: {
-    index: `file://${__dirname}/app/hot-dev-app.html`,
+    index: `file://${__dirname}/app/app.html`,
     width: 1024,
     height: 728,
     tooltip: '豆瓣酱',
