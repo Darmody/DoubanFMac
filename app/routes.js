@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
+import App from './containers/App/App';
 import HomePage from './containers/HomePage/HomePage';
 
 

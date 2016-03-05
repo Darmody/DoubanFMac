@@ -5752,6 +5752,11 @@
       "from": "samsam@1.1.2",
       "resolved": "https://registry.npmjs.org/samsam/-/samsam-1.1.2.tgz"
     },
+    "sass-flex-mixin": {
+      "version": "1.0.0",
+      "from": "sass-flex-mixin@*",
+      "resolved": "https://registry.npmjs.org/sass-flex-mixin/-/sass-flex-mixin-1.0.0.tgz"
+    },
     "sass-graph": {
       "version": "2.1.1",
       "from": "sass-graph@>=2.0.1 <3.0.0",

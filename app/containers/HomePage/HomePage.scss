@@ -1,4 +1,7 @@
+@import '~sass-flex-mixin/flex';
+
 .navbar {
+  @extend %flexbox;
   height: 100px;
 }
 

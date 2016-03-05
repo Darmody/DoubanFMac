@@ -20,13 +20,6 @@ config.entry = [
 config.output.publicPath = 'http://localhost:3000/dist/';
 
 config.module.loaders.push({
-  test: /\.global\.css$/,
-  loaders: [
-    'style-loader',
-    'css-loader?sourceMap',
-
-  ]
-}, {
   test: /^((?!\.global).)*\.css$/,
   loaders: [
     'style-loader',
