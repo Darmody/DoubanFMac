@@ -3,7 +3,7 @@
 
 const webpack = require('webpack');
 const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
-const baseConfig = require('./webpack.config.base');
+const baseConfig = require('./config.base');
 
 
 const config = Object.create(baseConfig);
@@ -20,17 +20,14 @@ config.entry = [
 config.output.publicPath = 'http://localhost:3000/dist/';
 
 config.module.loaders.push({
-  test: /\.global\.css$/,
-  loaders: [
-    'style-loader',
-    'css-loader?sourceMap'
-  ]
-}, {
   test: /^((?!\.global).)*\.css$/,
   loaders: [
     'style-loader',
     'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
   ]
+}, {
+  test: /\.scss$/,
+  loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
 });
 
 
