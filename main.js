@@ -25,7 +25,11 @@ const options = {
 
 const mb = menubar(options[process.env.NODE_ENV || 'development']);
 
-crashReporter.start();
+crashReporter.start({
+  productName: 'douban sauce',
+  companyName: 'darmody',
+  submitURL: 'http://github.com/darmody/douban_sauce/issues'
+});
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
