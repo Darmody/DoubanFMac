@@ -23,7 +23,8 @@ config.module.loaders.push({
   test: /\.global\.css$/,
   loaders: [
     'style-loader',
-    'css-loader?sourceMap'
+    'css-loader?sourceMap',
+
   ]
 }, {
   test: /^((?!\.global).)*\.css$/,
@@ -31,6 +32,9 @@ config.module.loaders.push({
     'style-loader',
     'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
   ]
+}, {
+  test: /\.scss$/,
+  loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
 });
 
 
