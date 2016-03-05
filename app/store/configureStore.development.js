@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
+import { DevTools } from 'components';
 
 const router = syncHistory(hashHistory);
 const enhancer = compose(

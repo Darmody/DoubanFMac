@@ -1,5 +1,5 @@
 // for babel-plugin-webpack-loaders
-const devConfigs = require('./webpack.config.development');
+const devConfigs = require('./config.development');
 
 module.exports = {
   output: {
