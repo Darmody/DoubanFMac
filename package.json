@@ -91,6 +91,7 @@
   "dependencies": {
     "classnames": "^2.2.3",
     "electron-debug": "^0.5.1",
+    "material-design-icons-iconfont": "^2.0.4",
     "menubar": "^4.0.2",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",

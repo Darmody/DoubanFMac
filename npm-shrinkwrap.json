@@ -3426,6 +3426,11 @@
       "from": "map-obj@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/map-obj/-/map-obj-1.0.1.tgz"
     },
+    "material-design-icons-iconfont": {
+      "version": "2.0.4",
+      "from": "material-design-icons-iconfont@*",
+      "resolved": "https://registry.npmjs.org/material-design-icons-iconfont/-/material-design-icons-iconfont-2.0.4.tgz"
+    },
     "media-typer": {
       "version": "0.3.0",
       "from": "media-typer@0.3.0",
