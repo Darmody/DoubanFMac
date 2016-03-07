@@ -1,30 +1,5 @@
 @import '~sass-flex-mixin/flex';
 
-.navbar {
-  @extend %flexbox;
-  padding: 1rem;
-  margin-bottom: 2rem;
-}
-
-.navLogo {
-  @include flex-grow(3);
-  background: red;
-  height: 3.5rem;
-}
-
-.navItems {
-  @include flex-grow(3.5);
-}
-
-.navItem {
-  border: 0.15rem solid;
-  margin: 0.25rem;
-}
-
-.profileItem {
-  @include flex-grow(1);
-}
-
 .player {
   @extend %flexbox;
   @include justify-content(center);

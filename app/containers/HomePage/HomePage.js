@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import cx from 'classnames';
+import { Link } from 'react-router';
+import Navbar from './Navbar/Navbar';
 import styles from './HomePage.scss';
 
+@connect(
+  state => ({
+    currentUser: state.auth.user,
+  }),
+  dispatch => bindActionCreators({}, dispatch)
+)
 export default class HomePage extends Component {
   render() {
+    const { currentUser } = this.props;
+
     return (
       <div>
-        <nav className={styles.navbar} >
-          <a href="#logo" className={styles.navLogo} > Logo </a>
-          <div className={styles.navItems} >
-            <a href="#兆赫" className={styles.navItem} > 兆赫 </a>
-            <a href="#歌单" className={styles.navItem} > 歌单 </a>
-            <a href="#歌单" className={styles.navItem} > 歌单 </a>
-            <a href="#歌单" className={styles.navItem} > 歌单 </a>
-          </div>
-          <a href="#无宇论" className={styles.profileItem} > 无宇论 </a>
-        </nav>
+        <Navbar currentUser={currentUser} />
         <div className={styles.player} >
           <div>
             <span> 私人兆赫 </span>
