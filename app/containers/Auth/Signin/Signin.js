@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { connectModal } from 'redux-modal';
@@ -17,6 +17,13 @@ import styles from './Signin.scss';
   })
 )
 export default class Signin extends Component {
+  static propTypes = {
+    captchaCode: PropTypes.string,
+    fetchCaptcha: PropTypes.func.isRequired,
+    handleHide: PropTypes.func.isRequired,
+    modal: PropTypes.object.isRequired,
+  }
+
   componentDidMount() {
     this.props.fetchCaptcha();
   }
@@ -34,7 +41,7 @@ export default class Signin extends Component {
   }
 
   render() {
-    const { modal: { show, params}, captchaCode } = this.props;
+    const { modal: { show }, captchaCode } = this.props;
     const modalStyle = {
       content: {
         top: '40%',

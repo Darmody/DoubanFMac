@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { show } from 'redux-modal';
 import { connect } from 'react-redux';
-import cx from 'classnames';
-import { Link } from 'react-router';
 import Navbar from './Navbar/Navbar';
 import styles from './HomePage.scss';
 
@@ -16,6 +14,11 @@ import styles from './HomePage.scss';
   })
 )
 export default class HomePage extends Component {
+  static propTypes = {
+    currentUser: PropTypes.object,
+    show: PropTypes.func.isRequired,
+  }
+
   showSigninModal = () => {
     this.props.show('signin');
   }
