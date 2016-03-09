@@ -4,7 +4,6 @@ import { show } from 'redux-modal';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import { Link } from 'react-router';
-import { fetch as fetchCaptcha } from 'reducers/doubanCaptcha';
 import Navbar from './Navbar/Navbar';
 import styles from './HomePage.scss';
 
@@ -13,12 +12,11 @@ import styles from './HomePage.scss';
     currentUser: state.auth.user,
   }),
   dispatch => ({
-    ...bindActionCreators({ show, fetchCaptcha }, dispatch)
+    ...bindActionCreators({ show }, dispatch)
   })
 )
 export default class HomePage extends Component {
   showSigninModal = () => {
-    this.props.fetchCaptcha();
     this.props.show('signin');
   }
 

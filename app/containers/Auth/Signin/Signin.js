@@ -7,7 +7,7 @@ import { shell } from 'electron';
 import { fetch as fetchCaptcha } from 'reducers/doubanCaptcha';
 import styles from './Signin.scss';
 
-@connectModal('signin')
+@connectModal({ name: 'signin' })
 @connect(
   state => ({
     captchaCode: state.doubanCaptcha.code,
@@ -17,6 +17,9 @@ import styles from './Signin.scss';
   })
 )
 export default class Signin extends Component {
+  componentDidMount() {
+    this.props.fetchCaptcha();
+  }
 
   hideModal = () => {
     this.props.handleHide();
