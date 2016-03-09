@@ -40,7 +40,6 @@
 
     .captchaField {
       @extend %flexbox;
-      @include justify-content(center);
       @include align-items(center);
       @include fieldInput($width: 50%);
 
@@ -49,7 +48,7 @@
       }
 
       img {
-        width: 50%;
+        width: 100%;
         height: 2rem;
       }
     }
