@@ -3651,6 +3651,11 @@
       "from": "normalize-url@>=1.4.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/normalize-url/-/normalize-url-1.4.1.tgz"
     },
+    "normalize.css": {
+      "version": "3.0.3",
+      "from": "normalize.css@*",
+      "resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-3.0.3.tgz"
+    },
     "npm": {
       "version": "3.7.5",
       "from": "npm@>=3.5.3 <4.0.0",

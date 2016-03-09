@@ -95,6 +95,7 @@
     "file-loader": "^0.8.5",
     "material-design-icons-iconfont": "^2.0.4",
     "menubar": "^4.0.2",
+    "normalize.css": "^3.0.3",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-modal": "^0.6.1",
