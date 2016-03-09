@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { show } from 'redux-modal';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import { Link } from 'react-router';
@@ -10,15 +11,24 @@ import styles from './HomePage.scss';
   state => ({
     currentUser: state.auth.user,
   }),
-  dispatch => bindActionCreators({}, dispatch)
+  dispatch => ({
+    ...bindActionCreators({ show }, dispatch)
+  })
 )
 export default class HomePage extends Component {
+  showSigninModal = () => {
+    this.props.show('signin', {});
+  }
+
   render() {
     const { currentUser } = this.props;
 
     return (
       <div>
-        <Navbar currentUser={currentUser} />
+        <Navbar
+          currentUser={currentUser}
+          showSigninModal={this.showSigninModal}
+        />
         <div className={styles.player} >
           <div>
             <span> 私人兆赫 </span>
