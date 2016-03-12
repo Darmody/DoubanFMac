@@ -4,13 +4,20 @@ import { Signin } from 'containers';
 import styles from './Navbar.scss';
 
 function UserItem({ currentUser = {}, showSigninModal }) {
-  const linkLabel = currentUser.name || '登录';
-  const linkIcon = currentUser.id ? 'keyboard_arrow_down' : 'eject';
+  if (currentUser.id) {
+    return (
+      <a href="#" className={styles.userLink} >
+      { currentUser.name }
+      <i className={cx('material-icons')} > keyboard_arrow_down </i>
+      <Signin />
+      </a>
+    );
+  }
 
   return (
     <a href="#" className={styles.userLink} onClick={showSigninModal} >
-    { linkLabel }
-    <i className={cx('material-icons')} > { linkIcon } </i>
+      登录
+    <i className={cx('material-icons')} > eject </i>
     <Signin />
     </a>
   );

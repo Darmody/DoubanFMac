@@ -4,28 +4,22 @@ import { connect } from 'react-redux';
 import { connectModal } from 'redux-modal';
 import Modal from 'react-modal';
 import { shell } from 'electron';
-import { fetch as fetchCaptcha } from 'reducers/doubanCaptcha';
+import { login } from 'reducers/auth';
+import Form from './Form';
 import styles from './Signin.scss';
 
 @connectModal({ name: 'signin' })
 @connect(
-  state => ({
-    captchaCode: state.doubanCaptcha.code,
-  }),
+  () => ({}),
   dispatch => ({
-    ...bindActionCreators({ fetchCaptcha }, dispatch)
+    ...bindActionCreators({ login }, dispatch)
   })
 )
 export default class Signin extends Component {
   static propTypes = {
-    captchaCode: PropTypes.string,
-    fetchCaptcha: PropTypes.func.isRequired,
     handleHide: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
     modal: PropTypes.object.isRequired,
-  }
-
-  componentDidMount() {
-    this.props.fetchCaptcha();
   }
 
   hideModal = () => {
@@ -36,12 +30,12 @@ export default class Signin extends Component {
     shell.openExternal('http://www.douban.com/accounts/register');
   }
 
-  refreshCaptcha = () => {
-    this.props.fetchCaptcha();
+  loginUser = (data) => {
+    this.props.login(data);
   }
 
   render() {
-    const { modal: { show }, captchaCode } = this.props;
+    const { modal: { show } } = this.props;
     const modalStyle = {
       content: {
         top: '40%',
@@ -60,18 +54,10 @@ export default class Signin extends Component {
       <Modal isOpen={show} style={modalStyle} >
         <div className={styles.signinModal}>
           <a href="#" className="closeButton" onClick={this.hideModal}>X</a>
-          <div className="content">
-            <h2 className="header"> 登录 </h2>
-            <div className="field"> <input type="text" placeholder="邮箱/用户名" /> </div>
-            <div className="field"> <input type="password" placeholder="密码" /> </div>
-            <div className="captchaField">
-              <input type="text" className="field" placeholder="验证码" />
-              <a href="#" onClick={this.refreshCaptcha}>
-                { captchaCode && <img src={`http://douban.fm/misc/captcha?size=m&id=${captchaCode}`} /> }
-              </a>
-            </div>
-            <a href="#" className="button">登&nbsp;录</a>
-          </div>
+          <Form
+            onSubmit={this.loginUser}
+            hideModal={this.hideModal}
+          />
           <div className="footer">
             <a href="#" className="registerLink" onClick={this.goToRegister}>去豆瓣注册</a>
           </div>

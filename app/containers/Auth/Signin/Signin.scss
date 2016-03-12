@@ -53,6 +53,17 @@
       }
     }
 
+    .toolbar {
+      padding-top: 1.4rem;
+    }
+
+    .errorMessage {
+      color: red;
+      font-size: 0.8rem;
+      font-weight: 100;
+      line-height: 2rem;
+    }
+
     .button {
       display: block;
       background-color: #9dd6c5;
@@ -67,7 +78,6 @@
       float: right;
       cursor: pointer;
       outline: none;
-      margin-top: 1.4rem;
     }
 
     .footer {
@@ -76,7 +86,7 @@
       bottom: 0;
       background: #5a5a5a;
       width: 100%;
-      height: 3.2rem;
+      height: 4rem;
 
       :global {
         .registerLink {
@@ -87,7 +97,7 @@
           padding-left: 0.5rem;
           line-height: 2rem;
           font-size: 0.74rem;
-          margin: 0.5rem 1.2rem 0 0;
+          margin: 1rem 1.2rem 0 0;
           float: right;
           color: white;
           text-decoration: none;
