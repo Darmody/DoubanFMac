@@ -5,18 +5,23 @@ import { connectModal } from 'redux-modal';
 import Modal from 'react-modal';
 import { shell } from 'electron';
 import { login } from 'reducers/auth';
+import { fetch as fetchCaptcha } from 'reducers/captcha';
 import Form from './Form';
 import styles from './Signin.scss';
 
 @connectModal({ name: 'signin' })
 @connect(
-  () => ({}),
+  state => ({
+    captchaCode: state.captcha.code,
+  }),
   dispatch => ({
-    ...bindActionCreators({ login }, dispatch)
+    ...bindActionCreators({ login, fetchCaptcha }, dispatch)
   })
 )
 export default class Signin extends Component {
   static propTypes = {
+    captchaCode: PropTypes.string,
+    fetchCaptcha: PropTypes.func.isRequired,
     handleHide: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
     modal: PropTypes.object.isRequired,
@@ -30,12 +35,16 @@ export default class Signin extends Component {
     shell.openExternal('http://www.douban.com/accounts/register');
   }
 
+  refreshCaptcha = () => {
+    this.props.fetchCaptcha();
+  }
+
   loginUser = (data) => {
     this.props.login(data);
   }
 
   render() {
-    const { modal: { show } } = this.props;
+    const { modal: { show }, captchaCode } = this.props;
     const modalStyle = {
       content: {
         top: '40%',
@@ -57,6 +66,8 @@ export default class Signin extends Component {
           <Form
             onSubmit={this.loginUser}
             hideModal={this.hideModal}
+            captchaCode={captchaCode}
+            refreshCaptcha={this.refreshCaptcha}
           />
           <div className="footer">
             <a href="#" className="registerLink" onClick={this.goToRegister}>去豆瓣注册</a>

@@ -8,7 +8,7 @@ export const LOGOUT = 'AUTH/LOGOUT';
 
 const initialState = Immutable({
   user: {
-    token: null,
+    id: 0
   }
 });
 
@@ -19,7 +19,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          token: null
+          id: 0
         }
       };
     case LOGIN_REQUEST:
@@ -34,11 +34,8 @@ export default (state = initialState, action = {}) => {
         return {
           ...state,
           user: {
-            id: data.userId,
-            name: data.userName,
-            email: data.email,
-            token: data.token,
-            espire: data.expire,
+            id: data.uid,
+            name: data.name,
           },
           logged: true,
         };
@@ -61,8 +58,8 @@ export function logout() {
 
 export function login(data) {
   const defaultParams = {
-    app_name: 'radio_android',
-    version: '100',
+    source: 'radio',
+    task: 'sync_channel_list',
   };
 
   const loginFailed = (error) => {
@@ -76,24 +73,25 @@ export function login(data) {
   return dispatch => {
     dispatch({
       [CALL_API]: {
-        endpoint: 'http://www.douban.com/j/app/login',
+        endpoint: 'http://douban.fm/j/login',
         method: 'POST',
         body: {
           ...defaultParams,
           ...data
         },
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        credentials: 'include',
         types: [
           LOGIN_REQUEST,
           {
             type: LOGIN_SUCCESS,
             payload: (action, state, response) => {
               return response.json().then(json => {
-                if (json.err !== 'ok') {
-                  dispatch(loginFailed(json.err));
+                if (json.err_msg) {
+                  dispatch(loginFailed(json.err_msg));
                   return null;
                 }
-                return json;
+                return json.user_info;
               });
             },
           },

@@ -5,7 +5,7 @@ import { Signin } from 'containers';
 import styles from './Navbar.scss';
 
 function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
-  if (currentUser.token) {
+  if (currentUser.id !== 0) {
     return (
       <div>
         <Dropdown

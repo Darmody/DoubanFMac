@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { show } from 'redux-modal';
 import { connect } from 'react-redux';
 import { logout } from 'reducers/auth';
+import { fetch as fetchCaptcha } from 'reducers/captcha';
 import Navbar from './Navbar/Navbar';
 import styles from './HomePage.scss';
 
@@ -11,7 +12,7 @@ import styles from './HomePage.scss';
     currentUser: state.auth.user,
   }),
   dispatch => ({
-    ...bindActionCreators({ show, logout }, dispatch)
+    ...bindActionCreators({ show, fetchCaptcha, logout }, dispatch)
   })
 )
 export default class HomePage extends Component {
@@ -19,9 +20,11 @@ export default class HomePage extends Component {
     currentUser: PropTypes.object,
     show: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
+    fetchCaptcha: PropTypes.func.isRequired,
   }
 
   showSigninModal = () => {
+    this.props.fetchCaptcha();
     this.props.show('signin');
   }
 
