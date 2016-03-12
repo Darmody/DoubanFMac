@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { show } from 'redux-modal';
 import { connect } from 'react-redux';
+import { logout } from 'reducers/auth';
 import Navbar from './Navbar/Navbar';
 import styles from './HomePage.scss';
 
@@ -10,17 +11,22 @@ import styles from './HomePage.scss';
     currentUser: state.auth.user,
   }),
   dispatch => ({
-    ...bindActionCreators({ show }, dispatch)
+    ...bindActionCreators({ show, logout }, dispatch)
   })
 )
 export default class HomePage extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
     show: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
   }
 
   showSigninModal = () => {
     this.props.show('signin');
+  }
+
+  logoutUser = () => {
+    this.props.logout();
   }
 
   render() {
@@ -31,6 +37,7 @@ export default class HomePage extends Component {
         <Navbar
           currentUser={currentUser}
           showSigninModal={this.showSigninModal}
+          logoutUser={this.logoutUser}
         />
         <div className={styles.player} >
           <div>

@@ -1,16 +1,26 @@
 import React from 'react';
+import Dropdown from 'react-dropdowns';
 import cx from 'classnames';
 import { Signin } from 'containers';
 import styles from './Navbar.scss';
 
-function UserItem({ currentUser = {}, showSigninModal }) {
-  if (currentUser.id) {
+function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
+  if (currentUser.token) {
     return (
-      <a href="#" className={styles.userLink} >
-      { currentUser.name }
-      <i className={cx('material-icons')} > keyboard_arrow_down </i>
-      <Signin />
-      </a>
+      <div>
+        <Dropdown
+          className={styles.dropdown}
+          toggle={
+            <a href="#" className={styles.userLink} >
+              { currentUser.name }
+              <i className={cx('material-icons')} > keyboard_arrow_down </i>
+              <Signin />
+            </a>
+          }
+        >
+          <Dropdown.Item label="退出" onClick={logoutUser} />
+        </Dropdown>
+      </div>
     );
   }
 
@@ -23,7 +33,7 @@ function UserItem({ currentUser = {}, showSigninModal }) {
   );
 }
 
-export default ({ currentUser, showSigninModal }) => {
+export default ({ currentUser, showSigninModal, logoutUser }) => {
   return (
     <nav className={styles.navbar} >
       <a href="#logo" className={styles.navLogo} > Logo </a>
@@ -33,7 +43,11 @@ export default ({ currentUser, showSigninModal }) => {
         <a href="#红心歌单" className="navItem" > 红心歌单 </a>
       </div>
       <div className={styles.userItem} >
-        <UserItem currentUser={currentUser} showSigninModal={showSigninModal} />
+        <UserItem
+          currentUser={currentUser}
+          showSigninModal={showSigninModal}
+          logoutUser={logoutUser}
+        />
       </div>
     </nav>
   );

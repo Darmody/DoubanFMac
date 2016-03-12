@@ -12,7 +12,7 @@ const enhancer = compose(
   applyMiddleware(
     thunk, router, apiMiddlewareHook, apiMiddleware, camelizeState
   ),
-  persistState(),
+  persistState(['auth'], { key: 'douban_sauce.auth' })
 );
 
 export default function configureStore(initialState) {

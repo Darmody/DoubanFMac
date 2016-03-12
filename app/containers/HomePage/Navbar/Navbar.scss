@@ -53,3 +53,25 @@
   }
 }
 
+:global {
+  .Dropdown-menu {
+    border: 0.1rem solid #eaeaea;
+    left: 50%;
+    min-width: 4rem;
+    margin-top: 0.4rem;
+    box-shadow: none;
+    transform: translate(-50%, 0%);
+
+    > .active  > a:hover {
+      background: #f6f6f6;
+      color: #9b9b9b;
+    }
+
+    > li > a {
+      font-size: 0.8rem;
+      color: #9b9b9b;
+      padding: 0.2rem 1.4rem;
+      cursor: pointer;
+    }
+  }
+}
