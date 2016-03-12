@@ -1,15 +1,22 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import persistState from 'redux-localstorage';
 import { apiMiddleware } from 'redux-api-middleware';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import apiMiddlewareHook from 'reducers/middlewares/apiMiddlewareHook';
+import camelizeState from 'reducers/middlewares/camelizeState';
 import { hashHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
 import rootReducer from '../reducers';
 
 const router = syncHistory(hashHistory);
 const logger = createLogger();
-const enhancer = applyMiddleware(thunk, router, apiMiddlewareHook, apiMiddleware, logger);
+const enhancer = compose(
+  applyMiddleware(
+    thunk, router, apiMiddlewareHook, apiMiddleware, camelizeState, logger
+  ),
+  persistState()
+);
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, enhancer);
