@@ -92,7 +92,9 @@
   },
   "dependencies": {
     "classnames": "^2.2.3",
+    "electron-cookies": "^1.1.0",
     "electron-debug": "^0.5.1",
+    "electron-json-storage": "^2.0.0",
     "file-loader": "^0.8.5",
     "humps": "^1.0.0",
     "lodash": "^4.6.1",

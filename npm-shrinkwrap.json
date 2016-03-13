@@ -1464,6 +1464,11 @@
       "from": "ee-first@1.1.1",
       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
     },
+    "electron-cookies": {
+      "version": "1.1.0",
+      "from": "electron-cookies@*",
+      "resolved": "https://registry.npmjs.org/electron-cookies/-/electron-cookies-1.1.0.tgz"
+    },
     "electron-debug": {
       "version": "0.5.2",
       "from": "electron-debug@>=0.5.1 <0.6.0",
@@ -1473,6 +1478,18 @@
       "version": "1.4.1",
       "from": "electron-download@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/electron-download/-/electron-download-1.4.1.tgz"
+    },
+    "electron-json-storage": {
+      "version": "2.0.0",
+      "from": "electron-json-storage@*",
+      "resolved": "https://registry.npmjs.org/electron-json-storage/-/electron-json-storage-2.0.0.tgz",
+      "dependencies": {
+        "async": {
+          "version": "1.5.2",
+          "from": "async@>=1.5.2 <2.0.0",
+          "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz"
+        }
+      }
     },
     "electron-localshortcut": {
       "version": "0.6.0",
@@ -1656,6 +1673,11 @@
       "version": "1.2.0",
       "from": "exenv@1.2.0",
       "resolved": "https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz"
+    },
+    "exists-file": {
+      "version": "1.0.0",
+      "from": "exists-file@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/exists-file/-/exists-file-1.0.0.tgz"
     },
     "exit-hook": {
       "version": "1.1.1",
