@@ -1,0 +1,77 @@
+@import '~sass-flex-mixin/flex';
+
+@mixin navItem($fontSize: 0.8rem) {
+  color: grey;
+  font-size: $fontSize;
+  font-weight: thin;
+  text-decoration: none;
+}
+
+.navbar {
+  @extend %flexbox;
+  padding: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.navLogo {
+  @include flex-grow(3);
+  height: 3.5rem;
+}
+
+.navItems {
+  @extend %flexbox;
+  @include flex-grow(3.5);
+  @include justify-content(flex-end);
+  @include align-items(center);
+  padding-right: 0.8rem;
+
+  :global(.navItem) {
+    @include navItem($fontSize: 0.65rem);
+
+    border: 0.1rem solid #e1e1e1;
+    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+    margin: 0.25rem;
+  }
+}
+
+.userItem {
+  @extend %flexbox;
+  @include flex-grow(2);
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+.userLink {
+  @extend %flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+  @include navItem;
+
+  i {
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+  }
+}
+
+:global {
+  .Dropdown-menu {
+    border: 0.1rem solid #eaeaea;
+    left: 50%;
+    min-width: 4rem;
+    margin-top: 0.4rem;
+    box-shadow: none;
+    transform: translate(-50%, 0%);
+
+    > .active  > a:hover {
+      background: #f6f6f6;
+      color: #9b9b9b;
+    }
+
+    > li > a {
+      font-size: 0.8rem;
+      color: #9b9b9b;
+      padding: 0.2rem 1.4rem;
+      cursor: pointer;
+    }
+  }
+}
