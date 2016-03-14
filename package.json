@@ -102,6 +102,7 @@
     "lodash.transform": "^4.2.1",
     "material-design-icons-iconfont": "^2.0.4",
     "menubar": "^4.0.2",
+    "moment": "^2.12.0",
     "normalize.css": "^3.0.3",
     "react": "^0.14.2",
     "react-addons-clicked-away-mixin": "^0.1.2",

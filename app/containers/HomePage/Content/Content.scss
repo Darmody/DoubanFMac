@@ -4,35 +4,41 @@
   @extend %flexbox;
   @include justify-content(center);
   @include align-items(center);
+}
+
+.controlBar {
+  @extend %flexbox;
+  @include justify-content(between);
+  @include align-items(center);
 
   :global {
-    .channelTitle {
-      font-size: 1rem;
-      color: #9b9b9b;
-    }
-    .channelSuffix {
-      font-size: 0.6rem;
-      color: #9b9b9b;
-      margin-left: 0.6rem;
+    .tasteButtonGroup {
+      @include flex-grow(1);
+
+      > a {
+        color: black;
+
+        > i {
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 1rem 0.5rem;
+        }
+      }
     }
 
-    .songName {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-top: 1.2rem;
-      margin-bottom: 0;
-    }
+    .controlButtonGroup {
+    @include flex-grow(1);
+      text-align: right;
 
-    .artistName {
-      font-size: 0.9rem;
-      font-weight: 400;
-      margin-top: 0.4rem;
-    }
+      > a {
+        color: black;
 
-    .controlButton {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 1rem 0.5rem;
+        > i {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin: 1rem 0.5rem;
+        }
+      }
     }
   }
 }

@@ -1,23 +1,59 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Player } from 'components';
+import { fetch } from 'reducers/song';
 import styles from './Content.scss';
 
+@connect(
+  state => ({
+    song: state.song,
+  }),
+  dispatch => ({
+    ...bindActionCreators({ fetch }, dispatch)
+  })
+)
 export default class Content extends Component {
+  static propTypes = {
+    fetch: PropTypes.func.isRequired,
+    song: PropTypes.object.isRequired,
+  }
+
+  componentDidMount() {
+    this.props.fetch(0);
+  }
+
+  next = type => () => {
+    this.props.fetch(0, this.props.song.id, type);
+  }
+
   render() {
+    const { song } = this.props;
+
     return (
       <div className={styles.player} >
         <div>
-          <span className="channelTitle"> 私人</span>
-          <span className="channelSuffix"> MHz</span>
-          <div className={styles.songInfoBar} >
-            <h2 className="songName"> 一个人的北京 </h2>
-            <h4 className="artistName"> 好妹妹乐队 </h4>
-          </div>
-          <Player />
-          <div className={styles.songControlBar} >
-            <i className="material-icons controlButton" > favorite </i>
-            <i className="material-icons controlButton" > delete </i>
-            <i className="material-icons controlButton" > skip_next </i>
+          <Player
+            song={song}
+            onEnd={this.next('p')}
+          />
+          <div className={styles.controlBar}>
+            <div className="tasteButtonGroup">
+              <a href="#">
+                <i className="material-icons" > favorite </i>
+              </a>
+              <a href="#">
+                <i className="material-icons" > cancel </i>
+              </a>
+            </div>
+            <div className="controlButtonGroup">
+              <a href="#">
+                <i className="material-icons" > play_arrow </i>
+              </a>
+              <a href="#">
+                <i className="material-icons" > skip_next </i>
+              </a>
+            </div>
           </div>
         </div>
       </div>

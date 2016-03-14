@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
 import Processbar from './Processbar/Processbar';
 import styles from './Player.scss';
 
 export default class Player extends Component {
+  static propTypes = {
+    song: PropTypes.object.isRequired,
+    onEnd: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
 
@@ -18,13 +24,12 @@ export default class Player extends Component {
 
         this.setState({
           buffer,
-          step: audio.currentTime,
-          total: audio.duration,
+          step: audio.currentTime || 0,
         });
       }
     }, 1000);
 
-    this.state = { step: 0, buffer: 0, total: 100, playInterval };
+    this.state = { step: 0, buffer: 0, playInterval };
   }
 
   componentWillUnmount() {
@@ -33,16 +38,30 @@ export default class Player extends Component {
 
 
   render() {
-    const { step, total, buffer } = this.state;
+    const { step, buffer } = this.state;
+    const { song } = this.props;
+
+    const remainTime = 1000.0 * (song.size - step);
+
     return (
       <div className={styles.player}>
+        <div className="songCover"
+          style={{ backgroundImage: `url(${song.cover})` }}
+        />
+        <div className="songInfoBar" >
+          <h2 className="songName"> {song.name} </h2>
+          <h4 className="artistName"> {song.artist} </h4>
+          <span className="songTime">
+            -{moment.utc(remainTime).format('mm:ss')}
+          </span>
+        </div>
         <audio
           ref="audio"
-          src="http://mr7.doubanio.com/ef17828dfad6ca8bbaaa31cf764f7445/0/fm/song/p1918067_128k.mp4"
-          loop
+          src={song.source}
           autoPlay
+          onEnded={this.props.onEnd}
         />
-        <Processbar total={total} step={step} buffer={buffer} />
+        <Processbar total={song.size} step={step} buffer={buffer} />
       </div>
     );
   }
