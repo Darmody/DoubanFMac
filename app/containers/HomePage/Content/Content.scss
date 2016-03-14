@@ -1,0 +1,38 @@
+@import '~sass-flex-mixin/flex';
+
+.player {
+  @extend %flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+
+  :global {
+    .channelTitle {
+      font-size: 1rem;
+      color: #9b9b9b;
+    }
+    .channelSuffix {
+      font-size: 0.6rem;
+      color: #9b9b9b;
+      margin-left: 0.6rem;
+    }
+
+    .songName {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .artistName {
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-top: 0.4rem;
+    }
+
+    .controlButton {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 1rem 0.5rem;
+    }
+  }
+}

@@ -47,12 +47,12 @@ export default class Signin extends Component {
     const { modal: { show }, captchaCode } = this.props;
     const modalStyle = {
       content: {
-        top: '40%',
+        top: '10%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
-        transform: 'translate(-50%, -50%)',
-        height: '45%',
+        transform: 'translate(-50%, 0%)',
+        height: '60%',
         width: '60%',
         borderRadius: '1%',
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',

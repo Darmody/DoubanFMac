@@ -38,9 +38,7 @@ export default ({ currentUser, showSigninModal, logoutUser }) => {
     <nav className={styles.navbar} >
       <a href="#logo" className={styles.navLogo} > Logo </a>
       <div className={styles.navItems} >
-        <a href="#私人兆赫" className="navItem" > 私人兆赫 </a>
-        <a href="#私人歌单" className="navItem" > 私人歌单 </a>
-        <a href="#红心歌单" className="navItem" > 红心歌单 </a>
+        <a href="#" className="navItem" > 私人兆赫 </a>
       </div>
       <div className={styles.userItem} >
         <UserItem
