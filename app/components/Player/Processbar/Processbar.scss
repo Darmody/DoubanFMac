@@ -15,7 +15,12 @@
 
   :global {
     .default {
+      @include processbar($background: #eee);
+    }
+
+    .loading {
       @include processbar($background: #ceecd2);
+      width: 0%;
     }
 
     .playing {

@@ -3,19 +3,21 @@ import styles from './Processbar.scss';
 
 export default class Processbar extends Component {
   static propTypes = {
-    total: PropTypes.number.isRequired,
+    buffer: PropTypes.number.isRequired,
     step: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
   }
 
   render() {
-    const { step, total } = this.props;
-    const percent = 100.0 * step / total;
+    const { buffer, step, total } = this.props;
+    const playingPercent = 100.0 * step / total;
+    const loadingPercent = 100.0 * buffer / total;
 
     return (
       <div className={styles.processbar} >
-        <div className="default" >
-          <div className="playing" style={{ width: `${percent}%` }} />
-        </div>
+        <div className="default" />
+        <div className="loading" style={{ width: `${loadingPercent}%` }} />
+        <div className="playing" style={{ width: `${playingPercent}%` }} />
       </div>
     );
   }
