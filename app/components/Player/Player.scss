@@ -1,0 +1,40 @@
+.player {
+  max-width: 20rem;
+
+  :global {
+    .songCover {
+      background-repeat: no-repeat;
+      background-size: cover !important;
+      background-position: center;
+      height: 20rem;
+      border: 0.1rem solid #ceecd2;
+      border-radius: 100%;
+      margin-top: 2rem;
+    }
+
+    .songInfoBar {
+      margin-bottom: 0.6rem;
+    }
+
+    .songName {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-top: 1.6rem;
+      margin-bottom: 1rem;
+      word-wrap: break-word;
+    }
+
+    .artistName {
+      display: inline;
+      font-size: 0.7rem;
+      font-weight: 400;
+    }
+
+    .songTime {
+      float: right;
+      color: #b9b9b9;
+      font-size: 0.7rem;
+      font-weight: 200;
+    }
+  }
+}
