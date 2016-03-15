@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
+import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetch } from 'reducers/song';
+import { fetch, like, dislike } from 'reducers/song';
 import styles from './Content.scss';
 
 @connect(
@@ -10,12 +11,14 @@ import styles from './Content.scss';
     song: state.song,
   }),
   dispatch => ({
-    ...bindActionCreators({ fetch }, dispatch)
+    ...bindActionCreators({ fetch, like, dislike }, dispatch)
   })
 )
 export default class Content extends Component {
   static propTypes = {
     fetch: PropTypes.func.isRequired,
+    dislike: PropTypes.func.isRequired,
+    like: PropTypes.func.isRequired,
     song: PropTypes.object.isRequired,
   }
 
@@ -23,8 +26,24 @@ export default class Content extends Component {
     this.props.fetch(0);
   }
 
-  next = type => () => {
+  nextSong = type => () => {
     this.props.fetch(0, this.props.song.id, type);
+  }
+
+  tasteSong = () => {
+    if (this.props.song.favorite) {
+      this.props.dislike(0, this.props.song.id);
+    } else {
+      this.props.like(0, this.props.song.id);
+    }
+  }
+
+  renderFavorite = (favorite, onClick) => {
+    return (
+      <a href="#" onClick={onClick} >
+        <i className={cx('material-icons', { favorite })} > favorite </i>
+      </a>
+    );
   }
 
   render() {
@@ -35,13 +54,11 @@ export default class Content extends Component {
         <div>
           <Player
             song={song}
-            onEnd={this.next('p')}
+            onEnd={this.nextSong('p')}
           />
           <div className={styles.controlBar}>
             <div className="tasteButtonGroup">
-              <a href="#">
-                <i className="material-icons" > favorite </i>
-              </a>
+              {this.renderFavorite(song.favorite, this.tasteSong)}
               <a href="#">
                 <i className="material-icons" > cancel </i>
               </a>
@@ -50,7 +67,7 @@ export default class Content extends Component {
               <a href="#">
                 <i className="material-icons" > play_arrow </i>
               </a>
-              <a href="#">
+              <a href="#" onClick={this.nextSong()} >
                 <i className="material-icons" > skip_next </i>
               </a>
             </div>
