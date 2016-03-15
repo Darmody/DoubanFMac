@@ -6,6 +6,7 @@ import styles from './Player.scss';
 export default class Player extends Component {
   static propTypes = {
     song: PropTypes.object.isRequired,
+    playing: PropTypes.bool.isRequired,
     onEnd: PropTypes.func,
   }
 
@@ -31,6 +32,15 @@ export default class Player extends Component {
 
     this.state = { step: 0, buffer: 0, playInterval };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.playing && !nextProps.playing) {
+      this.refs.audio.pause();
+    } else if (!this.props.playing && nextProps.playing) {
+      this.refs.audio.play();
+    }
+  }
+
 
   componentWillUnmount() {
     if (this.state.playInterval) clearInterval(this.state.playInterval);

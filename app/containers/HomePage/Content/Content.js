@@ -22,6 +22,12 @@ export default class Content extends Component {
     song: PropTypes.object.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = { playing: true };
+  }
+
   componentDidMount() {
     this.props.fetch(0);
   }
@@ -38,6 +44,10 @@ export default class Content extends Component {
     }
   }
 
+  controlSong = () => {
+    this.setState({ playing: !this.state.playing });
+  }
+
   renderFavorite = (favorite, onClick) => {
     return (
       <a href="#" onClick={onClick} >
@@ -46,14 +56,25 @@ export default class Content extends Component {
     );
   }
 
+  renderPlay = (playing, onClick) => {
+    const icon = playing ? 'pause' : 'play_arrow';
+    return (
+      <a href="#" onClick={onClick} >
+        <i className="material-icons" > {icon} </i>
+      </a>
+    );
+  }
+
   render() {
     const { song } = this.props;
+    const { playing } = this.state;
 
     return (
       <div className={styles.player} >
         <div>
           <Player
             song={song}
+            playing={playing}
             onEnd={this.nextSong('p')}
           />
           <div className={styles.controlBar}>
@@ -64,9 +85,7 @@ export default class Content extends Component {
               </a>
             </div>
             <div className="controlButtonGroup">
-              <a href="#">
-                <i className="material-icons" > play_arrow </i>
-              </a>
+              {this.renderPlay(playing, this.controlSong)}
               <a href="#" onClick={this.nextSong()} >
                 <i className="material-icons" > skip_next </i>
               </a>
