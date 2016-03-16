@@ -16,17 +16,14 @@ config.entry = './app/index';
 config.output.publicPath = '../dist/';
 
 config.module.loaders.push({
-  test: /\.global\.css$/,
+  test: /\.css$/,
   loader: ExtractTextPlugin.extract(
     'style-loader',
     'css-loader'
   )
 }, {
-  test: /^((?!\.global).)*\.css$/,
-  loader: ExtractTextPlugin.extract(
-    'style-loader',
-    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-  )
+  test: /\.scss$/,
+  loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap'
 });
 
 config.plugins.push(

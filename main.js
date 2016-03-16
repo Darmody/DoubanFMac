@@ -10,6 +10,7 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const crashReporter = electron.crashReporter;
 const shell = electron.shell;
+const config = require('./config');
 let menu;
 let template;
 let mainWindow = null;
@@ -32,16 +33,16 @@ app.on('window-all-closed', () => {
 
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 728,
-  });
+  mainWindow = new BrowserWindow(config.window);
 
   const webContents = mainWindow.webContents;
 
   // manipulate cookies for douban
   const getDoubanCookies = (webContents) => {
-    storage.get('DOUBAN_SAUCE', (error, data) => {
+    storage.get(config.electronStorageKey, (error, data) => {
+      if (error) {
+        return console.log('Electron storage read error.', error);
+      }
       if (data.cookies && data.cookies.length > 0) {
         data.cookies.forEach((cookie) => {
           webContents.session.cookies.set({
