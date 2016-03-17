@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const enhancer = compose(
   applyMiddleware(...middlewares),
-  persistState(['auth'], { key: `douban_sauce_${process.env.NODE_ENV || 'development'}.auth` })
+  persistState(['auth'], { key: `doubanfmac_${process.env.NODE_ENV || 'development'}.auth` })
 );
 
 export default function configureStore(initialState) {

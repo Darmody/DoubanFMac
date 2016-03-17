@@ -17,9 +17,9 @@ let mainWindow = null;
 
 
 crashReporter.start({
-  productName: 'douban sauce',
+  productName: 'doubanFMac',
   companyName: 'darmody',
-  submitURL: 'http://github.com/darmody/douban_sauce/issues'
+  submitURL: 'http://github.com/darmody/doubanFMac/issues'
 });
 
 if (process.env.NODE_ENV === 'development') {

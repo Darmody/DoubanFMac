@@ -1,8 +1,8 @@
 {
-  "name": "douban-sauce",
-  "productName": "Douban Sauce",
+  "name": "DoubanFMac",
+  "productName": "DoubanFMac",
   "version": "0.0.1",
-  "description": "豆瓣酱",
+  "description": "豆瓣FM for mac",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --recursive app/**/*.spec.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darmody/douban_sauce.git"
+    "url": "git+https://github.com/darmody/DoubanFMac.git"
   },
   "author": {
     "name": "Darmody",
@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/darmody/douban_sause/issues"
+    "url": "https://github.com/darmody/DoubanFMac/issues"
   },
   "keywords": [
     "douban fm",
@@ -38,7 +38,7 @@
     "react",
     "redux"
   ],
-  "homepage": "https://github.com/darmody/douban_sauce#readme",
+  "homepage": "https://github.com/darmody/DoubanFMac#readme",
   "devDependencies": {
     "asar": "^0.9.0",
     "babel-core": "^6.3.26",
