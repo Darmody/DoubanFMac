@@ -64,7 +64,7 @@ app.on('ready', () => {
       return cookie.split(';')[0].split('=');
     });
 
-    storage.set('DOUBAN_SAUCE', { cookies }, (error) => {
+    storage.set(config.electronStorageKey, { cookies }, (error) => {
       if (error) console.log('Douban cookie save to storage error', error);
     });
   };
