@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE } from 'reducers/auth';
+import { LOGIN_FAILURE } from '../auth';
 
 export default (state, action) => {
   switch (action.type) {

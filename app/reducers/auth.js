@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
-import PersistStorage from 'electron-json-storage';
+import config from '../../config';
 
 export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'AUTH/LOGIN_SUCCESS';
@@ -16,7 +16,10 @@ const initialState = Immutable({
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case LOGOUT:
-      PersistStorage.remove('DOUBAN_SAUCE');
+      if (process.env.NODE_ENV !== 'test') {
+        const PersistStorage = require('electron-json-storage');
+        PersistStorage.remove(config.electronStorageKey);
+      }
 
       return {
         ...state,
