@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetch, like, dislike } from 'reducers/song';
+import { fetch, like, dislike, ban } from 'reducers/song';
 import styles from './Content.scss';
 
 @connect(
@@ -11,7 +11,7 @@ import styles from './Content.scss';
     song: state.song,
   }),
   dispatch => ({
-    ...bindActionCreators({ fetch, like, dislike }, dispatch)
+    ...bindActionCreators({ fetch, like, dislike, ban }, dispatch)
   })
 )
 export default class Content extends Component {
@@ -19,6 +19,7 @@ export default class Content extends Component {
     fetch: PropTypes.func.isRequired,
     dislike: PropTypes.func.isRequired,
     like: PropTypes.func.isRequired,
+    ban: PropTypes.func.isRequired,
     song: PropTypes.object.isRequired,
   }
 
@@ -34,6 +35,10 @@ export default class Content extends Component {
 
   nextSong = type => () => {
     this.props.fetch(0, this.props.song.id, type);
+  }
+
+  banSong = () => {
+    this.props.ban(0, this.props.song.id);
   }
 
   tasteSong = () => {
@@ -80,7 +85,7 @@ export default class Content extends Component {
           <div className={styles.controlBar}>
             <div className="tasteButtonGroup">
               {this.renderFavorite(song.favorite, this.tasteSong)}
-              <a href="#">
+              <a href="#" onClick={this.banSong} >
                 <i className="material-icons" > cancel </i>
               </a>
             </div>

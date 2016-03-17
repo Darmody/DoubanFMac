@@ -7,7 +7,8 @@ import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
 import camelizeState from '../middlewares/camelizeState';
 import _last from 'lodash.last';
 import song, {
-  FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, fetch, like, dislike,
+  FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS,
+  fetch, like, dislike, ban,
 } from '../song';
 
 const middlewares = [
@@ -105,6 +106,33 @@ describe('Song Actions', function actions() {
       done();
     }, 100);
   });
+
+  it('BAN_SUCCESS', function banSuccess(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/playlist')
+      .query({ ...nockParams, type: 'b' })
+      .reply(200, {
+        song: [{
+          sid: 1,
+          title: '浮夸',
+          url: 'douban.fm/浮夸',
+          picture: 'douban.fm/cover',
+          artist: '陈奕迅',
+          length: 300,
+          favorite: 1,
+        }]
+      });
+
+    const store = mockStore({
+      id: 0, name: '', source: '', cover: '', artist: '',
+      favorite: false, size: 0
+    });
+    store.dispatch(ban(0, 0));
+    setTimeout(() => {
+      expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      done();
+    }, 100);
+  });
 });
 
 describe('Song Reducers', function reducers() {
@@ -174,6 +202,29 @@ describe('Song Reducers', function reducers() {
     ).to.deep.equal({
       id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
       artist: '陈奕迅', size: 300, favorite: false
+    });
+  });
+
+  it('BAN_SUCCESS', function banSuccess() {
+    expect(
+      song({
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true
+      }, {
+        type: BAN_SUCCESS,
+        payload: { song: [{
+          sid: 1,
+          title: '浮夸',
+          url: 'douban.fm/浮夸',
+          picture: 'douban.fm/cover',
+          artist: '陈奕迅',
+          length: 300,
+          favorite: 1,
+        }] }
+      })
+    ).to.deep.equal({
+      id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+      artist: '陈奕迅', size: 300, favorite: true
     });
   });
 });

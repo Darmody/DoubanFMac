@@ -5,13 +5,16 @@ import _join from 'lodash.join';
 
 export const FETCH_REQUEST = 'SONG/FETCH_REQUEST';
 export const FETCH_SUCCESS = 'SONG/FETCH_SUCCESS';
-export const FETCH_FAILURE = 'SONG/FETCH_FAIL';
+export const FETCH_FAILURE = 'SONG/FETCH_FAILURE';
 export const LIKE_REQUEST = 'SONG/LIKE_REQUEST';
 export const LIKE_SUCCESS = 'SONG/LIKE_SUCCESS';
-export const LIKE_FAILURE = 'SONG/LIKE_FAIL';
+export const LIKE_FAILURE = 'SONG/LIKE_FAILURE';
 export const DISLIKE_REQUEST = 'SONG/DISLIKE_REQUEST';
 export const DISLIKE_SUCCESS = 'SONG/DISLIKE_SUCCESS';
-export const DISLIKE_FAILURE = 'SONG/DISLIKE_FAIL';
+export const DISLIKE_FAILURE = 'SONG/DISLIKE_FAILURE';
+export const BAN_REQUEST = 'SONG/BAN_REQUEST';
+export const BAN_SUCCESS = 'SONG/BAN_SUCCESS';
+export const BAN_FAILURE = 'SONG/BAN_FAILURE';
 
 const initialState = Immutable({
   id: 0,
@@ -24,9 +27,10 @@ const initialState = Immutable({
 });
 
 export default (state = initialState, action = {}) => {
+  let data = {};
   switch (action.type) {
     case FETCH_SUCCESS:
-      const data = action.payload.song[0];
+      data = action.payload.song[0];
       return {
         ...state,
         id: data.sid,
@@ -47,6 +51,18 @@ export default (state = initialState, action = {}) => {
         ...state,
         favorite: false,
       };
+    case BAN_SUCCESS:
+      data = action.payload.song[0];
+      return {
+        ...state,
+        id: data.sid,
+        name: data.title,
+        source: data.url,
+        cover: data.picture,
+        artist: data.artist,
+        size: data.length,
+        favorite: data.like !== 0,
+      };
     default:
       return state;
   }
@@ -65,6 +81,9 @@ const _fetch = (channel, lastSongId = 0, type = 's') => {
       break;
     case 'u':
       types = [DISLIKE_REQUEST, DISLIKE_SUCCESS, DISLIKE_FAILURE];
+      break;
+    case 'b':
+      types = [BAN_REQUEST, BAN_SUCCESS, BAN_FAILURE];
       break;
     default:
       types = [];
@@ -97,10 +116,14 @@ export function fetch(channel, lastSongId, type) {
   return _fetch(channel, lastSongId, type);
 }
 
-export function like(channel, lastSongId) {
-  return _fetch(channel, lastSongId, 'r');
+export function like(channel, SongId) {
+  return _fetch(channel, SongId, 'r');
 }
 
-export function dislike(channel, lastSongId) {
-  return _fetch(channel, lastSongId, 'u');
+export function dislike(channel, SongId) {
+  return _fetch(channel, SongId, 'u');
+}
+
+export function ban(channel, SongId) {
+  return _fetch(channel, SongId, 'b');
 }
