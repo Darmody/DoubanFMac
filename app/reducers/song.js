@@ -3,15 +3,15 @@ import { CALL_API } from 'redux-api-middleware';
 import _transform from 'lodash.transform';
 import _join from 'lodash.join';
 
-const FETCH_REQUEST = 'SONG/FETCH_REQUEST';
-const FETCH_SUCCESS = 'SONG/FETCH_SUCCESS';
-const FETCH_FAILURE = 'SONG/FETCH_FAIL';
-const LIKE_REQUEST = 'SONG/LIKE_REQUEST';
-const LIKE_SUCCESS = 'SONG/LIKE_SUCCESS';
-const LIKE_FAILURE = 'SONG/LIKE_FAIL';
-const DISLIKE_REQUEST = 'SONG/DISLIKE_REQUEST';
-const DISLIKE_SUCCESS = 'SONG/DISLIKE_SUCCESS';
-const DISLIKE_FAILURE = 'SONG/DISLIKE_FAIL';
+export const FETCH_REQUEST = 'SONG/FETCH_REQUEST';
+export const FETCH_SUCCESS = 'SONG/FETCH_SUCCESS';
+export const FETCH_FAILURE = 'SONG/FETCH_FAIL';
+export const LIKE_REQUEST = 'SONG/LIKE_REQUEST';
+export const LIKE_SUCCESS = 'SONG/LIKE_SUCCESS';
+export const LIKE_FAILURE = 'SONG/LIKE_FAIL';
+export const DISLIKE_REQUEST = 'SONG/DISLIKE_REQUEST';
+export const DISLIKE_SUCCESS = 'SONG/DISLIKE_SUCCESS';
+export const DISLIKE_FAILURE = 'SONG/DISLIKE_FAIL';
 
 const initialState = Immutable({
   id: 0,

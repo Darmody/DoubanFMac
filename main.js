@@ -58,9 +58,7 @@ app.on('ready', () => {
 
   };
   const setDoubanCookies = (webContents, originalURL, headers) => {
-    if(originalURL !== 'http://douban.fm/j/login') {
-      return;
-    }
+    if (originalURL !== 'http://douban.fm/j/login') return;
 
     const cookies = (headers['set-cookie'] || []).map((cookie) => {
       return cookie.split(';')[0].split('=');
