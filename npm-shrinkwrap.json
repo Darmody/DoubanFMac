@@ -1,6 +1,6 @@
 {
   "name": "DoubanFMac",
-  "version": "0.0.1",
+  "version": "1.0.0-0",
   "dependencies": {
     "abab": {
       "version": "1.0.3",
