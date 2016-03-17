@@ -25,19 +25,25 @@
   @include align-items(center);
   padding-right: 0.8rem;
 
-  :global(.navItem) {
-    @include navItem($fontSize: 0.65rem);
+  :global {
+    .navItem {
+      @include navItem($fontSize: 0.65rem);
 
-    border: 0.1rem solid #e1e1e1;
-    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
-    margin: 0.25rem;
+      border: 0.1rem solid #e1e1e1;
+      padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+      margin: 0.25rem;
 
-    > i {
-      color: #6bbd7a;
-      font-size: 0.58rem;
-      line-height: 1rem;
-      text-align: center;
-      margin-left: 0.2rem;
+      > i {
+        color: #6bbd7a;
+        font-size: 0.58rem;
+        line-height: 1rem;
+        text-align: center;
+        margin-left: 0.2rem;
+      }
+    }
+
+    .navItem.disabled {
+      cursor: not-allowed;
     }
   }
 }

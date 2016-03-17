@@ -38,12 +38,12 @@ export default ({ currentUser, showSigninModal, logoutUser }) => {
     <nav className={styles.navbar} >
       <a href="#logo" className={styles.navLogo} > Logo </a>
       <div className={styles.navItems} >
-        <a href="#" className="navItem" > 更多 MHz </a>
+        <a href="#" className="navItem disabled" > 更多 MHz </a>
         <a href="#" className="navItem" >
           私人 MHz
           <i className="material-icons" > volume_up </i>
         </a>
-        <a href="#" className="navItem" > 红心 MHz </a>
+        <a href="#" className="navItem disabled" > 红心 MHz </a>
       </div>
       <div className={styles.userItem} >
         <UserItem
