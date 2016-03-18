@@ -6,15 +6,14 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 const electron = require('electron');
 const storage = require('electron-json-storage');
 const app = electron.app;
+const globalShortcut = electron.globalShortcut;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const crashReporter = electron.crashReporter;
-const shell = electron.shell;
 const config = require('./config');
 let menu;
 let template;
 let mainWindow = null;
-
 
 crashReporter.start({
   productName: 'doubanFMac',
@@ -26,7 +25,6 @@ if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
 }
 
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
@@ -36,6 +34,22 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow(config.window);
 
   const webContents = mainWindow.webContents;
+
+  // set global shortcut
+  const shortcuts = [
+    { key: 'ctrl+alt+p', event: 'controlSong' },
+    { key: 'ctrl+alt+l', event: 'likeSong' },
+    { key: 'ctrl+alt+u', event: 'dislikeSong' },
+    { key: 'ctrl+alt+n', event: 'nextSong' },
+    { key: 'ctrl+alt+b', event: 'banSong' },
+  ];
+
+  app.shortcutPressed = event => () => {
+    webContents.send('shortcut-pressed', event);
+  };
+  shortcuts.forEach((shortcut) => {
+    globalShortcut.register(shortcut.key, app.shortcutPressed(shortcut.event));
+  });
 
   // manipulate cookies for douban
   const getDoubanCookies = (webContents) => {

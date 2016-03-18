@@ -4,6 +4,7 @@ const config = {
     window: {
       width: 1024,
       height: 728,
+      resizable: false,
     }
   },
   production: {
@@ -11,6 +12,7 @@ const config = {
     window: {
       width: 475,
       height: 700,
+      resizable: false,
     }
   },
   test: {

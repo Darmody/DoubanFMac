@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import ipc from 'ipc';
 import { Player } from 'components';
 import { fetch, like, dislike, ban } from 'reducers/song';
 import styles from './Content.scss';
@@ -31,6 +32,23 @@ export default class Content extends Component {
 
   componentDidMount() {
     this.props.fetch(0);
+
+    ipc.on('shortcut-pressed', (event) => {
+      switch (event) {
+        case 'controlSong':
+          return this.controlSong();
+        case 'likeSong':
+          return this.props.like(0, this.props.song.id);
+        case 'dislikeSong':
+          return this.props.dislike(0, this.props.song.id);
+        case 'banSong':
+          return this.banSong();
+        case 'nextSong':
+          return this.nextSong()();
+        default:
+          return '';
+      }
+    });
   }
 
   nextSong = type => () => {
