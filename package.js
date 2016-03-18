@@ -23,7 +23,9 @@ const DEFAULT_OPTS = {
   ignore: [
     '/test($|/)',
     '/tools($|/)',
-    '/release($|/)'
+    '/release($|/)',
+    '/webpack($|/)',
+    '/screenshots($|/)'
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
 };
 
