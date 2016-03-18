@@ -5,8 +5,8 @@ import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
 import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
 import camelizeState from '../middlewares/camelizeState';
-import _last from 'lodash.last';
-import _join from 'lodash.join';
+import _last from 'lodash/last';
+import _join from 'lodash/join';
 import auth, { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, login, logout } from '../auth';
 import signForm from '../form/signin';
 

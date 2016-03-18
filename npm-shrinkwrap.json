@@ -1823,7 +1823,14 @@
     "flux-standard-action": {
       "version": "0.6.0",
       "from": "flux-standard-action@0.6.0",
-      "resolved": "https://registry.npmjs.org/flux-standard-action/-/flux-standard-action-0.6.0.tgz"
+      "resolved": "https://registry.npmjs.org/flux-standard-action/-/flux-standard-action-0.6.0.tgz",
+      "dependencies": {
+        "lodash.isplainobject": {
+          "version": "3.2.0",
+          "from": "lodash.isplainobject@>=3.2.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-3.2.0.tgz"
+        }
+      }
     },
     "for-in": {
       "version": "0.1.4",
@@ -3260,11 +3267,6 @@
       "from": "lodash._baseindexof@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash._baseindexof/-/lodash._baseindexof-3.1.0.tgz"
     },
-    "lodash._baseiteratee": {
-      "version": "4.5.2",
-      "from": "lodash._baseiteratee@>=4.0.0 <5.0.0",
-      "resolved": "https://registry.npmjs.org/lodash._baseiteratee/-/lodash._baseiteratee-4.5.2.tgz"
-    },
     "lodash._basetostring": {
       "version": "3.0.1",
       "from": "lodash._basetostring@>=3.0.0 <4.0.0",
@@ -3385,20 +3387,10 @@
       "from": "lodash.isarray@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash.isarray/-/lodash.isarray-3.0.4.tgz"
     },
-    "lodash.isplainobject": {
-      "version": "3.2.0",
-      "from": "lodash.isplainobject@>=3.2.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-3.2.0.tgz"
-    },
     "lodash.istypedarray": {
       "version": "3.0.5",
       "from": "lodash.istypedarray@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash.istypedarray/-/lodash.istypedarray-3.0.5.tgz"
-    },
-    "lodash.join": {
-      "version": "4.0.1",
-      "from": "lodash.join@*",
-      "resolved": "https://registry.npmjs.org/lodash.join/-/lodash.join-4.0.1.tgz"
     },
     "lodash.keys": {
       "version": "3.1.2",
@@ -3418,7 +3410,14 @@
     "lodash.merge": {
       "version": "3.3.2",
       "from": "lodash.merge@>=3.3.2 <4.0.0",
-      "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-3.3.2.tgz"
+      "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-3.3.2.tgz",
+      "dependencies": {
+        "lodash.isplainobject": {
+          "version": "3.2.0",
+          "from": "lodash.isplainobject@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-3.2.0.tgz"
+        }
+      }
     },
     "lodash.omit": {
       "version": "3.1.0",
@@ -3474,18 +3473,6 @@
       "version": "4.1.2",
       "from": "lodash.tostring@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.tostring/-/lodash.tostring-4.1.2.tgz"
-    },
-    "lodash.transform": {
-      "version": "4.2.1",
-      "from": "lodash.transform@*",
-      "resolved": "https://registry.npmjs.org/lodash.transform/-/lodash.transform-4.2.1.tgz",
-      "dependencies": {
-        "lodash.keys": {
-          "version": "4.0.5",
-          "from": "lodash.keys@>=4.0.0 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lodash.keys/-/lodash.keys-4.0.5.tgz"
-        }
-      }
     },
     "lodash.words": {
       "version": "3.2.0",
@@ -5780,7 +5767,14 @@
     "redux-api-middleware": {
       "version": "1.0.1",
       "from": "redux-api-middleware@*",
-      "resolved": "https://registry.npmjs.org/redux-api-middleware/-/redux-api-middleware-1.0.1.tgz"
+      "resolved": "https://registry.npmjs.org/redux-api-middleware/-/redux-api-middleware-1.0.1.tgz",
+      "dependencies": {
+        "lodash.isplainobject": {
+          "version": "3.2.0",
+          "from": "lodash.isplainobject@>=3.2.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-3.2.0.tgz"
+        }
+      }
     },
     "redux-devtools-themes": {
       "version": "1.0.0",

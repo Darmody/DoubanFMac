@@ -1,9 +1,9 @@
 import { compose } from 'redux';
 import { CALL_API, isValidRSAA } from 'redux-api-middleware';
 import { decamelizeKeys } from 'humps';
-import _transform from 'lodash.transform';
-import _join from 'lodash.join';
-import _isPlainObject from 'lodash.isPlainObject';
+import _transform from 'lodash/transform';
+import _join from 'lodash/join';
+import _isPlainObject from 'lodash/isPlainObject';
 
 const decamelizeBody = (action) => {
   const callAPI = action[CALL_API];

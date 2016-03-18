@@ -5,7 +5,7 @@ import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
 import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
 import camelizeState from '../middlewares/camelizeState';
-import _last from 'lodash.last';
+import _last from 'lodash/last';
 import song, {
   FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS,
   fetch, like, dislike, ban,
