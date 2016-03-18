@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import './app.global.css';
+
+require('electron-cookies');
 
 const store = configureStore();
 
