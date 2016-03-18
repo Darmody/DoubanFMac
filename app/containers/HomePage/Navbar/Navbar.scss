@@ -9,13 +9,9 @@
 
 .navbar {
   @extend %flexbox;
+  height: 3.5rem;
   padding: 0.6rem;
   margin-bottom: 1rem;
-}
-
-.navLogo {
-  @include flex-grow(3);
-  height: 3.5rem;
 }
 
 .navItems {

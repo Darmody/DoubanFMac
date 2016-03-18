@@ -36,7 +36,6 @@ function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
 export default ({ currentUser, showSigninModal, logoutUser }) => {
   return (
     <nav className={styles.navbar} >
-      <a href="#logo" className={styles.navLogo} > Logo </a>
       <div className={styles.navItems} >
         <a href="#" className="navItem disabled" > 更多 MHz </a>
         <a href="#" className="navItem" >
