@@ -25,7 +25,7 @@ A beautiful mac desktop application for [Douban FM](http://douban.fm)
 
 Download the Mac Desktop Application at [Mac App Releases](https://github.com/Darmody/DoubanFMac/releases)
 
-[travis-image]: https://img.shields.io/travis/Darmody/DoubanFMac.svg
+[travis-image]: https://img.shields.io/travis/Darmody/DoubanFMac/master.svg
 [travis-url]: https://travis-ci.org/Darmody/DoubanFMac
 [version-image]: https://img.shields.io/badge/version-beta-blue.svg
 [version-url]: https://github.com/Darmody/DoubanFMac/releases
