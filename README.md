@@ -1,6 +1,8 @@
 # Douban FMac
 
-[![version][version-image]][version-url] [![build status][travis-image]][travis-url]
+[![version][version-image]][version-url]
+[![build status][travis-image]][travis-url]
+[![coverall status][coveralls-image]][coveralls-url]
 
 A beautiful mac desktop application for [Douban FM](http://douban.fm)
 
@@ -27,6 +29,8 @@ Download the Mac Desktop Application at [Mac App Releases](https://github.com/Da
 
 [travis-image]: https://img.shields.io/travis/Darmody/DoubanFMac/master.svg
 [travis-url]: https://travis-ci.org/Darmody/DoubanFMac
+[coveralls-image]: https://img.shields.io/coveralls/Darmody/DoubanFMac/master.svg
+[coveralls-url]: https://coveralls.io/github/Darmody/DoubanFMac
 [version-image]: https://img.shields.io/badge/version-beta-blue.svg
 [version-url]: https://github.com/Darmody/DoubanFMac/releases
 
