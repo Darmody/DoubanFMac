@@ -7,7 +7,7 @@
 A beautiful mac desktop application for [Douban FM](http://douban.fm)
 
 <br/>
-<img src="screenshots/logo.png" alt="DoubanFMac" width="256px" />
+<img src="static/logo.png" alt="DoubanFMac" width="256px" />
 <br/> <br/>
 
 ## Screenshots

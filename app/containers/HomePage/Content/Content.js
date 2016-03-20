@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import ipc from 'ipc';
+import notifier from 'node-notifier';
 import { Player } from 'components';
 import { fetch, like, dislike, ban } from 'reducers/song';
 import styles from './Content.scss';
@@ -28,11 +29,32 @@ export default class Content extends Component {
     super(props);
 
     this.state = { playing: true };
+    this.handleShortcut();
   }
 
   componentDidMount() {
     this.props.fetch(0);
+  }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.song.id !== nextProps.song.id) {
+      this.notice(nextProps.song);
+    }
+  }
+
+  notice = (song) => {
+    if (document.hasFocus()) return;
+
+    notifier.notify({
+      title: song.name,
+      message: song.artist,
+      contentImage: song.cover,
+      sender: 'com.electron.doubanfmac',
+      sound: 'Pop',
+    });
+  }
+
+  handleShortcut = () => {
     ipc.on('shortcut-pressed', (event) => {
       switch (event) {
         case 'controlSong':

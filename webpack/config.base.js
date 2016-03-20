@@ -29,6 +29,9 @@ module.exports = {
     extensions: ['', '.js', '.json'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
+  node: {
+    __dirname: true
+  },
   plugins: [
 
   ],

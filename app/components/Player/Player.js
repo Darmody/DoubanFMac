@@ -41,7 +41,6 @@ export default class Player extends Component {
     }
   }
 
-
   componentWillUnmount() {
     if (this.state.playInterval) clearInterval(this.state.playInterval);
   }
