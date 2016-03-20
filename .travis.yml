@@ -13,8 +13,11 @@ addons:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+cache:
+  directories:
+    - node_modules
 install:
-  travis_wait 30 npm install -d
+  npm install
 script:
   - npm run lint
   - npm run coverage
