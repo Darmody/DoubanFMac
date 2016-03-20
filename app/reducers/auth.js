@@ -16,8 +16,12 @@ const initialState = Immutable({
 
 export default handleActions({
   [LOGOUT]: (state) => {
-    const PersistStorage = require('electron-json-storage');
-    PersistStorage.remove(config.electronStorageKey);
+    try {
+      const PersistStorage = require('electron-json-storage');
+      PersistStorage.remove(config.electronStorageKey);
+    } catch (error) {
+      console.log('Electron Storage Error:', error);
+    }
 
     return {
       ...state,

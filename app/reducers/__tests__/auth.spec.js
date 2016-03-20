@@ -90,4 +90,10 @@ describe('Auth Reducers', function reducers() {
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');
   });
+
+  it('LOGOUT', function logoutSuccess() {
+    expect(
+      auth({ user: { id: 1 } }, { type: LOGOUT })
+    ).to.deep.equal({ user: { id: 0 } });
+  });
 });
