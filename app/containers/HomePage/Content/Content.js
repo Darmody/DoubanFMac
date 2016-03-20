@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import ipc from 'ipc';
-import notifier from 'node-notifier';
 import { Player } from 'components';
 import { fetch, like, dislike, ban } from 'reducers/song';
 import styles from './Content.scss';
@@ -45,12 +44,10 @@ export default class Content extends Component {
   notice = (song) => {
     if (document.hasFocus()) return;
 
-    notifier.notify({
-      title: song.name,
-      message: song.artist,
-      contentImage: song.cover,
-      sender: 'com.electron.doubanfmac',
-      sound: 'Pop',
+    /* eslint no-unused-vars: 0 */
+    const notification = new Notification(song.name, {
+      body: song.artist,
+      icon: song.cover,
     });
   }
 
