@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
+import { handleActions } from 'redux-actions';
 import config from '../../config';
 
 export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST';
@@ -13,48 +14,43 @@ const initialState = Immutable({
   }
 });
 
-export default (state = initialState, action = {}) => {
-  switch (action.type) {
-    case LOGOUT:
-      if (process.env.NODE_ENV !== 'test') {
-        const PersistStorage = require('electron-json-storage');
-        PersistStorage.remove(config.electronStorageKey);
-      }
+export default handleActions({
+  [LOGOUT]: (state) => {
+    const PersistStorage = require('electron-json-storage');
+    PersistStorage.remove(config.electronStorageKey);
 
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        id: 0
+      }
+    };
+  },
+  [LOGIN_REQUEST]: (state) => ({
+    ...state,
+    logged: false,
+  }),
+  [LOGIN_SUCCESS]: (state, action) => {
+    const data = action.payload;
+
+    if (data !== null) {
       return {
         ...state,
         user: {
-          ...state.user,
-          id: 0
-        }
+          id: data.uid,
+          name: data.name,
+        },
+        logged: true,
       };
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-        logged: false,
-      };
-    case LOGIN_SUCCESS:
-      const data = action.payload;
+    }
 
-      if (data !== null) {
-        return {
-          ...state,
-          user: {
-            id: data.uid,
-            name: data.name,
-          },
-          logged: true,
-        };
-      }
-
-      return {
-        ...state,
-        logged: false
-      };
-    default:
-      return state;
+    return {
+      ...state,
+      logged: false
+    };
   }
-};
+}, initialState);
 
 export function logout() {
   return {

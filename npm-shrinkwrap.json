@@ -5940,10 +5940,20 @@
         }
       }
     },
+    "reduce-reducers": {
+      "version": "0.1.2",
+      "from": "reduce-reducers@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/reduce-reducers/-/reduce-reducers-0.1.2.tgz"
+    },
     "redux": {
       "version": "3.3.1",
       "from": "redux@>=3.2.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/redux/-/redux-3.3.1.tgz"
+    },
+    "redux-actions": {
+      "version": "0.9.1",
+      "from": "redux-actions@*",
+      "resolved": "https://registry.npmjs.org/redux-actions/-/redux-actions-0.9.1.tgz"
     },
     "redux-api-middleware": {
       "version": "1.0.1",

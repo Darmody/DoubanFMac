@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
+import { handleActions } from 'redux-actions';
 import _transform from 'lodash/transform';
 import _join from 'lodash/join';
 
@@ -26,47 +27,42 @@ const initialState = Immutable({
   size: 0,
 });
 
-export default (state = initialState, action = {}) => {
-  let data = {};
-  switch (action.type) {
-    case FETCH_SUCCESS:
-      data = action.payload.song[0];
-      return {
-        ...state,
-        id: data.sid,
-        name: data.title,
-        source: data.url,
-        cover: data.picture,
-        artist: data.artist,
-        size: data.length,
-        favorite: data.like !== 0,
-      };
-    case LIKE_SUCCESS:
-      return {
-        ...state,
-        favorite: true,
-      };
-    case DISLIKE_SUCCESS:
-      return {
-        ...state,
-        favorite: false,
-      };
-    case BAN_SUCCESS:
-      data = action.payload.song[0];
-      return {
-        ...state,
-        id: data.sid,
-        name: data.title,
-        source: data.url,
-        cover: data.picture,
-        artist: data.artist,
-        size: data.length,
-        favorite: data.like !== 0,
-      };
-    default:
-      return state;
+export default handleActions({
+  [FETCH_SUCCESS]: (state, action) => {
+    const data = action.payload.song[0];
+    return {
+      ...state,
+      id: data.sid,
+      name: data.title,
+      source: data.url,
+      cover: data.picture,
+      artist: data.artist,
+      size: data.length,
+      favorite: data.like !== 0,
+    };
+  },
+  [LIKE_SUCCESS]: (state) => ({
+    ...state,
+    favorite: true,
+  }),
+  [DISLIKE_SUCCESS]: (state) => ({
+    ...state,
+    favorite: false,
+  }),
+  [BAN_SUCCESS]: (state, action) => {
+    const data = action.payload.song[0];
+    return {
+      ...state,
+      id: data.sid,
+      name: data.title,
+      source: data.url,
+      cover: data.picture,
+      artist: data.artist,
+      size: data.length,
+      favorite: data.like !== 0,
+    };
   }
-};
+}, initialState);
 
 const _fetch = (channel, lastSongId = 0, type = 's') => {
   let types = [];
