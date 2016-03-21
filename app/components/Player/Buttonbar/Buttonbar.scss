@@ -1,16 +1,11 @@
 @import '~sass-flex-mixin/flex';
 
-.player {
+.buttonBar {
   @extend %flexbox;
-  @include justify-content(center);
-  @include align-items(center);
-}
-
-.controlBar {
-  @extend %flexbox;
-  @include justify-content(between);
+  @include justify-content;
   @include align-items(center);
 
+  min-width: 20rem;
   :global {
     .tasteButtonGroup {
       @include flex-grow(1);
@@ -31,8 +26,7 @@
     }
 
     .controlButtonGroup {
-    @include flex-grow(1);
-      text-align: right;
+      @include flex-basis(1);
 
       > a {
         color: black;
@@ -40,7 +34,7 @@
         > i {
           font-size: 1.2rem;
           font-weight: 700;
-          margin: 1rem 0.5rem;
+          margin-left: 0.5rem;
         }
       }
     }

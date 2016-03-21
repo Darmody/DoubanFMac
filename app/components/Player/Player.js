@@ -1,13 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import Processbar from './Processbar/Processbar';
+import Buttonbar from './Buttonbar/Buttonbar';
 import styles from './Player.scss';
 
 export default class Player extends Component {
   static propTypes = {
     song: PropTypes.object.isRequired,
-    playing: PropTypes.bool.isRequired,
-    onEnd: PropTypes.func,
+    onBan: PropTypes.func.isRequired,
+    onControl: PropTypes.func.isRequired,
+    onEnd: PropTypes.func.isRequired,
+    onNext: PropTypes.func.isRequired,
+    onTaste: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -34,9 +38,9 @@ export default class Player extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.playing && !nextProps.playing) {
+    if (this.props.song.playing && !nextProps.song.playing) {
       this.refs.audio.pause();
-    } else if (!this.props.playing && nextProps.playing) {
+    } else if (!this.props.song.playing && nextProps.song.playing) {
       this.refs.audio.play();
     }
   }
@@ -44,7 +48,6 @@ export default class Player extends Component {
   componentWillUnmount() {
     if (this.state.playInterval) clearInterval(this.state.playInterval);
   }
-
 
   render() {
     const { step, buffer } = this.state;
@@ -71,6 +74,7 @@ export default class Player extends Component {
           onEnded={this.props.onEnd}
         />
         <Processbar total={song.size} step={step} buffer={buffer} />
+        <Buttonbar {...this.props } playing={song.playing} />
       </div>
     );
   }

@@ -7,8 +7,8 @@ import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
 import camelizeState from '../middlewares/camelizeState';
 import _last from 'lodash/last';
 import song, {
-  FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS,
-  fetch, like, dislike, ban,
+  FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, PLAY, PAUSE,
+  fetch, like, dislike, ban, play, pause,
 } from '../song';
 
 const middlewares = [
@@ -133,6 +133,14 @@ describe('Song Actions', function actions() {
       done();
     }, 100);
   });
+
+  it('PLAY', function playSuccess() {
+    expect(play()).to.deep.equal({ type: PLAY });
+  });
+
+  it('PAUSE', function pauseSuccess() {
+    expect(pause()).to.deep.equal({ type: PAUSE });
+  });
 });
 
 describe('Song Reducers', function reducers() {
@@ -225,6 +233,34 @@ describe('Song Reducers', function reducers() {
     ).to.deep.equal({
       id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
       artist: '陈奕迅', size: 300, favorite: true
+    });
+  });
+
+  it('PLAY', function playSuccess() {
+    expect(
+      song({
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true, playing: false,
+      }, {
+        type: PLAY
+      })
+    ).to.deep.equal({
+      id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+      artist: '陈奕迅', size: 300, favorite: true, playing: true
+    });
+  });
+
+  it('PAUSE', function pauseSuccess() {
+    expect(
+      song({
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true, playing: true,
+      }, {
+        type: PAUSE
+      })
+    ).to.deep.equal({
+      id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+      artist: '陈奕迅', size: 300, favorite: true, playing: false
     });
   });
 });

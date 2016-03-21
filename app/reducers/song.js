@@ -16,6 +16,8 @@ export const DISLIKE_FAILURE = 'SONG/DISLIKE_FAILURE';
 export const BAN_REQUEST = 'SONG/BAN_REQUEST';
 export const BAN_SUCCESS = 'SONG/BAN_SUCCESS';
 export const BAN_FAILURE = 'SONG/BAN_FAILURE';
+export const PLAY = 'SONG/PLAY';
+export const PAUSE = 'SONG/PAUSE';
 
 const initialState = Immutable({
   id: 0,
@@ -25,6 +27,7 @@ const initialState = Immutable({
   artist: '',
   favorite: false,
   size: 0,
+  playing: true,
 });
 
 export default handleActions({
@@ -61,7 +64,9 @@ export default handleActions({
       size: data.length,
       favorite: data.like !== 0,
     };
-  }
+  },
+  [PLAY]: (state) => ({ ...state, playing: true }),
+  [PAUSE]: (state) => ({ ...state, playing: false }),
 }, initialState);
 
 const _fetch = (channel, lastSongId = 0, type = 's') => {
@@ -122,4 +127,12 @@ export function dislike(channel, SongId) {
 
 export function ban(channel, SongId) {
   return _fetch(channel, SongId, 'b');
+}
+
+export function play() {
+  return { type: PLAY };
+}
+
+export function pause() {
+  return { type: PAUSE };
 }
