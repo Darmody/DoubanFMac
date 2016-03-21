@@ -24,7 +24,7 @@ export default class Signin extends Component {
     fetchCaptcha: PropTypes.func.isRequired,
     handleHide: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
-    modal: PropTypes.object.isRequired,
+    show: PropTypes.bool,
   }
 
   hideModal = () => {
@@ -44,7 +44,7 @@ export default class Signin extends Component {
   }
 
   render() {
-    const { modal: { show }, captchaCode } = this.props;
+    const { show, captchaCode } = this.props;
     const modalStyle = {
       content: {
         top: '10%',
