@@ -1,0 +1,6 @@
+@import '~sass-flex-mixin/flex';
+
+.content {
+  @extend %flexbox;
+  @include justify-content(center);
+}

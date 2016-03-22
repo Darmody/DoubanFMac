@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-dropdowns';
+import { Link } from 'react-router';
 import cx from 'classnames';
 import { Signin } from 'containers';
 import styles from './Navbar.scss';
@@ -38,11 +39,11 @@ export default ({ currentUser, showSigninModal, logoutUser }) => {
     <nav className={styles.navbar} >
       <div className={styles.navItems} >
         <a href="#" className="navItem disabled" > 更多 MHz </a>
-        <a href="#" className="navItem" >
+        <Link to="channels/0" className="navItem" >
           私人 MHz
           <i className="material-icons" > volume_up </i>
-        </a>
-        <a href="#" className="navItem disabled" > 红心 MHz </a>
+        </Link>
+        <Link to="favorite" className="navItem" > 红心 MHz </Link>
       </div>
       <div className={styles.userItem} >
         <UserItem
