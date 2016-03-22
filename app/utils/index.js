@@ -1,0 +1,1 @@
+export shortcut from './shortcut';

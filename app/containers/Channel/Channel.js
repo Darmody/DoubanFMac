@@ -3,12 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Player } from 'components';
 import { fetch, like, dislike, ban, play, pause } from 'reducers/song';
+import { shortcut } from 'utils';
 import styles from './Channel.scss';
 
 @connect(
   (state, { params }) => ({
     song: state.song,
-    channelId: params.id || 0,
+    channelId: params.id || '0',
   }),
   dispatch => ({
     ...bindActionCreators({ fetch, like, dislike, ban, play, pause }, dispatch)
@@ -23,11 +24,26 @@ export default class Channel extends Component {
     play: PropTypes.func.isRequired,
     pause: PropTypes.func.isRequired,
     song: PropTypes.object.isRequired,
-    channelId: PropTypes.number.isRequired,
+    channelId: PropTypes.string.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+
+    const { channelId, song, like, dislike } = this.props;
+    const shortcutListener = shortcut.listen(
+      channelId, song, like, dislike, this.controlSong, this.banSong, this.nextSong()
+    );
+
+    this.state = { shortcutListener };
   }
 
   componentDidMount() {
     this.props.fetch(this.props.channelId);
+  }
+
+  componentWillUnmount() {
+    shortcut.stop(this.state.shortcutListener);
   }
 
   nextSong = type => () => {
@@ -42,7 +58,7 @@ export default class Channel extends Component {
     if (this.props.song.playing) {
       this.props.pause();
     } else {
-      this.props.song();
+      this.props.play();
     }
   }
 
