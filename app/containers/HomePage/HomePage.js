@@ -9,7 +9,7 @@ import Navbar from './Navbar/Navbar';
 @connect(
   state => ({
     currentUser: state.auth.user,
-    song: state.song,
+    song: state.channel.song,
   }),
   dispatch => ({
     ...bindActionCreators({ show, fetchCaptcha, logout }, dispatch)

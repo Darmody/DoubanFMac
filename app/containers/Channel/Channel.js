@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetch, like, dislike, ban, play, pause } from 'reducers/song';
+import { fetch, like, dislike, ban, play, pause } from 'reducers/channel';
 import { shortcut } from 'utils';
 import styles from './Channel.scss';
 
 @connect(
   (state, { params }) => ({
-    song: state.song,
+    song: state.channel.song,
+    playList: state.channel.playList,
+    playing: state.channel.playing,
     channelId: params.id || '0',
   }),
   dispatch => ({
@@ -24,6 +26,8 @@ export default class Channel extends Component {
     play: PropTypes.func.isRequired,
     pause: PropTypes.func.isRequired,
     song: PropTypes.object.isRequired,
+    playList: PropTypes.array.isRequired,
+    playing: PropTypes.bool.isRequired,
     channelId: PropTypes.string.isRequired,
   }
 
@@ -55,7 +59,7 @@ export default class Channel extends Component {
   }
 
   controlSong = () => {
-    if (this.props.song.playing) {
+    if (this.props.playing) {
       this.props.pause();
     } else {
       this.props.play();
@@ -71,12 +75,14 @@ export default class Channel extends Component {
   }
 
   render() {
-    const { song } = this.props;
+    const { song, playList, playing } = this.props;
 
     return (
       <div className={styles.player}>
         <Player
           song={song}
+          playList={playList}
+          playing={playing}
           onEnd={this.nextSong('p')}
           onBan={this.banSong}
           onControl={this.controlSong}

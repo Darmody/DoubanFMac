@@ -4,58 +4,58 @@ import { handleActions } from 'redux-actions';
 import _transform from 'lodash/transform';
 import _join from 'lodash/join';
 
-export const FETCH_REQUEST = 'SONG/FETCH_REQUEST';
-export const FETCH_SUCCESS = 'SONG/FETCH_SUCCESS';
-export const FETCH_FAILURE = 'SONG/FETCH_FAILURE';
-export const LIKE_REQUEST = 'SONG/LIKE_REQUEST';
-export const LIKE_SUCCESS = 'SONG/LIKE_SUCCESS';
-export const LIKE_FAILURE = 'SONG/LIKE_FAILURE';
-export const DISLIKE_REQUEST = 'SONG/DISLIKE_REQUEST';
-export const DISLIKE_SUCCESS = 'SONG/DISLIKE_SUCCESS';
-export const DISLIKE_FAILURE = 'SONG/DISLIKE_FAILURE';
-export const BAN_REQUEST = 'SONG/BAN_REQUEST';
-export const BAN_SUCCESS = 'SONG/BAN_SUCCESS';
-export const BAN_FAILURE = 'SONG/BAN_FAILURE';
-export const PLAY = 'SONG/PLAY';
-export const PAUSE = 'SONG/PAUSE';
+export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
+export const FETCH_SUCCESS = 'CHANNEL/FETCH_SUCCESS';
+export const FETCH_FAILURE = 'CHANNEL/FETCH_FAILURE';
+export const LIKE_REQUEST = 'CHANNEL/LIKE_REQUEST';
+export const LIKE_SUCCESS = 'CHANNEL/LIKE_SUCCESS';
+export const LIKE_FAILURE = 'CHANNEL/LIKE_FAILURE';
+export const DISLIKE_REQUEST = 'CHANNEL/DISLIKE_REQUEST';
+export const DISLIKE_SUCCESS = 'CHANNEL/DISLIKE_SUCCESS';
+export const DISLIKE_FAILURE = 'CHANNEL/DISLIKE_FAILURE';
+export const BAN_REQUEST = 'CHANNEL/BAN_REQUEST';
+export const BAN_SUCCESS = 'CHANNEL/BAN_SUCCESS';
+export const BAN_FAILURE = 'CHANNEL/BAN_FAILURE';
+export const PLAY = 'CHANNEL/PLAY';
+export const PAUSE = 'CHANNEL/PAUSE';
 
 const initialState = Immutable({
-  id: 0,
-  name: '',
-  source: '',
-  cover: '',
-  artist: '',
-  favorite: false,
-  size: 0,
+  song: {
+    id: 0,
+    name: '',
+    source: '',
+    cover: '',
+    artist: '',
+    favorite: false,
+    size: 0,
+  },
+
   playing: true,
+  playList: [],
 });
 
 export default handleActions({
   [FETCH_SUCCESS]: (state, action) => {
     const data = action.payload.song[0];
-    return {
-      ...state,
-      id: data.sid,
-      name: data.title,
-      source: data.url,
-      cover: data.picture,
-      artist: data.artist,
-      size: data.length,
-      favorite: data.like !== 0,
-    };
+
+    return state.merge({
+      song: {
+        id: data.sid,
+        name: data.title,
+        source: data.url,
+        cover: data.picture,
+        artist: data.artist,
+        size: data.length,
+        favorite: data.like !== 0,
+      },
+      playList: state.playList.concat([{ id: data.sid, name: data.title }])
+    });
   },
-  [LIKE_SUCCESS]: (state) => ({
-    ...state,
-    favorite: true,
-  }),
-  [DISLIKE_SUCCESS]: (state) => ({
-    ...state,
-    favorite: false,
-  }),
+  [LIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], true)),
+  [DISLIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], false)),
   [BAN_SUCCESS]: (state, action) => {
     const data = action.payload.song[0];
-    return {
-      ...state,
+    return state.set('song', {
       id: data.sid,
       name: data.title,
       source: data.url,
@@ -63,10 +63,10 @@ export default handleActions({
       artist: data.artist,
       size: data.length,
       favorite: data.like !== 0,
-    };
+    });
   },
-  [PLAY]: (state) => ({ ...state, playing: true }),
-  [PAUSE]: (state) => ({ ...state, playing: false }),
+  [PLAY]: (state) => (state.set('playing', true)),
+  [PAUSE]: (state) => (state.set('playing', false)),
 }, initialState);
 
 const _fetch = (channel, lastSongId = 0, type = 's') => {
@@ -103,6 +103,7 @@ const _fetch = (channel, lastSongId = 0, type = 's') => {
   const queryArray = _transform(params, (result, value, key) => {
     result.push(`${key}=${value}`);
   }, []);
+
   return {
     [CALL_API]: {
       endpoint: `http://douban.fm/j/v2/playlist?${_join(queryArray, '&')}`,

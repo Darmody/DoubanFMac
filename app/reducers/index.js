@@ -4,7 +4,7 @@ import { routeReducer as routing } from 'react-router-redux';
 import form from './form';
 import auth from './auth';
 import captcha from './captcha';
-import song from './song';
+import channel from './channel';
 
 const rootReducer = combineReducers({
   routing,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   modal,
   auth,
   captcha,
-  song,
+  channel,
 });
 
 export default rootReducer;

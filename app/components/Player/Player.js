@@ -7,6 +7,8 @@ import styles from './Player.scss';
 export default class Player extends Component {
   static propTypes = {
     song: PropTypes.object.isRequired,
+    playList: PropTypes.array.isRequired,
+    playing: PropTypes.bool.isRequired,
     onBan: PropTypes.func.isRequired,
     onControl: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
@@ -38,9 +40,9 @@ export default class Player extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.song.playing && !nextProps.song.playing) {
+    if (this.props.playing && !nextProps.playing) {
       this.refs.audio.pause();
-    } else if (!this.props.song.playing && nextProps.song.playing) {
+    } else if (!this.props.playing && nextProps.playing) {
       this.refs.audio.play();
     }
   }
@@ -51,7 +53,7 @@ export default class Player extends Component {
 
   render() {
     const { step, buffer } = this.state;
-    const { song } = this.props;
+    const { song, playList, playing } = this.props;
 
     const remainTime = 1000.0 * (song.size - step);
 
@@ -61,7 +63,9 @@ export default class Player extends Component {
           style={{ backgroundImage: `url(${song.cover})` }}
         />
         <div className="songInfoBar" >
-          <h2 className="songName"> {song.name} </h2>
+          <h2 className="songName">
+            {playList.map((song) => (song.name)).join(',')}
+          </h2>
           <h4 className="artistName"> {song.artist} </h4>
           <span className="songTime">
             -{moment.utc(remainTime).format('mm:ss')}
@@ -74,7 +78,7 @@ export default class Player extends Component {
           onEnded={this.props.onEnd}
         />
         <Processbar total={song.size} step={step} buffer={buffer} />
-        <Buttonbar {...this.props } playing={song.playing} />
+        <Buttonbar {...this.props } playing={playing} />
       </div>
     );
   }
