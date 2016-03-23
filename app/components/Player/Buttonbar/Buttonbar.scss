@@ -5,7 +5,7 @@
   @include justify-content;
   @include align-items(center);
 
-  min-width: 20rem;
+  min-width: 15rem;
   :global {
     .tasteButtonGroup {
       @include flex-grow(1);

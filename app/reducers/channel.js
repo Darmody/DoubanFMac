@@ -37,6 +37,8 @@ const initialState = Immutable({
 export default handleActions({
   [FETCH_SUCCESS]: (state, action) => {
     const data = action.payload.song[0];
+    let playList = Immutable([{ id: data.sid, name: data.title }]).concat(state.playList);
+    playList = playList.length > 10 ? playList.slice(0, 10) : playList;
 
     return state.merge({
       song: {
@@ -48,21 +50,25 @@ export default handleActions({
         size: data.length,
         favorite: data.like !== 0,
       },
-      playList: state.playList.concat([{ id: data.sid, name: data.title }])
+      playing: true,
+      playList
     });
   },
   [LIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], true)),
   [DISLIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], false)),
   [BAN_SUCCESS]: (state, action) => {
     const data = action.payload.song[0];
-    return state.set('song', {
-      id: data.sid,
-      name: data.title,
-      source: data.url,
-      cover: data.picture,
-      artist: data.artist,
-      size: data.length,
-      favorite: data.like !== 0,
+    return state.merge({
+      song: {
+        id: data.sid,
+        name: data.title,
+        source: data.url,
+        cover: data.picture,
+        artist: data.artist,
+        size: data.length,
+        favorite: data.like !== 0,
+      },
+      playing: true,
     });
   },
   [PLAY]: (state) => (state.set('playing', true)),

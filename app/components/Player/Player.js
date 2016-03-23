@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactList from 'react-list';
 import moment from 'moment';
 import Processbar from './Processbar/Processbar';
 import Buttonbar from './Buttonbar/Buttonbar';
@@ -51,6 +52,16 @@ export default class Player extends Component {
     if (this.state.playInterval) clearInterval(this.state.playInterval);
   }
 
+  renderSongName = (index, key) => {
+    const renderSong = this.props.playList[index];
+
+    return (
+      <div className="songName" key={key} ref={`songName${index}`} >
+        {index + 1}. {renderSong.name}
+      </div>
+    );
+  }
+
   render() {
     const { step, buffer } = this.state;
     const { song, playList, playing } = this.props;
@@ -63,9 +74,19 @@ export default class Player extends Component {
           style={{ backgroundImage: `url(${song.cover})` }}
         />
         <div className="songInfoBar" >
-          <h2 className="songName">
-            {playList.map((song) => (song.name)).join(',')}
-          </h2>
+          <div className="songNameList">
+            <div className="playListTitle">
+              <i className="material-icons" > details </i>
+              播放列表
+            </div>
+            <div className="playListPanel">
+              <ReactList
+                itemRenderer={this.renderSongName}
+                length={playList.length}
+              />
+            </div>
+          </div>
+          <h2 className="songNameTitle" > {song.name} </h2>
           <h4 className="artistName"> {song.artist} </h4>
           <span className="songTime">
             -{moment.utc(remainTime).format('mm:ss')}

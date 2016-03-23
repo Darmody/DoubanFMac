@@ -1,12 +1,14 @@
+@import '~sass-flex-mixin/flex';
+
 .player {
-  max-width: 20rem;
+  max-width: 15rem;
 
   :global {
     .songCover {
       background-repeat: no-repeat;
       background-size: cover !important;
       background-position: center;
-      height: 20rem;
+      height: 15rem;
       border: 0.1rem solid #ceecd2;
       border-radius: 100%;
       margin-top: 2rem;
@@ -16,12 +18,58 @@
       margin-bottom: 0.6rem;
     }
 
-    .songName {
-      font-size: 1.4rem;
-      font-weight: 500;
+    .songNameList {
+      height: 1rem;
+      text-align: center;
       margin-top: 1.6rem;
       margin-bottom: 1rem;
+      transition: .5s;
+
+      &:hover {
+        height: 4rem;
+
+        .songName {
+          opacity: 1;
+        }
+      }
+
+      .playListTitle {
+        opacity: 0.3;
+        font-size: 0.6rem;
+        margin-bottom: 0.4rem;
+
+        > i {
+          font-size: 0.4rem;
+          margin-right: 0.2rem;
+        }
+      }
+
+      .playListPanel {
+        overflow: auto;
+        max-height: 4rem;
+      }
+
+    }
+
+    .songName {
+      opacity: 0;
+      text-decoration: underline;
+      font-size: 0.6rem;
+      color: #9b9b9b;
       word-wrap: break-word;
+      cursor: pointer;
+      padding: 0.2rem;
+      transition: .5s;
+
+      &:hover {
+        color: #ceecd2;
+      }
+    }
+
+    .songNameTitle {
+      color: #4a4a4a;
+      font-size: 1.2rem;
+      font-weight: 500;
     }
 
     .artistName {

@@ -164,6 +164,7 @@ describe('Channel Reducers', function reducers() {
           id: 0, name: '', source: '', cover: '', artist: '',
           favorite: false, size: 0
         },
+        playing: false,
         playList: []
       }), {
         type: FETCH_SUCCESS,
@@ -182,6 +183,7 @@ describe('Channel Reducers', function reducers() {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
         artist: '陈奕迅', size: 300, favorite: true
       },
+      playing: true,
       playList: [{ id: 1, name: '浮夸' }]
     });
   });
@@ -246,7 +248,8 @@ describe('Channel Reducers', function reducers() {
         song: {
           id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
           artist: '陈奕迅', size: 300, favorite: true
-        }
+        },
+        playing: false
       }), {
         type: BAN_SUCCESS,
         payload: { song: [{
@@ -263,7 +266,8 @@ describe('Channel Reducers', function reducers() {
       song: {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
         artist: '陈奕迅', size: 300, favorite: true
-      }
+      },
+      playing: true
     });
   });
 

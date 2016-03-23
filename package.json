@@ -109,6 +109,7 @@
     "react-addons-clicked-away-mixin": "^0.1.2",
     "react-dom": "^0.14.2",
     "react-dropdowns": "^0.2.1",
+    "react-list": "^0.7.15",
     "react-modal": "^0.6.1",
     "react-redux": "^4.0.5",
     "react-router": "^2.0.0",

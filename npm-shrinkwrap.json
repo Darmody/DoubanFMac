@@ -5720,6 +5720,11 @@
       "from": "react-lazy-cache@>=3.0.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/react-lazy-cache/-/react-lazy-cache-3.0.1.tgz"
     },
+    "react-list": {
+      "version": "0.7.15",
+      "from": "react-list@*",
+      "resolved": "https://registry.npmjs.org/react-list/-/react-list-0.7.15.tgz"
+    },
     "react-mixin": {
       "version": "1.7.0",
       "from": "react-mixin@>=1.7.0 <2.0.0",
