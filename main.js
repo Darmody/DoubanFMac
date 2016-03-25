@@ -11,6 +11,7 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const crashReporter = electron.crashReporter;
 const config = require('./config');
+const pkg = require('./package.json');
 let menu;
 let template;
 let mainWindow = null;
@@ -115,13 +116,72 @@ app.on('ready', () => {
 
   if (process.platform === 'darwin') {
     template = [{
-      label: '豆瓣FMac',
+      label: '豆瓣FM',
       submenu: [{
+        label: 'Hide DoubanFMac',
+        accelerator: 'Command+H',
+        selector: 'hide:'
+      }, {
+        label: 'Hide Others',
+        accelerator: 'Command+Shift+H',
+        selector: 'hideOtherApplications:'
+      }, {
+        label: 'Show All',
+        selector: 'unhideAllApplications:'
+      }, {
+        type: 'separator'
+      }, {
+        label: `${pkg.name} ${pkg.version}`,
+      }, {
+        type: 'separator'
+      }, {
         label: 'Quit',
         accelerator: 'Command+Q',
         click() {
           app.quit();
         }
+      }]
+    }, {
+      label: 'Edit',
+      submenu: [{
+        label: 'Undo',
+        accelerator: 'Command+Z',
+        selector: 'undo:'
+      }, {
+        label: 'Redo',
+        accelerator: 'Shift+Command+Z',
+        selector: 'redo:'
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Cut',
+        accelerator: 'Command+X',
+        selector: 'cut:'
+      }, {
+        label: 'Copy',
+        accelerator: 'Command+C',
+        selector: 'copy:'
+      }, {
+        label: 'Paste',
+        accelerator: 'Command+V',
+        selector: 'paste:'
+      }, {
+        label: 'Select All',
+        accelerator: 'Command+A',
+        selector: 'selectAll:'
+      }]
+    }, {
+      label: 'Window',
+      submenu: [{
+        label: 'Minimize',
+        accelerator: 'Command+M',
+        selector: 'performMiniaturize:'
+      }, {
+        label: 'Close',
+        accelerator: 'Command+W',
+        selector: 'performClose:'
+      }, {
+        type: 'separator'
       }]
     }];
 
