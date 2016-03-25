@@ -27,7 +27,8 @@ export default handleActions({
       ...state,
       user: {
         ...state.user,
-        id: 0
+        id: 0,
+        token: '',
       }
     };
   },
@@ -44,6 +45,7 @@ export default handleActions({
         user: {
           id: data.uid,
           name: data.name,
+          token: data.ck,
         },
         logged: true,
       };

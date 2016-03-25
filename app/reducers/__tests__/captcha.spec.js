@@ -28,7 +28,7 @@ describe('Captcha Actions', function actions() {
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
       done();
-    }, 100);
+    }, 20);
   });
 });
 

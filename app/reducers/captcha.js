@@ -22,6 +22,7 @@ export function fetch() {
     [CALL_API]: {
       endpoint: 'http://douban.fm/j/new_captcha',
       method: 'GET',
+      credentials: 'include',
       types: [
         FETCH_REQUEST,
         FETCH_SUCCESS,

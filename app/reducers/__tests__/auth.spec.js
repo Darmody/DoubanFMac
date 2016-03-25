@@ -46,7 +46,7 @@ describe('Auth Actions', function actions() {
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
       done();
-    }, 100);
+    }, 20);
   });
 
   it('LOGIN_FAILURE', function loginFailure(done) {
@@ -70,7 +70,7 @@ describe('Auth Actions', function actions() {
     setTimeout(() => {
       expect(store.getActions()[1].type).to.equal(LOGIN_FAILURE);
       done();
-    }, 100);
+    }, 20);
   });
 
   it('LOGOUT', function logoutSuccess() {
@@ -81,8 +81,8 @@ describe('Auth Actions', function actions() {
 describe('Auth Reducers', function reducers() {
   it('LOGIN_SUCCESS', function loginSuccess() {
     expect(
-      auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: { uid: 1, name: 'darmody' } })
-    ).to.deep.equal({ logged: true, user: { id: 1, name: 'darmody' } });
+      auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: { uid: 1, name: 'darmody', ck: 'im token' } })
+    ).to.deep.equal({ logged: true, user: { id: 1, name: 'darmody', token: 'im token' } });
   });
 
   it('LOGIN_FAILURE', function loginFailure() {
@@ -93,7 +93,7 @@ describe('Auth Reducers', function reducers() {
 
   it('LOGOUT', function logoutSuccess() {
     expect(
-      auth({ user: { id: 1 } }, { type: LOGOUT })
-    ).to.deep.equal({ user: { id: 0 } });
+      auth({ user: { id: 1, token: 'im token' } }, { type: LOGOUT })
+    ).to.deep.equal({ user: { id: 0, token: '' } });
   });
 });
