@@ -27,7 +27,8 @@ export default handleActions({
       ...state,
       user: {
         ...state.user,
-        id: 0
+        id: 0,
+        token: '',
       }
     };
   },

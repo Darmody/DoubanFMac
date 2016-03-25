@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
-import { fetchHelper as _fetch } from 'utils';
+import _fetch from '../utils/fetchHelper';
 import config from '../../config';
 import _join from 'lodash/join';
 import _findIndex from 'lodash/findIndex';
@@ -63,7 +63,7 @@ export default handleActions({
       );
     }
 
-    return state.merge({ song, playList });
+    return state.merge({ song, playList, playing: true });
   },
   [NEXT]: (state, action) => {
     const { lastSongId } = action.payload;
@@ -78,7 +78,7 @@ export default handleActions({
   },
   [LIKE_SUCCESS]: (state) => {
     const nextState = state.setIn(['song', 'favorite'], true);
-    return nextState.set('playList', state.playList.concat(state.song));
+    return nextState.set('playList', state.playList.concat(nextState.song));
   },
   [DISLIKE_SUCCESS]: (state) => {
     const nextState = state.setIn(['song', 'favorite'], false);
@@ -98,10 +98,13 @@ export default handleActions({
 }, initialState);
 
 function _fetchAll(ids) {
+  const localStorage = window.localStorage;
+  const authKey = config.persistAuthKey;
+
   const body = {
     bps: 192,
     sids: _join(ids, '|'),
-    ck: JSON.parse(localStorage[config.persistAuthKey]).auth.user.token,
+    ck: localStorage[authKey] ? JSON.parse(localStorage[authKey]).auth.user.token : '',
   };
 
   return {

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { fetchHelper as _fetch } from 'utils';
+import _fetch from '../utils/fetchHelper';
 
 export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
 export const FETCH_SUCCESS = 'CHANNEL/FETCH_SUCCESS';
