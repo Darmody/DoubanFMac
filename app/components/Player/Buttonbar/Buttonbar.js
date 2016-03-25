@@ -20,9 +20,9 @@ export default class Buttonbar extends Component {
     const title = favorite ? '取消喜欢' : '喜欢';
 
     return (
-      <a href="#" onClick={onClick} title={title} >
+      <button onClick={onClick} title={title} >
         <i className={cx('material-icons', { favorite })} > favorite </i>
-      </a>
+      </button>
     );
   }
 
@@ -31,9 +31,9 @@ export default class Buttonbar extends Component {
     const title = playing ? '暂停' : '播放';
 
     return (
-      <a href="#" onClick={onClick} title={title}>
+      <button onClick={onClick} title={title}>
         <i className="material-icons" > {icon} </i>
-      </a>
+      </button>
     );
   }
 
@@ -44,15 +44,15 @@ export default class Buttonbar extends Component {
       <div className={styles.buttonBar}>
         <div className="tasteButtonGroup">
           {this.renderFavorite(song.favorite, this.props.onTaste)}
-          <a href="#" onClick={this.props.onBan} title="不再播放" >
+          <button onClick={this.props.onBan} title="不再播放" >
             <i className="material-icons" > cancel </i>
-          </a>
+          </button>
         </div>
         <div className="controlButtonGroup">
           {this.renderPlay(playing, this.props.onControl)}
-          <a href="#" onClick={this.props.onNext} title="下一首" >
+          <button onClick={this.props.onNext} title="下一首" >
             <i className="material-icons" > skip_next </i>
-          </a>
+          </button>
         </div>
       </div>
     );

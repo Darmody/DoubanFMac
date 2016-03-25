@@ -15,6 +15,7 @@ export default class Player extends Component {
     onEnd: PropTypes.func.isRequired,
     onNext: PropTypes.func.isRequired,
     onTaste: PropTypes.func.isRequired,
+    onJump: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -56,8 +57,8 @@ export default class Player extends Component {
     const renderSong = this.props.playList[index];
 
     return (
-      <div className="songName" key={key} ref={`songName${index}`} >
-        {index + 1}. {renderSong.name}
+      <div className="songName" key={key} onClick={this.props.onJump(renderSong)} >
+        {renderSong.name}
       </div>
     );
   }

@@ -10,7 +10,7 @@
     .tasteButtonGroup {
       @include flex-grow(1);
 
-      > a {
+      > button {
         color: black;
 
         > i {
@@ -28,7 +28,7 @@
     .controlButtonGroup {
       @include flex-basis(1);
 
-      > a {
+      > button {
         color: black;
 
         > i {

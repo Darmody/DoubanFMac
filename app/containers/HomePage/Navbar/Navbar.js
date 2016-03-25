@@ -12,11 +12,11 @@ function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
         <Dropdown
           className={styles.dropdown}
           toggle={
-            <a href="#" className={styles.userLink} >
+            <button className={styles.userLink} >
               { currentUser.name }
               <i className={cx('material-icons')} > keyboard_arrow_down </i>
               <Signin />
-            </a>
+            </button>
           }
         >
           <Dropdown.Item label="退出" onClick={logoutUser} />
@@ -26,24 +26,32 @@ function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
   }
 
   return (
-    <a href="#" className={styles.userLink} onClick={showSigninModal} >
+    <button className={styles.userLink} onClick={showSigninModal} >
       登录
-    <i className={cx('material-icons')} > eject </i>
-    <Signin />
-    </a>
+      <i className={cx('material-icons')} > eject </i>
+      <Signin />
+    </button>
   );
 }
 
-export default ({ currentUser, showSigninModal, logoutUser }) => {
+export default ({ currentUser, currentLocation, showSigninModal, logoutUser }) => {
+  const activeIcon = (<i className="material-icons" > volume_up </i>);
   return (
     <nav className={styles.navbar} >
       <div className={styles.navItems} >
-        <a href="#" className="navItem disabled" > 更多 MHz </a>
+        <button className="navItem disabled" > 更多 MHz </button>
         <Link to="channels/0" className="navItem" >
           私人 MHz
-          <i className="material-icons" > volume_up </i>
+          {
+            (currentLocation === '/channels/0' || currentLocation === '/') && activeIcon
+          }
         </Link>
-        <Link to="favorite" className="navItem" > 红心 MHz </Link>
+        <Link to="favorite" className="navItem" >
+          红心 MHz
+          {
+            (currentLocation === '/favorite') && activeIcon
+          }
+        </Link>
       </div>
       <div className={styles.userItem} >
         <UserItem

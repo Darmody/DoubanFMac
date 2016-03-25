@@ -5,6 +5,7 @@ import form from './form';
 import auth from './auth';
 import captcha from './captcha';
 import channel from './channel';
+import favorite from './favorite';
 
 const rootReducer = combineReducers({
   routing,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   auth,
   captcha,
   channel,
+  favorite,
 });
 
 export default rootReducer;

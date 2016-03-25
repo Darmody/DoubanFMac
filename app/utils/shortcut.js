@@ -1,14 +1,14 @@
 import ipc from 'ipc';
 
-function listen(channelId, song, like, dislike, controlSong, banSong, nextSong) {
+function listen(channelId, tasteSong, controlSong, banSong, nextSong) {
   const handler = (event) => {
     switch (event) {
       case 'controlSong':
         return controlSong();
       case 'likeSong':
-        return like(channelId, song.id);
+        return tasteSong('like');
       case 'dislikeSong':
-        return dislike(channelId, song.id);
+        return tasteSong('dislike');
       case 'banSong':
         return banSong();
       case 'nextSong':

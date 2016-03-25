@@ -7,6 +7,7 @@ import camelizeState from 'reducers/middlewares/camelizeState';
 import { hashHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
 import rootReducer from '../reducers';
+import config from '../../config';
 
 const router = syncHistory(hashHistory);
 
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const enhancer = compose(
   applyMiddleware(...middlewares),
-  persistState(['auth'], { key: `doubanfmac_${process.env.NODE_ENV || 'development'}.auth` })
+  persistState(['auth'], { key: config.persistAuthKey })
 );
 
 export default function configureStore(initialState) {

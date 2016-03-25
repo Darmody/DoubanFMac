@@ -62,7 +62,7 @@ export default class Signin extends Component {
     return (
       <Modal isOpen={show} style={modalStyle} >
         <div className={styles.signinModal}>
-          <a href="#" className="closeButton" onClick={this.hideModal}>X</a>
+          <button className="closeButton" onClick={this.hideModal}>X</button>
           <Form
             onSubmit={this.loginUser}
             hideModal={this.hideModal}
@@ -70,7 +70,7 @@ export default class Signin extends Component {
             refreshCaptcha={this.refreshCaptcha}
           />
           <div className="footer">
-            <a href="#" className="registerLink" onClick={this.goToRegister}>去豆瓣注册</a>
+            <button className="registerLink" onClick={this.goToRegister}>去豆瓣注册</button>
           </div>
         </div>
       </Modal>

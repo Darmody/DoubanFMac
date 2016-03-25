@@ -59,9 +59,9 @@ export default class Form extends Component {
         </div>
         <div className="captchaField">
           <input type="text" className="field" placeholder="验证码" {...captchaSolution } />
-          <a href="#" onClick={this.props.refreshCaptcha}>
+          <button onClick={this.props.refreshCaptcha}>
             { captchaCode && <img src={`http://douban.fm/misc/captcha?size=m&id=${captchaCode}`} /> }
-          </a>
+          </button>
         </div>
         <div className="toolbar">
           { this.renderErrorMessage() }

@@ -44,6 +44,7 @@ export default handleActions({
         user: {
           id: data.uid,
           name: data.name,
+          token: data.ck,
         },
         logged: true,
       };

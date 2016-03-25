@@ -28,7 +28,7 @@
       &:hover {
         height: 4rem;
 
-        .songName {
+        .playListPanel {
           opacity: 1;
         }
       }
@@ -46,23 +46,25 @@
 
       .playListPanel {
         overflow: auto;
+        opacity: 0;
         max-height: 4rem;
+        transition: .5s;
       }
 
     }
 
     .songName {
-      opacity: 0;
-      text-decoration: underline;
       font-size: 0.6rem;
       color: #9b9b9b;
       word-wrap: break-word;
       cursor: pointer;
       padding: 0.2rem;
-      transition: .5s;
+      transition: .3s;
 
       &:hover {
         color: #ceecd2;
+        padding: 0.4rem;
+        font-size: 0.8rem;
       }
     }
 

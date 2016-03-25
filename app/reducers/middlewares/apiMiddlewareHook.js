@@ -31,7 +31,7 @@ const serializeFormBody = (action) => {
 
   /* eslint no-param-reassign: 0*/
   const fieldsArray = _transform(body, (result, value, key) => {
-    result.push(`${key}=${value}`);
+    result.push(`${key}=${encodeURIComponent(value)}`);
   }, []);
 
   return {

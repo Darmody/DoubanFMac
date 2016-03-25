@@ -18,11 +18,16 @@ import Navbar from './Navbar/Navbar';
 export default class HomePage extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
+    location: PropTypes.string.isRequired,
     currentUser: PropTypes.object,
     song: PropTypes.object,
     show: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     fetchCaptcha: PropTypes.func.isRequired,
+  }
+
+  static contextTypes: {
+    router: React.PropTypes.object
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,11 +56,12 @@ export default class HomePage extends Component {
   }
 
   render() {
-    const { children, currentUser } = this.props;
+    const { children, currentUser, location } = this.props;
 
     return (
       <div>
         <Navbar
+          currentLocation={location.pathname}
           currentUser={currentUser}
           showSigninModal={this.showSigninModal}
           logoutUser={this.logoutUser}

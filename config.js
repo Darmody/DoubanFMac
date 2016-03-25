@@ -1,22 +1,25 @@
 const config = {
   development: {
     electronStorageKey: 'DOUBAN_DEVELOPMENT',
+    persistAuthKey: 'doubanfmac_development',
     window: {
       width: 1024,
       height: 728,
-      resizable: false,
+      resizable: true,
     }
   },
   production: {
     electronStorageKey: 'DOUBAN_PRODUCTION',
+    persistAuthKey: 'doubanfmac_production',
     window: {
-      width: 475,
-      height: 700,
+      width: 372,
+      height: 644,
       resizable: false,
     }
   },
   test: {
     electronStorageKey: 'DOUBAN_TEST',
+    persistAuthKey: 'doubanfmac_test',
   }
 };
 

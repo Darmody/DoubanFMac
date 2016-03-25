@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetch, like, dislike, ban, play, pause } from 'reducers/channel';
+import { fetch, like, dislike, ban, play, pause, jump } from 'reducers/channel';
 import { shortcut } from 'utils';
 import styles from './Channel.scss';
 
@@ -14,7 +14,7 @@ import styles from './Channel.scss';
     channelId: params.id || '0',
   }),
   dispatch => ({
-    ...bindActionCreators({ fetch, like, dislike, ban, play, pause }, dispatch)
+    ...bindActionCreators({ fetch, like, dislike, ban, play, pause, jump }, dispatch)
   })
 )
 export default class Channel extends Component {
@@ -25,6 +25,7 @@ export default class Channel extends Component {
     ban: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
     pause: PropTypes.func.isRequired,
+    jump: PropTypes.func.isRequired,
     song: PropTypes.object.isRequired,
     playList: PropTypes.array.isRequired,
     playing: PropTypes.bool.isRequired,
@@ -34,9 +35,9 @@ export default class Channel extends Component {
   constructor(props) {
     super(props);
 
-    const { channelId, song, like, dislike } = this.props;
+    const { channelId } = this.props;
     const shortcutListener = shortcut.listen(
-      channelId, song, like, dislike, this.controlSong, this.banSong, this.nextSong()
+      channelId, this.onTaste, this.onControl, this.onBan, this.onNext()
     );
 
     this.state = { shortcutListener };
@@ -50,15 +51,15 @@ export default class Channel extends Component {
     shortcut.stop(this.state.shortcutListener);
   }
 
-  nextSong = type => () => {
+  onNext = type => () => {
     this.props.fetch(this.props.channelId, this.props.song.id, type);
   }
 
-  banSong = () => {
+  onBan = () => {
     this.props.ban(this.props.channelId, this.props.song.id);
   }
 
-  controlSong = () => {
+  onControl = () => {
     if (this.props.playing) {
       this.props.pause();
     } else {
@@ -66,12 +67,16 @@ export default class Channel extends Component {
     }
   }
 
-  tasteSong = () => {
+  onTaste = () => {
     if (this.props.song.favorite) {
       this.props.dislike(this.props.channelId, this.props.song.id);
     } else {
       this.props.like(this.props.channelId, this.props.song.id);
     }
+  }
+
+  onJump = (song) => () => {
+    this.props.jump(song);
   }
 
   render() {
@@ -83,11 +88,12 @@ export default class Channel extends Component {
           song={song}
           playList={playList}
           playing={playing}
-          onEnd={this.nextSong('p')}
-          onBan={this.banSong}
-          onControl={this.controlSong}
-          onNext={this.nextSong()}
-          onTaste={this.tasteSong}
+          onEnd={this.onNext('p')}
+          onBan={this.onBan}
+          onControl={this.onControl}
+          onNext={this.onNext()}
+          onTaste={this.onTaste}
+          onJump={this.onJump}
         />
       </div>
     );
