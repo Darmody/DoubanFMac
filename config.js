@@ -6,7 +6,8 @@ const config = {
       width: 1024,
       height: 728,
       resizable: true,
-    }
+    },
+    url: 'src/app.html'
   },
   production: {
     electronStorageKey: 'DOUBAN_PRODUCTION',
@@ -15,7 +16,8 @@ const config = {
       width: 372,
       height: 644,
       resizable: false,
-    }
+    },
+    url: 'dist/app.html'
   },
   test: {
     electronStorageKey: 'DOUBAN_TEST',

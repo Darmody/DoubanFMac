@@ -75,7 +75,7 @@ export default handleActions({
     const enabledList = _filter(playList, (song) => (song.state === 'enabled'));
 
     return state.merge({
-      song: enabledList[lastIndex === (enabledList.length - 1) ? 0 : (lastIndex + 1)],
+      song: enabledList[lastIndex >= (enabledList.length - 1) ? 0 : (lastIndex + 1)],
       playing: true,
     });
   },

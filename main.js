@@ -90,7 +90,7 @@ app.on('ready', () => {
 
   getDoubanCookies(webContents);
 
-  mainWindow.loadURL(`file://${__dirname}/app/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/${config.url}`);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

@@ -18,19 +18,16 @@ module.exports = {
     }]
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../app/dist'),
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
   resolve: {
     root: [
-      path.resolve(__dirname, '../app'),
+      path.resolve(__dirname, '../src'),
     ],
     extensions: ['', '.js', '.json'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
-  },
-  node: {
-    __dirname: true
   },
   plugins: [
 
