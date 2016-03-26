@@ -4,11 +4,12 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
-import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
-import camelizeState from '../middlewares/camelizeState';
+import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
+import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import channel, {
-  FETCH_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, PLAY, PAUSE, JUMP,
+  FETCH_SUCCESS, FETCH_FAILURE, LIKE_SUCCESS, DISLIKE_SUCCESS,
+  BAN_SUCCESS, BAN_FAILURE, PLAY, PAUSE, JUMP, REFUSE,
   fetch, like, dislike, ban, play, pause, jump,
 } from '../channel';
 
@@ -44,15 +45,50 @@ describe('Channel Actions', function actions() {
       });
 
     const store = mockStore({
-      song: {
-        id: 0, name: '', source: '', cover: '', artist: '',
-        favorite: false, size: 0
-      },
-      playList: [],
+      channel: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+      }
     });
     store.dispatch(fetch(0, 0));
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
+      done();
+    }, 20);
+  });
+
+  it('FETCH_REFUSED', function fetchRefused(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/playlist')
+      .query(nockParams)
+      .reply(200, {
+        song: [{
+          sid: 1,
+          title: '浮夸',
+          url: 'douban.fm/浮夸',
+          picture: 'douban.fm/cover',
+          artist: '陈奕迅',
+          length: 300,
+          favorite: 1,
+        }]
+      });
+
+    const store = mockStore({
+      channel: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+        loading: true,
+      }
+    });
+    store.dispatch(fetch(0, 0));
+    setTimeout(() => {
+      expect(_last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
@@ -134,15 +170,50 @@ describe('Channel Actions', function actions() {
       });
 
     const store = mockStore({
-      song: {
-        id: 0, name: '', source: '', cover: '', artist: '',
-        favorite: false, size: 0
-      },
-      playList: [],
+      channel: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+      }
     });
     store.dispatch(ban(0, 0));
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      done();
+    }, 20);
+  });
+
+  it('BAN_REFUSED', function banRefused(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/playlist')
+      .query({ ...nockParams, type: 'b' })
+      .reply(200, {
+        song: [{
+          sid: 1,
+          title: '浮夸',
+          url: 'douban.fm/浮夸',
+          picture: 'douban.fm/cover',
+          artist: '陈奕迅',
+          length: 300,
+          favorite: 1,
+        }]
+      });
+
+    const store = mockStore({
+      channel: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+        loading: true,
+      }
+    });
+    store.dispatch(ban(0, 0));
+    setTimeout(() => {
+      expect(_last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
@@ -169,7 +240,8 @@ describe('Channel Reducers', function reducers() {
           favorite: false, size: 0
         },
         playing: false,
-        playList: []
+        playList: [],
+        loading: false,
       }), {
         type: FETCH_SUCCESS,
         payload: { song: [{
@@ -188,6 +260,37 @@ describe('Channel Reducers', function reducers() {
         artist: '陈奕迅', size: 300, favorite: true
       },
       playing: true,
+      loading: false,
+      playList: [{
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true
+      }]
+    });
+  });
+
+  it('FETCH_FAILURE', function fetchFailure() {
+    expect(
+      channel(Immutable({
+        song: {
+          id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+          artist: '陈奕迅', size: 300, favorite: true
+        },
+        playing: true,
+        playList: [{
+          id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+          artist: '陈奕迅', size: 300, favorite: true
+        }],
+        loading: true,
+      }), {
+        type: FETCH_FAILURE,
+      })
+    ).to.deep.equal({
+      song: {
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true
+      },
+      playing: false,
+      loading: false,
       playList: [{
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
         artist: '陈奕迅', size: 300, favorite: true
@@ -274,7 +377,30 @@ describe('Channel Reducers', function reducers() {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
         artist: '陈奕迅', size: 300, favorite: true
       },
-      playing: true
+      playing: true,
+      loading: false,
+    });
+  });
+
+  it('BAN_FAILURE', function banFailure() {
+    expect(
+      channel(Immutable({
+        song: {
+          id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+          artist: '陈奕迅', size: 300, favorite: true
+        },
+        playing: true,
+        loading: true
+      }), {
+        type: BAN_FAILURE,
+      })
+    ).to.deep.equal({
+      song: {
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true
+      },
+      playing: false,
+      loading: false,
     });
   });
 

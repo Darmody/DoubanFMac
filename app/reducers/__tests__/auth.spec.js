@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import nock from 'nock';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
-import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
-import camelizeState from '../middlewares/camelizeState';
+import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
+import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
 import auth, { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, login, logout } from '../auth';
@@ -46,7 +46,7 @@ describe('Auth Actions', function actions() {
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
       done();
-    }, 20);
+    }, 50);
   });
 
   it('LOGIN_FAILURE', function loginFailure(done) {
@@ -86,6 +86,9 @@ describe('Auth Reducers', function reducers() {
   });
 
   it('LOGIN_FAILURE', function loginFailure() {
+    expect(
+      auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: null })
+    ).to.deep.equal({ user: { id: 0 }, logged: false });
     expect(
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');

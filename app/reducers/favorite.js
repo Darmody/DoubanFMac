@@ -25,6 +25,7 @@ export const JUMP = 'CHANNEL/JUMP';
 export const NEXT = 'FAVORITE/NEXT';
 export const PLAY = 'FAVORITE/PLAY';
 export const PAUSE = 'FAVORITE/PAUSE';
+export const REFUSE = 'FAVORITE/REFUSE';
 
 const initialState = Immutable({
   song: {
@@ -43,6 +44,7 @@ const initialState = Immutable({
 });
 
 export default handleActions({
+  [FETCH_ALL_REQUEST]: (state) => state.merge({ loading: true, playing: false }),
   [FETCH_ALL_SUCCESS]: (state, action) => {
     const playList = action.payload.map((song) => ({
       id: song.sid,
@@ -63,8 +65,9 @@ export default handleActions({
       );
     }
 
-    return state.merge({ song, playList, playing: true });
+    return state.merge({ song, playList, playing: true, loading: false });
   },
+  [FETCH_ALL_FAILURE]: (state) => state.merge({ loading: false, playing: false }),
   [NEXT]: (state, action) => {
     const { lastSongId } = action.payload;
     const { playList } = state;
@@ -86,12 +89,15 @@ export default handleActions({
       'playList', _filter(state.playList, (song) => (song.id !== state.song.id))
     );
   },
+  [BAN_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
   [BAN_SUCCESS]: (state, action) => {
     return state.merge({
       playList: _filter(state.playList, (song) => (song.id !== action.payload.songId)),
       playing: true,
+      loading: false,
     });
   },
+  [BAN_FAILURE]: (state) => state.merge({ playing: false, loading: false }),
   [JUMP]: (state, action) => (state.merge({ playing: true, song: action.payload.song })),
   [PLAY]: (state) => (state.set('playing', true)),
   [PAUSE]: (state) => (state.set('playing', false)),

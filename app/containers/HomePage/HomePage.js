@@ -18,7 +18,7 @@ import Navbar from './Navbar/Navbar';
 export default class HomePage extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
-    location: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
     song: PropTypes.object,
     show: PropTypes.func.isRequired,

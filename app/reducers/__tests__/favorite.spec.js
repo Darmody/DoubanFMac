@@ -4,12 +4,13 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
-import apiMiddlewareHook from '../middlewares/apiMiddlewareHook';
-import camelizeState from '../middlewares/camelizeState';
+import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
+import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
 import favorite, {
-  FETCH_ALL_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, PLAY, PAUSE, NEXT, JUMP,
+  FETCH_ALL_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, BAN_FAILURE, REFUSE,
+  PLAY, PAUSE, NEXT, JUMP,
   fetchAll, like, dislike, ban, play, pause, next, jump,
 } from '../favorite';
 
@@ -145,15 +146,50 @@ describe('Favorite Actions', function actions() {
       });
 
     const store = mockStore({
-      song: {
-        id: 0, name: '', source: '', cover: '', artist: '',
-        favorite: false, size: 0
-      },
-      playList: [],
+      favorite: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+      }
     });
     store.dispatch(ban(0));
     setTimeout(() => {
       expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      done();
+    }, 20);
+  });
+
+  it('BAN_FAILURE', function banFailure(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/playlist')
+      .query({ ...nockParams, type: 'b' })
+      .reply(200, {
+        song: [{
+          sid: 1,
+          title: '浮夸',
+          url: 'douban.fm/浮夸',
+          picture: 'douban.fm/cover',
+          artist: '陈奕迅',
+          length: 300,
+          favorite: 1,
+        }]
+      });
+
+    const store = mockStore({
+      favorite: {
+        song: {
+          id: 0, name: '', source: '', cover: '', artist: '',
+          favorite: false, size: 0
+        },
+        playList: [],
+        loading: true,
+      }
+    });
+    store.dispatch(ban(0));
+    setTimeout(() => {
+      expect(_last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
@@ -184,6 +220,7 @@ describe('Favorite Reducers', function reducers() {
           favorite: false, size: 0, state: 'disabled',
         },
         playing: false,
+        loading: true,
         playList: []
       }), {
         type: FETCH_ALL_SUCCESS,
@@ -204,6 +241,7 @@ describe('Favorite Reducers', function reducers() {
         artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       },
       playing: true,
+      loading: false,
       playList: [{
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
         artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
@@ -280,7 +318,8 @@ describe('Favorite Reducers', function reducers() {
           id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
           artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
         }],
-        playing: false
+        playing: false,
+        loading: true
       }), {
         type: BAN_SUCCESS,
         payload: { songId: 1 }
@@ -291,7 +330,39 @@ describe('Favorite Reducers', function reducers() {
         artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       },
       playList: [],
-      playing: true
+      playing: true,
+      loading: false
+    });
+  });
+
+  it('BAN_FAILURE', function banFailure() {
+    expect(
+      favorite(Immutable({
+        song: {
+          id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+          artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
+        },
+        playList: [{
+          id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+          artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
+        }],
+        playing: true,
+        loading: true
+      }), {
+        type: BAN_FAILURE,
+        payload: { songId: 1 }
+      })
+    ).to.deep.equal({
+      song: {
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
+      },
+      playList: [{
+        id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
+      }],
+      playing: false,
+      loading: false
     });
   });
 

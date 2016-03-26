@@ -4,6 +4,16 @@ import { decamelizeKeys } from 'humps';
 import _transform from 'lodash/transform';
 import _join from 'lodash/join';
 import _isPlainObject from 'lodash/isPlainObject';
+import _includes from 'lodash/includes';
+import {
+  FETCH_REQUEST as CHANNEL_FETCH_REQUEST,
+  BAN_REQUEST as CHANNEL_BAN_REQUEST,
+  REFUSE as CHANNEL_REFUSE,
+} from '../reducers/channel';
+import {
+  BAN_REQUEST as FAVORITE_BAN_REQUEST,
+  REFUSE as FAVORITE_REFUSE,
+} from '../reducers/favorite';
 
 const decamelizeBody = (action) => {
   const callAPI = action[CALL_API];
@@ -43,7 +53,7 @@ const serializeFormBody = (action) => {
   };
 };
 
-const strinifyJsonBody = (action) => {
+const stringifyJsonBody = (action) => {
   const callAPI = action[CALL_API];
   const { body } = callAPI;
 
@@ -58,13 +68,30 @@ const strinifyJsonBody = (action) => {
   };
 };
 
-export default () => next => action => {
+const pendingRefuse = (action, store) => {
+  if (!store) return action;
+
+  const callAPI = action[CALL_API];
+  if (_includes([CHANNEL_FETCH_REQUEST, CHANNEL_BAN_REQUEST], callAPI.types[0])) {
+    if (store.getState().channel.loading) return { type: CHANNEL_REFUSE };
+  }
+  if (FAVORITE_BAN_REQUEST === callAPI.types[0]) {
+    if (store.getState().favorite.loading) return { type: FAVORITE_REFUSE };
+  }
+
+  return action;
+};
+
+export default store => next => action => {
   let newAction = action;
 
   if (isValidRSAA(action)) {
+    newAction = pendingRefuse(action, store);
+    if (!isValidRSAA(newAction)) return next(newAction);
+
     newAction = compose(
-       strinifyJsonBody, serializeFormBody, decamelizeBody,
-    )(action);
+       pendingRefuse, stringifyJsonBody, serializeFormBody, decamelizeBody
+    )(newAction);
   }
 
   return next(newAction);
