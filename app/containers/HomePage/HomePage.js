@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { show } from 'redux-modal';
 import { connect } from 'react-redux';
-import { logout } from 'reducers/auth';
+import { logout, verify } from 'reducers/auth';
 import { fetch as fetchCaptcha } from 'reducers/captcha';
 import Navbar from './Navbar/Navbar';
 
@@ -12,7 +12,7 @@ import Navbar from './Navbar/Navbar';
     song: state.channel.song,
   }),
   dispatch => ({
-    ...bindActionCreators({ show, fetchCaptcha, logout }, dispatch)
+    ...bindActionCreators({ show, fetchCaptcha, logout, verify }, dispatch)
   })
 )
 export default class HomePage extends Component {
@@ -23,11 +23,16 @@ export default class HomePage extends Component {
     song: PropTypes.object,
     show: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
+    verify: PropTypes.func.isRequired,
     fetchCaptcha: PropTypes.func.isRequired,
   }
 
   static contextTypes: {
     router: React.PropTypes.object
+  }
+
+  componentDidMount() {
+    this.props.verify();
   }
 
   componentWillReceiveProps(nextProps) {

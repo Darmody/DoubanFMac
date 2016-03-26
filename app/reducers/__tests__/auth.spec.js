@@ -7,7 +7,10 @@ import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
-import auth, { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, login, logout } from '../auth';
+import auth, {
+  LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, VERIFY_SUCCESS, VERIFY_FAILURE,
+  login, logout, verify,
+} from '../auth';
 import signForm from '../form/signin';
 
 const middlewares = [
@@ -73,6 +76,34 @@ describe('Auth Actions', function actions() {
     }, 20);
   });
 
+  it('VERIFY_SUCCESS', function verifySuccess(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/user_info')
+      .reply(200, {
+        user_id: 1,
+      });
+
+    const store = mockStore({ user: { id: 0 } });
+    store.dispatch(verify());
+    setTimeout(() => {
+      expect(_last(store.getActions()).type).to.equal(VERIFY_SUCCESS);
+      done();
+    }, 20);
+  });
+
+  it('VERIFY_FAILURE', function verifyFailure(done) {
+    nock('http://douban.fm/')
+      .get('/j/v2/user_info')
+      .reply(200, { msg: 'need_permission' });
+
+    const store = mockStore({ user: { id: 0 } });
+    store.dispatch(verify());
+    setTimeout(() => {
+      expect(store.getActions()[1].type).to.equal(VERIFY_FAILURE);
+      done();
+    }, 20);
+  });
+
   it('LOGOUT', function logoutSuccess() {
     expect(logout()).to.deep.equal({ type: LOGOUT });
   });
@@ -92,6 +123,18 @@ describe('Auth Reducers', function reducers() {
     expect(
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');
+  });
+
+  it('VERIFY_SUCCESS', function verifySuccess() {
+    expect(
+      auth({ user: { id: 1 } }, { type: VERIFY_SUCCESS })
+    ).to.deep.equal({ user: { id: 1 } });
+  });
+
+  it('VERIFY_FAILURE', function verifyfailure() {
+    expect(
+      auth({ user: { id: 0 } }, { type: VERIFY_FAILURE })
+    ).to.deep.equal({ user: { id: 0, token: '' } });
   });
 
   it('LOGOUT', function logoutSuccess() {

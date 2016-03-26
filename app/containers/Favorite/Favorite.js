@@ -8,6 +8,7 @@ import styles from './Favorite.scss';
 
 @connect(
   state => ({
+    currentUser: state.auth.user,
     song: state.favorite.song,
     playing: state.favorite.playing,
     playList: state.favorite.playList,
@@ -18,6 +19,7 @@ import styles from './Favorite.scss';
 )
 export default class Favorite extends Component {
   static propTypes = {
+    currentUser: PropTypes.object.isRequired,
     song: PropTypes.object.isRequired,
     playList: PropTypes.array.isRequired,
     playing: PropTypes.bool.isRequired,
@@ -43,6 +45,12 @@ export default class Favorite extends Component {
 
   componentDidMount() {
     this.props.fetchAll();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentUser.id === 0 && nextProps.currentUser.id !== 0) {
+      this.props.fetchAll();
+    }
   }
 
   componentWillUnmount() {
@@ -83,37 +91,38 @@ export default class Favorite extends Component {
     this.props.jump(song);
   }
 
-  render() {
-    const { playing, song, playList } = this.props;
-    const content = (
-      <div className={styles.content} >
-        <div className="player">
-          <Player
-            song={song}
-            playList={playList}
-            playing={playing}
-            onControl={this.onControl}
-            onTaste={this.onTaste}
-            onBan={this.onBan}
-            onNext={this.onNext}
-            onEnd={this.onNext}
-            onJump={this.onJump}
-          />
+  renderContent = (props) => {
+    const { playing, currentUser, song, playList } = props;
+    const available = currentUser.id !== 0 && song.id !== 0;
+
+    if (available) {
+      return (
+        <div className={styles.content} >
+          <div className="player">
+            <Player
+              song={song}
+              playList={playList}
+              playing={playing}
+              onControl={this.onControl}
+              onTaste={this.onTaste}
+              onBan={this.onBan}
+              onNext={this.onNext}
+              onEnd={this.onNext}
+              onJump={this.onJump}
+            />
+          </div>
         </div>
-      </div>
-    );
-    const mask = (
+      );
+    }
+    return (
       <div className={styles.mask} >
         <i className="material-icons" > announcement </i>
         Oops, 还没有红心歌曲，是不是忘记登录了？
       </div>
     );
+  }
 
-    return (
-      <div>
-        { song.id === 0 && mask }
-        { song.id !== 0 && content }
-      </div>
-    );
+  render() {
+    return this.renderContent(this.props);
   }
 }
