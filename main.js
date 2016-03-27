@@ -4,6 +4,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 const electron = require('electron');
+const ipcMain = require('electron').ipcMain;
 const storage = require('electron-json-storage');
 const app = electron.app;
 const globalShortcut = electron.globalShortcut;
@@ -80,10 +81,23 @@ app.on('ready', () => {
     });
 
     storage.set(config.electronStorageKey, { cookies }, (error) => {
-      if (error) console.log('Douban cookie save to storage error', error);
+      if (error) console.log('Douban cookie save to storage error:', error);
     });
   };
 
+  const removeDoubanCookies = () => {
+    storage.remove(config.electronStorageKey, (error) => {
+      if (error) console.log('storage remove error:', error);
+    });
+    webContents.session.cookies.remove('http://douban.fm', 'bid', (error) => {
+      if (error) console.log('remove electron cookie error:', error);
+    });
+    webContents.session.cookies.remove('http://douban.fm', 'dbcl2', (error) => {
+      if (error) console.log('remove electron cookie error:', error);
+    });
+  };
+
+  ipcMain.on('logout', removeDoubanCookies);
   webContents.on('did-get-response-details', (event, status, newURL, originalURL, code, method, referrer, headers) => {
     setDoubanCookies(webContents, originalURL, headers);
   });
