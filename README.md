@@ -1,6 +1,5 @@
 # Douban FMac
 
-[![version][version-image]][version-url]
 [![build status][travis-image]][travis-url]
 [![coverall status][coveralls-image]][coveralls-url]
 
