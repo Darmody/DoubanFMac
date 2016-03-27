@@ -12,8 +12,10 @@ A beautiful mac desktop application for [Douban FM](http://douban.fm)
 
 ## Screenshots
 
-<img src="screenshots/screenshot-app.png" alt="screenshot" width="250px" />
-<img src="screenshots/screenshot-login.png" alt="screenshot" width="250px" />
+<img src="static/screenshots/demo.gif" alt="demo" width="250px" />
+<br/>
+<img src="static/screenshots/screenshot-app.png" alt="screenshot" width="250px" />
+<img src="static/screenshots/screenshot-login.png" alt="screenshot" width="250px" />
 
 ## Features
 

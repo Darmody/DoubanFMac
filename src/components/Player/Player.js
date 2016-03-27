@@ -8,6 +8,7 @@ import styles from './Player.scss';
 export default class Player extends Component {
   static propTypes = {
     song: PropTypes.object.isRequired,
+    listTitle: PropTypes.string.isRequired,
     playList: PropTypes.array.isRequired,
     playing: PropTypes.bool.isRequired,
     onBan: PropTypes.func.isRequired,
@@ -65,7 +66,7 @@ export default class Player extends Component {
 
   render() {
     const { step, buffer } = this.state;
-    const { song, playList, playing } = this.props;
+    const { song, listTitle, playList, playing } = this.props;
 
     const remainTime = 1000.0 * (song.size - step);
 
@@ -78,7 +79,7 @@ export default class Player extends Component {
           <div className="songNameList">
             <div className="playListTitle">
               <i className="material-icons" > details </i>
-              播放列表
+              {listTitle}
             </div>
             <div className="playListPanel">
               <ReactList

@@ -86,6 +86,7 @@ export default class Channel extends Component {
       <div className={styles.player}>
         <Player
           song={song}
+          listTitle="听过的"
           playList={playList}
           playing={playing}
           onEnd={this.onNext('p')}

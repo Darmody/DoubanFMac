@@ -1,7 +1,7 @@
 {
   "name": "DoubanFMac",
   "productName": "DoubanFMac",
-  "version": "1.0.0-0",
+  "version": "1.0.0",
   "description": "豆瓣FM for mac",
   "main": "main.js",
   "scripts": {
@@ -10,12 +10,9 @@
     "coverage": "NODE_ENV=test istanbul cover _mocha --report lcovonly -- --compilers js:babel-core/register --require src/utils/testSetup.js --recursive src/**/*.spec.js",
     "lint": "eslint src *.js",
     "dev-server": "node server.js",
-    "bundle": "cross-env NODE_ENV=production webpack --config webpack/config.production.js --progress --profile --colors",
+    "bundle": "cross-env NODE_ENV=production webpack --config webpack/config.production.js --progress --profile --colors && cp main.js app/main.js && cp src/app.html app/dist/app.html && cp config.js app/config.js",
     "start": "cross-env NODE_ENV=production electron ./",
     "start-dev": "cross-env HOT=1 NODE_ENV=development electron ./",
-    "package": "cross-env NODE_ENV=production node package.js",
-    "package-all": "npm run package -- --all",
-    "postinstall": "install-app-deps",
     "pack": "NODE_ENV=production build",
     "dist": "NODE_ENV=production build"
   },
@@ -29,13 +26,13 @@
       "background": "build/background.png",
       "contents": [
         {
-          "x": 410,
+          "x": 460,
           "y": 220,
           "type": "link",
           "path": "/Applications"
         },
         {
-          "x": 130,
+          "x": 160,
           "y": 220,
           "type": "file"
         }

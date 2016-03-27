@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
-import config from '../../config';
 
 export const VERIFY_REQUEST = 'AUTH/VERIFY_REQUEST';
 export const VERIFY_SUCCESS = 'AUTH/VERIFY_SUCCESS';
@@ -21,10 +20,10 @@ const initialState = Immutable({
 export default handleActions({
   [LOGOUT]: (state) => {
     try {
-      const PersistStorage = require('electron-json-storage');
-      PersistStorage.remove(config.electronStorageKey);
+      const ipc = require('ipc');
+      ipc.send('logout');
     } catch (error) {
-      console.log('Electron Storage Error:', error);
+      console.log('remove cookie event error:', error);
     }
 
     return {
