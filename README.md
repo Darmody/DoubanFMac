@@ -18,15 +18,15 @@ A beautiful mac desktop application for [Douban FM](http://douban.fm)
 
 ## Features
 
-1. play/pause songs on 私人 channel. [`Ctrl+Alt+p`]
-2. like songs. [`Crtl+Alt+l`]
-3. dislike songs. [`Ctrl+Alt+u`]
-4. skip songs. [`Ctrl+Alt+n`]
-5. ban songs. [`Ctrl+Alt+b`]
+1. play/pause. [`Ctrl+Alt+p`]
+2. like. [`Crtl+Alt+l`]
+3. dislike. [`Ctrl+Alt+u`]
+4. skip. [`Ctrl+Alt+n`]
+5. ban. [`Ctrl+Alt+b`]
 
 ## Download
 
-Download the Mac Desktop Application at [Mac App Releases](https://github.com/Darmody/DoubanFMac/releases)
+Download the Mac Desktop Application at [Download Page](http://darmody.github.io/DoubanFMac/)
 
 [travis-image]: https://img.shields.io/travis/Darmody/DoubanFMac/master.svg
 [travis-url]: https://travis-ci.org/Darmody/DoubanFMac
