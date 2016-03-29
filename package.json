@@ -1,7 +1,7 @@
 {
   "name": "DoubanFMac",
   "productName": "DoubanFMac",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "豆瓣FM for mac",
   "main": "main.js",
   "scripts": {
