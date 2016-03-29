@@ -1,0 +1,38 @@
+@import '~sass-flex-mixin/flex';
+
+.footer {
+  @extend %flexbox;
+  @include justify-content(flex-end);
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.updaterBar {
+  @extend %flexbox;
+  @include flex-grow(1);
+  @include align-items(center);
+
+  :global {
+    .icon {
+      width: 1.5rem;
+      margin-left: 1rem;
+    }
+  }
+}
+
+.contactBar {
+  width: 4rem;
+}
+
+.link {
+  font-size: 0.5rem;
+  color: #fff;
+  background: #ceecd2;
+  padding: 0.2rem;
+  margin-right: 1rem;
+  text-decoration: none;
+}

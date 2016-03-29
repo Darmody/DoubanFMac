@@ -3,7 +3,7 @@
 @mixin navItem($fontSize: 0.8rem) {
   color: grey;
   font-size: $fontSize;
-  font-weight: thin;
+  font-weight: 300;
   text-decoration: none;
 }
 
