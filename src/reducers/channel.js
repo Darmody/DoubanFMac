@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import _fetch from '../utils/fetchHelper';
-/* eslint id-length: 0 */
 import _ from 'ramda';
 
 export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
