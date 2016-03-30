@@ -251,7 +251,7 @@ describe('Channel Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 1,
         }] }
       })
     ).to.deep.equal({

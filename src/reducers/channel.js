@@ -1,6 +1,8 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import _fetch from '../utils/fetchHelper';
+/* eslint id-length: 0 */
+import _ from 'ramda';
 
 export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
 export const FETCH_SUCCESS = 'CHANNEL/FETCH_SUCCESS';
@@ -38,27 +40,16 @@ export default handleActions({
   [FETCH_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
   [FETCH_SUCCESS]: (state, action) => {
     const data = action.payload.song[0];
-    let playList = Immutable([{
-      id: data.sid,
-      name: data.title,
-      source: data.url,
-      cover: data.picture,
-      artist: data.artist,
-      size: data.length,
-      favorite: data.like !== 0,
-    }]).concat(state.playList);
-    playList = playList.length > 10 ? playList.slice(0, 10) : playList;
+    const destKeys = ['id', 'name', 'source', 'cover', 'artist', 'size', 'favorite'];
+    const sourceKeys = ['sid', 'title', 'url', 'picture', 'artist', 'length', 'like'];
+
+    const song = _.compose(
+      _.evolve({ favorite: _.equals(1) }), _.zipObj(destKeys), _.props(sourceKeys)
+    )(data);
+    const playList = _.slice(0, 10)(_.prepend(song, state.playList));
 
     return state.merge({
-      song: {
-        id: data.sid,
-        name: data.title,
-        source: data.url,
-        cover: data.picture,
-        artist: data.artist,
-        size: data.length,
-        favorite: data.like !== 0,
-      },
+      song,
       playing: true,
       loading: false,
       playList
