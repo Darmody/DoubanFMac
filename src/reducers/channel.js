@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import _fetch from '../utils/fetchHelper';
+import { transform } from '../utils/song';
 import _ from 'ramda';
 
 export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
@@ -37,47 +38,36 @@ const initialState = Immutable({
 
 export default handleActions({
   [FETCH_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
+
   [FETCH_SUCCESS]: (state, action) => {
-    const data = action.payload.song[0];
-    const destKeys = ['id', 'name', 'source', 'cover', 'artist', 'size', 'favorite'];
-    const sourceKeys = ['sid', 'title', 'url', 'picture', 'artist', 'length', 'like'];
-
-    const song = _.compose(
-      _.evolve({ favorite: _.equals(1) }), _.zipObj(destKeys), _.props(sourceKeys)
-    )(data);
+    const song = transform(action.payload.song[0]);
     const playList = _.slice(0, 10)(_.prepend(song, state.playList));
-
-    return state.merge({
-      song,
-      playing: true,
-      loading: false,
-      playList
-    });
+    return state.merge({ song, playing: true, loading: false, playList });
   },
+
   [FETCH_FAILURE]: (state) => (state.merge({ playing: false, loading: false })),
+
   [LIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], true)),
+
   [DISLIKE_SUCCESS]: (state) => (state.setIn(['song', 'favorite'], false)),
+
   [BAN_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
+
   [BAN_SUCCESS]: (state, action) => {
-    const data = action.payload.song[0];
     return state.merge({
-      song: {
-        id: data.sid,
-        name: data.title,
-        source: data.url,
-        cover: data.picture,
-        artist: data.artist,
-        size: data.length,
-        favorite: data.like !== 0,
-      },
+      song: transform(action.payload.song[0]),
       playing: true,
       loading: false,
     });
   },
   [BAN_FAILURE]: (state) => (state.merge({ playing: false, loading: false })),
+
   [JUMP]: (state, action) => (state.merge({ playing: true, song: action.payload.song })),
+
   [PLAY]: (state) => state.set('playing', true),
+
   [PAUSE]: (state) => state.set('playing', false),
+
 }, initialState);
 
 export function fetch(channel, lastSongId, type) {

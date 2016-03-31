@@ -85,6 +85,7 @@ export default class Player extends Component {
               <ReactList
                 itemRenderer={this.renderSongName}
                 length={playList.length}
+                updateWhenThisValueChanges={playList}
               />
             </div>
           </div>

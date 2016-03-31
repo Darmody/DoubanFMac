@@ -257,13 +257,13 @@ describe('Channel Reducers', function reducers() {
     ).to.deep.equal({
       song: {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       },
       playing: true,
       loading: false,
       playList: [{
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       }]
     });
   });
@@ -369,13 +369,13 @@ describe('Channel Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 0,
         }] }
       })
     ).to.deep.equal({
       song: {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: false, state: 'enabled'
       },
       playing: true,
       loading: false,

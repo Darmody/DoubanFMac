@@ -231,7 +231,7 @@ describe('Favorite Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 1,
           status: 0,
         }]
       })

@@ -1,12 +1,11 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
+import _ from 'ramda';
+import sample from 'lodash.sample';
 import _fetch from '../utils/fetchHelper';
+import { transform, getEnabledList, dropById, getIndex, nextIndex } from '../utils/song';
 import config from '../../config';
-import _join from 'lodash/join';
-import _findIndex from 'lodash/findIndex';
-import _filter from 'lodash/filter';
-import _sample from 'lodash/sample';
 
 export const FETCH_ALL_REQUEST = 'FAVORITE/FETCH_ALL_REQUEST';
 export const FETCH_ALL_RELAY = 'FAVORITE/FETCH_ALL_RELAY';
@@ -45,74 +44,60 @@ const initialState = Immutable({
 
 export default handleActions({
   [FETCH_ALL_REQUEST]: (state) => state.merge({ loading: true, playing: false }),
+
   [FETCH_ALL_SUCCESS]: (state, action) => {
-    const playList = action.payload.map((song) => ({
-      id: song.sid,
-      name: song.title,
-      source: song.url,
-      cover: song.picture,
-      artist: song.artist,
-      size: song.length,
-      favorite: true,
-      state: song.status === 0 ? 'enabled' : 'disabled',
-    }));
-
-    let song = state.song;
-
-    if (playList.length > 0) {
-      song = _sample(
-        _filter(playList, (song) => (song.state === 'enabled'))
-      );
-    }
-
+    const playList = _.map(song => transform(song), action.payload);
+    const song = _.compose(_.or(_.__, state.song), sample, getEnabledList)(playList);
     return state.merge({ song, playList, playing: true, loading: false });
   },
+
   [FETCH_ALL_FAILURE]: (state) => state.merge({ loading: false, playing: false }),
+
   [NEXT]: (state, action) => {
     const { lastSongId } = action.payload;
     const { playList } = state;
-    const lastIndex = _findIndex(playList, (song) => (song.id === lastSongId));
-    const enabledList = _filter(playList, (song) => (song.state === 'enabled'));
-
-    return state.merge({
-      song: enabledList[lastIndex >= (enabledList.length - 1) ? 0 : (lastIndex + 1)],
-      playing: true,
-    });
+    const enabledList = getEnabledList(playList);
+    const lastIndex = getIndex(lastSongId, playList);
+    const currentIndex = nextIndex(lastIndex, enabledList);
+    return state.merge({ song: enabledList[currentIndex], playing: true });
   },
+
   [LIKE_SUCCESS]: (state) => {
     const nextState = state.setIn(['song', 'favorite'], true);
     return nextState.set('playList', state.playList.concat(nextState.song));
   },
+
   [DISLIKE_SUCCESS]: (state) => {
     const nextState = state.setIn(['song', 'favorite'], false);
-    return nextState.set(
-      'playList', _filter(state.playList, (song) => (song.id !== state.song.id))
-    );
+    return nextState.set('playList', dropById(state.song.id, state.playList));
   },
+
   [BAN_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
+
   [BAN_SUCCESS]: (state, action) => {
     return state.merge({
-      playList: _filter(state.playList, (song) => (song.id !== action.payload.songId)),
+      playList: dropById(action.payload.songId, state.playList),
       playing: true,
       loading: false,
     });
   },
+
   [BAN_FAILURE]: (state) => state.merge({ playing: false, loading: false }),
+
   [JUMP]: (state, action) => (state.merge({ playing: true, song: action.payload.song })),
+
   [PLAY]: (state) => (state.set('playing', true)),
+
   [PAUSE]: (state) => (state.set('playing', false)),
 }, initialState);
 
 function _fetchAll(ids) {
   const localStorage = window.localStorage;
   const authKey = config.persistAuthKey;
-
-  const body = {
-    bps: 192,
-    sids: _join(ids, '|'),
-    ck: localStorage[authKey] ? JSON.parse(localStorage[authKey]).auth.user.token : '',
-  };
-
+  const token = _.compose(
+    _.pathOr('', ['auth', 'user', 'token']), JSON.parse, _.propOr('{}', authKey),
+  )(localStorage);
+  const body = { bps: 192, sids: _.join('|', ids), ck: token };
   return {
     [CALL_API]: {
       endpoint: 'http://douban.fm/j/v2/redheart/songs',
