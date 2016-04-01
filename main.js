@@ -183,6 +183,12 @@ app.on('ready', () => {
         label: 'Select All',
         accelerator: 'Command+A',
         selector: 'selectAll:'
+      }, {
+        label: 'Toggle Full Screen',
+        accelerator: 'Ctrl+Command+F',
+        click() {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        }
       }]
     }, {
       label: 'Window',
