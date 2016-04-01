@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import _fetch from '../utils/fetchHelper';
-import { transform } from '../utils/song';
+import _song from '../modules/song';
 import _ from 'ramda';
 
 export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
@@ -40,7 +40,7 @@ export default handleActions({
   [FETCH_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
 
   [FETCH_SUCCESS]: (state, action) => {
-    const song = transform(action.payload.song[0]);
+    const song = _song.of(action.payload.song[0]);
     const playList = _.slice(0, 10)(_.prepend(song, state.playList));
     return state.merge({ song, playing: true, loading: false, playList });
   },
@@ -55,7 +55,7 @@ export default handleActions({
 
   [BAN_SUCCESS]: (state, action) => {
     return state.merge({
-      song: transform(action.payload.song[0]),
+      song: _song.of(action.payload.song[0]),
       playing: true,
       loading: false,
     });

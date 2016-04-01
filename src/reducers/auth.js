@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
 import _ from 'ramda';
-import { transform } from '../utils/user';
+import _user from '../modules/user';
 
 export const VERIFY_REQUEST = 'AUTH/VERIFY_REQUEST';
 export const VERIFY_SUCCESS = 'AUTH/VERIFY_SUCCESS';
@@ -29,7 +29,7 @@ export default handleActions({
 
   [LOGIN_SUCCESS]: (state, action) => {
     const data = action.payload;
-    return { ...state, user: transform(data), logged: _.is(Object, data) };
+    return { ...state, user: _user.of(data), logged: _.is(Object, data) };
   },
 
   [VERIFY_SUCCESS]: (state) => state,

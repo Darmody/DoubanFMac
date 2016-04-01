@@ -4,7 +4,7 @@ import { handleActions } from 'redux-actions';
 import _ from 'ramda';
 import sample from 'lodash.sample';
 import _fetch from '../utils/fetchHelper';
-import { transform, getEnabledList, dropById, getIndex, nextIndex } from '../utils/song';
+import _song from '../modules/song';
 import config from '../../config';
 
 export const FETCH_ALL_REQUEST = 'FAVORITE/FETCH_ALL_REQUEST';
@@ -46,8 +46,8 @@ export default handleActions({
   [FETCH_ALL_REQUEST]: (state) => state.merge({ loading: true, playing: false }),
 
   [FETCH_ALL_SUCCESS]: (state, action) => {
-    const playList = _.map(song => transform(song), action.payload);
-    const song = _.compose(_.or(_.__, state.song), sample, getEnabledList)(playList);
+    const playList = _.map(song => _song.of(song), action.payload);
+    const song = _.compose(_.or(_.__, state.song), sample, _song.fetchEnabledList)(playList);
     return state.merge({ song, playList, playing: true, loading: false });
   },
 
@@ -56,9 +56,9 @@ export default handleActions({
   [NEXT]: (state, action) => {
     const { lastSongId } = action.payload;
     const { playList } = state;
-    const enabledList = getEnabledList(playList);
-    const lastIndex = getIndex(lastSongId, playList);
-    const currentIndex = nextIndex(lastIndex, enabledList);
+    const enabledList = _song.fetchEnabledList(playList);
+    const lastIndex = _song.findIndex(lastSongId, playList);
+    const currentIndex = _song.nextIndex(lastIndex, enabledList);
     return state.merge({ song: enabledList[currentIndex], playing: true });
   },
 
@@ -69,14 +69,14 @@ export default handleActions({
 
   [DISLIKE_SUCCESS]: (state) => {
     const nextState = state.setIn(['song', 'favorite'], false);
-    return nextState.set('playList', dropById(state.song.id, state.playList));
+    return nextState.set('playList', _song.remove(state.song.id, state.playList));
   },
 
   [BAN_REQUEST]: (state) => state.merge({ playing: false, loading: true }),
 
   [BAN_SUCCESS]: (state, action) => {
     return state.merge({
-      playList: dropById(action.payload.songId, state.playList),
+      playList: _song.remove(action.payload.songId, state.playList),
       playing: true,
       loading: false,
     });
