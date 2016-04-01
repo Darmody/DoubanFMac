@@ -4,9 +4,9 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
 import {
   FETCH_SUCCESS, FETCH_FAILURE, LIKE_SUCCESS, DISLIKE_SUCCESS,
   BAN_SUCCESS, BAN_FAILURE, PLAY, PAUSE, JUMP, REFUSE,
@@ -57,7 +57,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(fetch(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(FETCH_SUCCESS);
       done();
     }, 20);
   });
@@ -90,7 +90,8 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(fetch(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(REFUSE);
+      console.log(store.getActions());
+      expect(_.last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
@@ -120,7 +121,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(like(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(LIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(LIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -150,7 +151,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(dislike(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -182,7 +183,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(ban(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(BAN_SUCCESS);
       done();
     }, 20);
   });
@@ -215,7 +216,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(ban(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(REFUSE);
+      expect(_.last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });

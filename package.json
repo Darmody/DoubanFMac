@@ -123,7 +123,6 @@
     "electron-cookies": "^1.1.0",
     "electron-json-storage": "^2.0.0",
     "humps": "^1.0.0",
-    "lodash": "^4.6.1",
     "lodash.sample": "^4.1.1",
     "material-design-icons-iconfont": "^2.0.4",
     "moment": "^2.12.0",

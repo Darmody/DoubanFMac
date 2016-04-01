@@ -16,7 +16,10 @@ function fetch(actionTypes, channel, lastSongId = 0, type = 's') {
     sid: lastSongId,
     type,
   };
-  const queryString = _.compose(_.join('&'), _.map(_.join('=')), _.toPairs)(params);
+  const queryString = _.compose(
+    _.join('&'), _.map(_.join('=')), _.toPairs,
+    _.mapObjIndexed((value) => encodeURIComponent(value))
+  )(params);
 
   return dispatch => {
     dispatch({

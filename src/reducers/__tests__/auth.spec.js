@@ -3,10 +3,9 @@ import { expect } from 'chai';
 import nock from 'nock';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import _join from 'lodash/join';
 import {
   LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, VERIFY_SUCCESS, VERIFY_FAILURE,
 } from '../../actionTypes/auth';
@@ -35,7 +34,7 @@ describe('Auth Actions', function actions() {
       'captcha_id=captchaId'
     ];
     nock('http://douban.fm/')
-      .post('/j/login', _join(params, '&'))
+      .post('/j/login', _.join('&', params))
       .reply(200, {
         user_info: {
           uid: 1,
@@ -49,9 +48,9 @@ describe('Auth Actions', function actions() {
       captchaSolution: 'captcha', captchaId: 'captchaId'
     }));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
       done();
-    }, 50);
+    }, 20);
   });
 
   it('LOGIN_FAILURE', function loginFailure(done) {
@@ -64,7 +63,7 @@ describe('Auth Actions', function actions() {
       'captcha_id=captchaId'
     ];
     nock('http://douban.fm/')
-      .post('/j/login', _join(params, '&'))
+      .post('/j/login', _.join('&', params))
       .reply(200, { err_msg: 'wrong_password' });
 
     const store = mockStore({ user: { id: 0 } });
@@ -88,7 +87,7 @@ describe('Auth Actions', function actions() {
     const store = mockStore({ user: { id: 0 } });
     store.dispatch(verify());
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(VERIFY_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(VERIFY_SUCCESS);
       done();
     }, 20);
   });

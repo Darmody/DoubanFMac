@@ -3326,9 +3326,9 @@
       "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.13.tgz"
     },
     "lodash": {
-      "version": "4.6.1",
+      "version": "4.7.0",
       "from": "lodash@>=4.6.1 <5.0.0",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.6.1.tgz"
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.7.0.tgz"
     },
     "lodash-es": {
       "version": "4.6.1",
@@ -3567,7 +3567,7 @@
     },
     "lodash.sample": {
       "version": "4.1.1",
-      "from": "lodash.sample@*",
+      "from": "lodash.sample@>=4.1.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.sample/-/lodash.sample-4.1.1.tgz",
       "dependencies": {
         "lodash.keys": {
