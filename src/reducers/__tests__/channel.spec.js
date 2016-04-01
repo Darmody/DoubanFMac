@@ -7,9 +7,11 @@ import thunk from 'redux-thunk';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
-import channel, {
+import {
   FETCH_SUCCESS, FETCH_FAILURE, LIKE_SUCCESS, DISLIKE_SUCCESS,
   BAN_SUCCESS, BAN_FAILURE, PLAY, PAUSE, JUMP, REFUSE,
+} from '../../actionTypes/channel';
+import channel, {
   fetch, like, dislike, ban, play, pause, jump,
 } from '../channel';
 

@@ -4,22 +4,13 @@ import _fetch from '../utils/fetchHelper';
 import _song from '../modules/song';
 import _ from 'ramda';
 
-export const FETCH_REQUEST = 'CHANNEL/FETCH_REQUEST';
-export const FETCH_SUCCESS = 'CHANNEL/FETCH_SUCCESS';
-export const FETCH_FAILURE = 'CHANNEL/FETCH_FAILURE';
-export const LIKE_REQUEST = 'CHANNEL/LIKE_REQUEST';
-export const LIKE_SUCCESS = 'CHANNEL/LIKE_SUCCESS';
-export const LIKE_FAILURE = 'CHANNEL/LIKE_FAILURE';
-export const DISLIKE_REQUEST = 'CHANNEL/DISLIKE_REQUEST';
-export const DISLIKE_SUCCESS = 'CHANNEL/DISLIKE_SUCCESS';
-export const DISLIKE_FAILURE = 'CHANNEL/DISLIKE_FAILURE';
-export const BAN_REQUEST = 'CHANNEL/BAN_REQUEST';
-export const BAN_SUCCESS = 'CHANNEL/BAN_SUCCESS';
-export const BAN_FAILURE = 'CHANNEL/BAN_FAILURE';
-export const JUMP = 'CHANNEL/JUMP';
-export const PLAY = 'CHANNEL/PLAY';
-export const PAUSE = 'CHANNEL/PAUSE';
-export const REFUSE = 'CHANNEL/REFUSE';
+import {
+  FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE,
+  LIKE_REQUEST, LIKE_SUCCESS, LIKE_FAILURE,
+  DISLIKE_REQUEST, DISLIKE_SUCCESS, DISLIKE_FAILURE,
+  BAN_REQUEST, BAN_SUCCESS, BAN_FAILURE,
+  JUMP, PLAY, PAUSE
+} from '../actionTypes/channel';
 
 const initialState = Immutable({
   song: {

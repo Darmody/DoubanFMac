@@ -2,15 +2,12 @@ import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
 import _ from 'ramda';
+import {
+  VERIFY_REQUEST, VERIFY_SUCCESS, VERIFY_FAILURE,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
+  LOGOUT,
+} from '../actionTypes/auth';
 import _user from '../modules/user';
-
-export const VERIFY_REQUEST = 'AUTH/VERIFY_REQUEST';
-export const VERIFY_SUCCESS = 'AUTH/VERIFY_SUCCESS';
-export const VERIFY_FAILURE = 'AUTH/VERIFY_FAILURE';
-export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'AUTH/LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'AUTH/LOGIN_FAIL';
-export const LOGOUT = 'AUTH/LOGOUT';
 
 const initialState = Immutable({
   user: {

@@ -6,7 +6,8 @@ import thunk from 'redux-thunk';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
-import captcha, { FETCH_SUCCESS, fetch } from '../captcha';
+import { FETCH_SUCCESS } from '../../actionTypes/captcha';
+import captcha, { fetch } from '../captcha';
 
 const middlewares = [
   thunk, apiMiddlewareHook, apiMiddleware, camelizeState

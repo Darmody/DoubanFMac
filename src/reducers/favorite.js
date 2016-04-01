@@ -7,24 +7,13 @@ import _fetch from '../utils/fetchHelper';
 import _song from '../modules/song';
 import config from '../../config';
 
-export const FETCH_ALL_REQUEST = 'FAVORITE/FETCH_ALL_REQUEST';
-export const FETCH_ALL_RELAY = 'FAVORITE/FETCH_ALL_RELAY';
-export const FETCH_ALL_SUCCESS = 'FAVORITE/FETCH_ALL_SUCCESS';
-export const FETCH_ALL_FAILURE = 'FAVORITE/FETCH_ALL_FAILURE';
-export const LIKE_REQUEST = 'FAVORITE/LIKE_REQUEST';
-export const LIKE_SUCCESS = 'FAVORITE/LIKE_SUCCESS';
-export const LIKE_FAILURE = 'FAVORITE/LIKE_FAILURE';
-export const DISLIKE_REQUEST = 'FAVORITE/DISLIKE_REQUEST';
-export const DISLIKE_SUCCESS = 'FAVORITE/DISLIKE_SUCCESS';
-export const DISLIKE_FAILURE = 'FAVORITE/DISLIKE_FAILURE';
-export const BAN_REQUEST = 'FAVORITE/BAN_REQUEST';
-export const BAN_SUCCESS = 'FAVORITE/BAN_SUCCESS';
-export const BAN_FAILURE = 'FAVORITE/BAN_FAILURE';
-export const JUMP = 'CHANNEL/JUMP';
-export const NEXT = 'FAVORITE/NEXT';
-export const PLAY = 'FAVORITE/PLAY';
-export const PAUSE = 'FAVORITE/PAUSE';
-export const REFUSE = 'FAVORITE/REFUSE';
+import {
+  FETCH_ALL_REQUEST, FETCH_ALL_RELAY, FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE,
+  LIKE_REQUEST, LIKE_SUCCESS, LIKE_FAILURE,
+  DISLIKE_REQUEST, DISLIKE_SUCCESS, DISLIKE_FAILURE,
+  BAN_REQUEST, BAN_SUCCESS, BAN_FAILURE,
+  JUMP, NEXT, PLAY, PAUSE
+} from '../actionTypes/favorite';
 
 const initialState = Immutable({
   song: {

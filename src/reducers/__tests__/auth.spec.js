@@ -7,8 +7,10 @@ import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
-import auth, {
+import {
   LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, VERIFY_SUCCESS, VERIFY_FAILURE,
+} from '../../actionTypes/auth';
+import auth, {
   login, logout, verify,
 } from '../auth';
 import signForm from '../form/signin';
