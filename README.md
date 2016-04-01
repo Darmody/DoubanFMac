@@ -37,7 +37,22 @@ Download the Mac Desktop Application at [Download Page](http://darmody.github.io
 
 ## Contributing
 
-Feel free to create PR, issues, and fork the repo.
+### install
+
+Fork it, and create your feature branch.  
+`npm install -g electron && npm install`
+
+### development
+
+`npm run dev-server` for start webpack server.  
+`npm run start-dev` for start electron.
+
+### test
+
+`npm run lint`  
+`npm test`  
+`npm test-dev /path/to/test/file` for test specify file.  
+`npm run coverage`
 
 ## License
 
