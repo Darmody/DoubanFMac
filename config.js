@@ -15,7 +15,7 @@ const config = {
     window: {
       width: 372,
       height: 644,
-      resizable: false,
+      resizable: true,
     },
     url: 'dist/app.html'
   },

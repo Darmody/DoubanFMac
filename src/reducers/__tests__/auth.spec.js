@@ -3,12 +3,13 @@ import { expect } from 'chai';
 import nock from 'nock';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import _join from 'lodash/join';
-import auth, {
+import {
   LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, VERIFY_SUCCESS, VERIFY_FAILURE,
+} from '../../actionTypes/auth';
+import auth, {
   login, logout, verify,
 } from '../auth';
 import signForm from '../form/signin';
@@ -33,7 +34,7 @@ describe('Auth Actions', function actions() {
       'captcha_id=captchaId'
     ];
     nock('http://douban.fm/')
-      .post('/j/login', _join(params, '&'))
+      .post('/j/login', _.join('&', params))
       .reply(200, {
         user_info: {
           uid: 1,
@@ -47,9 +48,9 @@ describe('Auth Actions', function actions() {
       captchaSolution: 'captcha', captchaId: 'captchaId'
     }));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
       done();
-    }, 50);
+    }, 20);
   });
 
   it('LOGIN_FAILURE', function loginFailure(done) {
@@ -62,7 +63,7 @@ describe('Auth Actions', function actions() {
       'captcha_id=captchaId'
     ];
     nock('http://douban.fm/')
-      .post('/j/login', _join(params, '&'))
+      .post('/j/login', _.join('&', params))
       .reply(200, { err_msg: 'wrong_password' });
 
     const store = mockStore({ user: { id: 0 } });
@@ -86,7 +87,7 @@ describe('Auth Actions', function actions() {
     const store = mockStore({ user: { id: 0 } });
     store.dispatch(verify());
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(VERIFY_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(VERIFY_SUCCESS);
       done();
     }, 20);
   });
@@ -105,7 +106,7 @@ describe('Auth Actions', function actions() {
   });
 
   it('LOGOUT', function logoutSuccess() {
-    expect(logout()).to.deep.equal({ type: LOGOUT });
+    expect(logout()).to.deep.equal({ type: LOGOUT, payload: undefined });
   });
 });
 
@@ -119,7 +120,7 @@ describe('Auth Reducers', function reducers() {
   it('LOGIN_FAILURE', function loginFailure() {
     expect(
       auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: null })
-    ).to.deep.equal({ user: { id: 0 }, logged: false });
+    ).to.deep.equal({ user: { id: 0, name: '', token: '' }, logged: false });
     expect(
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');

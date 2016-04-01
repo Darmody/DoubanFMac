@@ -4,12 +4,14 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import channel, {
+import {
   FETCH_SUCCESS, FETCH_FAILURE, LIKE_SUCCESS, DISLIKE_SUCCESS,
   BAN_SUCCESS, BAN_FAILURE, PLAY, PAUSE, JUMP, REFUSE,
+} from '../../actionTypes/channel';
+import channel, {
   fetch, like, dislike, ban, play, pause, jump,
 } from '../channel';
 
@@ -55,7 +57,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(fetch(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(FETCH_SUCCESS);
       done();
     }, 20);
   });
@@ -88,7 +90,8 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(fetch(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(REFUSE);
+      console.log(store.getActions());
+      expect(_.last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
@@ -118,7 +121,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(like(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(LIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(LIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -148,7 +151,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(dislike(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -180,7 +183,7 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(ban(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(BAN_SUCCESS);
       done();
     }, 20);
   });
@@ -213,17 +216,17 @@ describe('Channel Actions', function actions() {
     });
     store.dispatch(ban(0, 0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(REFUSE);
+      expect(_.last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
 
   it('PLAY', function playSuccess() {
-    expect(play()).to.deep.equal({ type: PLAY });
+    expect(play()).to.deep.equal({ type: PLAY, payload: undefined });
   });
 
   it('PAUSE', function pauseSuccess() {
-    expect(pause()).to.deep.equal({ type: PAUSE });
+    expect(pause()).to.deep.equal({ type: PAUSE, payload: undefined });
   });
 
   it('JUMP', function jumpSuccess() {
@@ -251,19 +254,19 @@ describe('Channel Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 1,
         }] }
       })
     ).to.deep.equal({
       song: {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       },
       playing: true,
       loading: false,
       playList: [{
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: true, state: 'enabled',
       }]
     });
   });
@@ -369,13 +372,13 @@ describe('Channel Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 0,
         }] }
       })
     ).to.deep.equal({
       song: {
         id: 1, name: '浮夸', source: 'douban.fm/浮夸', cover: 'douban.fm/cover',
-        artist: '陈奕迅', size: 300, favorite: true
+        artist: '陈奕迅', size: 300, favorite: false, state: 'enabled'
       },
       playing: true,
       loading: false,

@@ -37,7 +37,7 @@ export default class Favorite extends Component {
     super(props);
 
     const shortcutListener = shortcut.listen(
-      0, this.tasteSong, this.onControl, this.onBan, this.onNext
+      0, this.onTaste, this.onControl, this.onBan, this.onNext
     );
 
     this.state = { shortcutListener };
@@ -74,9 +74,7 @@ export default class Favorite extends Component {
       this.props.dislike(this.props.song.id);
     } else if (action === 'like') {
       this.props.like(this.props.song.id);
-    }
-
-    if (this.props.song.favorite) {
+    } else if (this.props.song.favorite) {
       this.props.dislike(this.props.song.id);
     } else {
       this.props.like(this.props.song.id);

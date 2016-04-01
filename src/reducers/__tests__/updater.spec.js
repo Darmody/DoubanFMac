@@ -4,10 +4,11 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import updater, { FETCH_SUCCESS, check } from '../updater';
+import { FETCH_SUCCESS } from '../../actionTypes/updater';
+import updater, { check } from '../updater';
 
 const middlewares = [
   thunk, apiMiddlewareHook, apiMiddleware, camelizeState
@@ -31,7 +32,7 @@ describe('Updater Actions', function actions() {
     });
     store.dispatch(check());
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(FETCH_SUCCESS);
       done();
     }, 20);
   });

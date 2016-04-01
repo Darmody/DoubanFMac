@@ -67,8 +67,12 @@ export default class Channel extends Component {
     }
   }
 
-  onTaste = () => {
-    if (this.props.song.favorite) {
+  onTaste = (action) => {
+    if (action === 'like') {
+      this.props.like(this.props.channelId, this.props.song.id);
+    } else if (action === 'dislike') {
+      this.props.dislike(this.props.channelId, this.props.song.id);
+    } else if (this.props.song.favorite) {
       this.props.dislike(this.props.channelId, this.props.song.id);
     } else {
       this.props.like(this.props.channelId, this.props.song.id);

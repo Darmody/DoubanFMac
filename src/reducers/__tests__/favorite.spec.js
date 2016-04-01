@@ -4,13 +4,14 @@ import nock from 'nock';
 import Immutable from 'seamless-immutable';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import _join from 'lodash/join';
-import favorite, {
+import {
   FETCH_ALL_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, BAN_FAILURE, REFUSE,
   PLAY, PAUSE, NEXT, JUMP,
+} from '../../actionTypes/favorite';
+import favorite, {
   fetchAll, like, dislike, ban, play, pause, next, jump,
 } from '../favorite';
 
@@ -44,7 +45,7 @@ describe('Favorite Actions', function actions() {
         }]
       });
     nock('http://douban.fm')
-      .post('/j/v2/redheart/songs', _join(['bps=192', 'sids=1', 'ck='], '&'))
+      .post('/j/v2/redheart/songs', _.join('&', ['bps=192', 'sids=1', 'ck=']))
       .reply(200, [{
         sid: 1,
         title: '浮夸',
@@ -64,7 +65,7 @@ describe('Favorite Actions', function actions() {
     });
     store.dispatch(fetchAll());
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(FETCH_ALL_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(FETCH_ALL_SUCCESS);
       done();
     }, 20);
   });
@@ -94,7 +95,7 @@ describe('Favorite Actions', function actions() {
     });
     store.dispatch(like(0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(LIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(LIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -124,7 +125,7 @@ describe('Favorite Actions', function actions() {
     });
     store.dispatch(dislike(0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(DISLIKE_SUCCESS);
       done();
     }, 20);
   });
@@ -156,7 +157,7 @@ describe('Favorite Actions', function actions() {
     });
     store.dispatch(ban(0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(BAN_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(BAN_SUCCESS);
       done();
     }, 20);
   });
@@ -189,17 +190,17 @@ describe('Favorite Actions', function actions() {
     });
     store.dispatch(ban(0));
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(REFUSE);
+      expect(_.last(store.getActions()).type).to.equal(REFUSE);
       done();
     }, 20);
   });
 
   it('PLAY', function playSuccess() {
-    expect(play()).to.deep.equal({ type: PLAY });
+    expect(play()).to.deep.equal({ type: PLAY, payload: undefined });
   });
 
   it('PAUSE', function pauseSuccess() {
-    expect(pause()).to.deep.equal({ type: PAUSE });
+    expect(pause()).to.deep.equal({ type: PAUSE, payload: undefined });
   });
 
   it('NEXT', function nextSuccess() {
@@ -231,7 +232,7 @@ describe('Favorite Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 1,
           status: 0,
         }]
       })

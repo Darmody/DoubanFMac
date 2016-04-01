@@ -3,10 +3,11 @@ import { expect } from 'chai';
 import nock from 'nock';
 import { apiMiddleware } from 'redux-api-middleware';
 import thunk from 'redux-thunk';
+import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import _last from 'lodash/last';
-import captcha, { FETCH_SUCCESS, fetch } from '../captcha';
+import { FETCH_SUCCESS } from '../../actionTypes/captcha';
+import captcha, { fetch } from '../captcha';
 
 const middlewares = [
   thunk, apiMiddlewareHook, apiMiddleware, camelizeState
@@ -26,7 +27,7 @@ describe('Captcha Actions', function actions() {
     const store = mockStore({ code: '' });
     store.dispatch(fetch());
     setTimeout(() => {
-      expect(_last(store.getActions()).type).to.equal(FETCH_SUCCESS);
+      expect(_.last(store.getActions()).type).to.equal(FETCH_SUCCESS);
       done();
     }, 20);
   });
