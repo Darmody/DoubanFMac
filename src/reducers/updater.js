@@ -4,9 +4,7 @@ import { handleActions } from 'redux-actions';
 import semver from 'semver';
 import pkg from '../../package.json';
 
-export const FETCH_REQUEST = 'UPDATER/FETCH_REQUEST';
-export const FETCH_SUCCESS = 'UPDATER/FETCH_SUCCESS';
-export const FETCH_FAILURE = 'UPDATER/FETCH_FAILURE';
+import { FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE } from '../actionTypes/updater';
 
 const initialState = Immutable({
   outdated: false,

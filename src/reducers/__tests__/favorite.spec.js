@@ -8,9 +8,11 @@ import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
-import favorite, {
+import {
   FETCH_ALL_SUCCESS, LIKE_SUCCESS, DISLIKE_SUCCESS, BAN_SUCCESS, BAN_FAILURE, REFUSE,
   PLAY, PAUSE, NEXT, JUMP,
+} from '../../actionTypes/favorite';
+import favorite, {
   fetchAll, like, dislike, ban, play, pause, next, jump,
 } from '../favorite';
 
@@ -195,11 +197,11 @@ describe('Favorite Actions', function actions() {
   });
 
   it('PLAY', function playSuccess() {
-    expect(play()).to.deep.equal({ type: PLAY });
+    expect(play()).to.deep.equal({ type: PLAY, payload: undefined });
   });
 
   it('PAUSE', function pauseSuccess() {
-    expect(pause()).to.deep.equal({ type: PAUSE });
+    expect(pause()).to.deep.equal({ type: PAUSE, payload: undefined });
   });
 
   it('NEXT', function nextSuccess() {
@@ -231,7 +233,7 @@ describe('Favorite Reducers', function reducers() {
           picture: 'douban.fm/cover',
           artist: '陈奕迅',
           length: 300,
-          favorite: 1,
+          like: 1,
           status: 0,
         }]
       })

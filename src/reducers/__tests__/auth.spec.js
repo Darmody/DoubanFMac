@@ -7,8 +7,10 @@ import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
 import _join from 'lodash/join';
-import auth, {
+import {
   LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, VERIFY_SUCCESS, VERIFY_FAILURE,
+} from '../../actionTypes/auth';
+import auth, {
   login, logout, verify,
 } from '../auth';
 import signForm from '../form/signin';
@@ -105,7 +107,7 @@ describe('Auth Actions', function actions() {
   });
 
   it('LOGOUT', function logoutSuccess() {
-    expect(logout()).to.deep.equal({ type: LOGOUT });
+    expect(logout()).to.deep.equal({ type: LOGOUT, payload: undefined });
   });
 });
 
@@ -119,7 +121,7 @@ describe('Auth Reducers', function reducers() {
   it('LOGIN_FAILURE', function loginFailure() {
     expect(
       auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: null })
-    ).to.deep.equal({ user: { id: 0 }, logged: false });
+    ).to.deep.equal({ user: { id: 0, name: '', token: '' }, logged: false });
     expect(
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');

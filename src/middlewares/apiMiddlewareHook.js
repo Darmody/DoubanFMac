@@ -9,11 +9,11 @@ import {
   FETCH_REQUEST as CHANNEL_FETCH_REQUEST,
   BAN_REQUEST as CHANNEL_BAN_REQUEST,
   REFUSE as CHANNEL_REFUSE,
-} from '../reducers/channel';
+} from '../actionTypes/channel';
 import {
   BAN_REQUEST as FAVORITE_BAN_REQUEST,
   REFUSE as FAVORITE_REFUSE,
-} from '../reducers/favorite';
+} from '../actionTypes/favorite';
 
 const decamelizeBody = (action) => {
   const callAPI = action[CALL_API];

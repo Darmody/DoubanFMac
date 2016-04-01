@@ -7,7 +7,8 @@ import thunk from 'redux-thunk';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
 import _last from 'lodash/last';
-import updater, { FETCH_SUCCESS, check } from '../updater';
+import { FETCH_SUCCESS } from '../../actionTypes/updater';
+import updater, { check } from '../updater';
 
 const middlewares = [
   thunk, apiMiddlewareHook, apiMiddleware, camelizeState
