@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import { handleActions } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import _apiMiddleware from '../utils/apiMiddleware';
 import _song from '../modules/song';
 import _ from 'ramda';
@@ -81,17 +81,8 @@ export function ban(channel, songId) {
   return _apiMiddleware.fetch(types, channel, songId, 'b');
 }
 
-export function jump(song) {
-  return {
-    type: JUMP,
-    payload: { song }
-  };
-}
+export const jump = createAction(JUMP, song => ({ song }));
 
-export function play() {
-  return { type: PLAY };
-}
+export const play = createAction(PLAY);
 
-export function pause() {
-  return { type: PAUSE };
-}
+export const pause = createAction(PAUSE);

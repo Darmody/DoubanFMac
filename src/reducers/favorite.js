@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
-import { handleActions } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import _ from 'ramda';
 import sample from 'lodash.sample';
 import _apiMiddleware from '../utils/apiMiddleware';
@@ -105,12 +105,7 @@ export function fetchAll() {
   };
 }
 
-export function next(lastSongId) {
-  return {
-    type: NEXT,
-    payload: { lastSongId }
-  };
-}
+export const next = createAction(NEXT, lastSongId => ({ lastSongId }));
 
 export function like(songId) {
   const types = () => ([LIKE_REQUEST, LIKE_SUCCESS, LIKE_FAILURE]);
@@ -139,17 +134,8 @@ export function ban(songId) {
   return _apiMiddleware.fetch(types, 0, songId, 'b');
 }
 
-export function play() {
-  return { type: PLAY };
-}
+export const play = createAction(PLAY);
 
-export function pause() {
-  return { type: PAUSE };
-}
+export const pause = createAction(PAUSE);
 
-export function jump(song) {
-  return {
-    type: JUMP,
-    payload: { song }
-  };
-}
+export const jump = createAction(JUMP, song => ({ song }));

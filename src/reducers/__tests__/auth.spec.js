@@ -107,7 +107,7 @@ describe('Auth Actions', function actions() {
   });
 
   it('LOGOUT', function logoutSuccess() {
-    expect(logout()).to.deep.equal({ type: LOGOUT });
+    expect(logout()).to.deep.equal({ type: LOGOUT, payload: undefined });
   });
 });
 

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { CALL_API } from 'redux-api-middleware';
-import { handleActions } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import _ from 'ramda';
 import {
   VERIFY_REQUEST, VERIFY_SUCCESS, VERIFY_FAILURE,
@@ -34,11 +34,7 @@ export default handleActions({
   [VERIFY_FAILURE]: (state) => ({ ...state, user: initialState.user, })
 }, initialState);
 
-export function logout() {
-  return {
-    type: LOGOUT
-  };
-}
+export const logout = createAction(LOGOUT);
 
 export function login(data) {
   const defaultParams = {

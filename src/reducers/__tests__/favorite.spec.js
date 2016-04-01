@@ -197,11 +197,11 @@ describe('Favorite Actions', function actions() {
   });
 
   it('PLAY', function playSuccess() {
-    expect(play()).to.deep.equal({ type: PLAY });
+    expect(play()).to.deep.equal({ type: PLAY, payload: undefined });
   });
 
   it('PAUSE', function pauseSuccess() {
-    expect(pause()).to.deep.equal({ type: PAUSE });
+    expect(pause()).to.deep.equal({ type: PAUSE, payload: undefined });
   });
 
   it('NEXT', function nextSuccess() {
