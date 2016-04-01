@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import _fetch from '../utils/fetchHelper';
+import _apiMiddleware from '../utils/apiMiddleware';
 import _song from '../modules/song';
 import _ from 'ramda';
 
@@ -63,22 +63,22 @@ export default handleActions({
 
 export function fetch(channel, lastSongId, type) {
   const types = () => ([FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE]);
-  return _fetch(types, channel, lastSongId, type);
+  return _apiMiddleware.fetch(types, channel, lastSongId, type);
 }
 
 export function like(channel, songId) {
   const types = () => ([LIKE_REQUEST, LIKE_SUCCESS, LIKE_FAILURE]);
-  return _fetch(types, channel, songId, 'r');
+  return _apiMiddleware.fetch(types, channel, songId, 'r');
 }
 
 export function dislike(channel, songId) {
   const types = () => ([DISLIKE_REQUEST, DISLIKE_SUCCESS, DISLIKE_FAILURE]);
-  return _fetch(types, channel, songId, 'u');
+  return _apiMiddleware.fetch(types, channel, songId, 'u');
 }
 
 export function ban(channel, songId) {
   const types = () => ([BAN_REQUEST, BAN_SUCCESS, BAN_FAILURE]);
-  return _fetch(types, channel, songId, 'b');
+  return _apiMiddleware.fetch(types, channel, songId, 'b');
 }
 
 export function jump(song) {

@@ -3,9 +3,8 @@ import { CALL_API } from 'redux-api-middleware';
 import { handleActions } from 'redux-actions';
 import _ from 'ramda';
 import sample from 'lodash.sample';
-import _fetch from '../utils/fetchHelper';
+import _apiMiddleware from '../utils/apiMiddleware';
 import _song from '../modules/song';
-import config from '../../config';
 
 import {
   FETCH_ALL_REQUEST, FETCH_ALL_RELAY, FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE,
@@ -80,29 +79,6 @@ export default handleActions({
   [PAUSE]: (state) => (state.set('playing', false)),
 }, initialState);
 
-function _fetchAll(ids) {
-  const localStorage = window.localStorage;
-  const authKey = config.persistAuthKey;
-  const token = _.compose(
-    _.pathOr('', ['auth', 'user', 'token']), JSON.parse, _.propOr('{}', authKey),
-  )(localStorage);
-  const body = { bps: 192, sids: _.join('|', ids), ck: token };
-  return {
-    [CALL_API]: {
-      endpoint: 'http://douban.fm/j/v2/redheart/songs',
-      method: 'POST',
-      body,
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      credentials: 'include',
-      types: [
-        FETCH_ALL_REQUEST,
-        FETCH_ALL_SUCCESS,
-        FETCH_ALL_FAILURE
-      ]
-    }
-  };
-}
-
 export function fetchAll() {
   return dispatch => {
 
@@ -117,7 +93,7 @@ export function fetchAll() {
             type: FETCH_ALL_RELAY,
             payload: (_action, state, res) => {
               return res.json().then(json => {
-                dispatch(_fetchAll(json.songs.map((song) => (song.sid)) || []));
+                dispatch(_apiMiddleware.fetchFavorite(json.songs.map((song) => (song.sid)) || []));
                 return json;
               });
             }
@@ -138,12 +114,12 @@ export function next(lastSongId) {
 
 export function like(songId) {
   const types = () => ([LIKE_REQUEST, LIKE_SUCCESS, LIKE_FAILURE]);
-  return _fetch(types, 0, songId, 'r');
+  return _apiMiddleware.fetch(types, 0, songId, 'r');
 }
 
 export function dislike(songId) {
   const types = () => ([DISLIKE_REQUEST, DISLIKE_SUCCESS, DISLIKE_FAILURE]);
-  return _fetch(types, 0, songId, 'u');
+  return _apiMiddleware.fetch(types, 0, songId, 'u');
 }
 
 export function ban(songId) {
@@ -160,7 +136,7 @@ export function ban(songId) {
     },
     BAN_FAILURE
   ]);
-  return _fetch(types, 0, songId, 'b');
+  return _apiMiddleware.fetch(types, 0, songId, 'b');
 }
 
 export function play() {
