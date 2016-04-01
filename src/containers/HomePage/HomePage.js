@@ -78,7 +78,6 @@ export default class HomePage extends Component {
   }
 
   showSigninModal = () => {
-    this.props.fetchCaptcha();
     this.props.show('signin');
   }
 

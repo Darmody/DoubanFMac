@@ -18,6 +18,10 @@ export default class Form extends Component {
     logged: PropTypes.bool,
   }
 
+  componentDidMount() {
+    this.props.refreshCaptcha();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.captchaCode !== nextProps.captchaCode) {
       this.props.fields.captchaId.onChange(nextProps.captchaCode);

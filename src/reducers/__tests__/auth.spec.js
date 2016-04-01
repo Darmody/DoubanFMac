@@ -119,7 +119,7 @@ describe('Auth Reducers', function reducers() {
   it('LOGIN_FAILURE', function loginFailure() {
     expect(
       auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: null })
-    ).to.deep.equal({ user: { id: 0 }, logged: false });
+    ).to.deep.equal({ user: { id: 0, name: '', token: '' }, logged: false });
     expect(
       signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
     ).to.equal('账号或密码不正确');
