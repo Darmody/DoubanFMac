@@ -35,7 +35,7 @@ export default handleActions({
   [FETCH_ALL_REQUEST]: (state) => state.merge({ loading: true, playing: false }),
 
   [FETCH_ALL_SUCCESS]: (state, action) => {
-    const playList = _.map(song => _song.of(song), action.payload);
+    const playList = _.map(song => _song.of(_.merge({ like: 1 }, song)), action.payload);
     const song = _.compose(_.or(_.__, state.song), sample, _song.fetchEnabledList)(playList);
     return state.merge({ song, playList, playing: true, loading: false });
   },
