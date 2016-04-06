@@ -134,6 +134,7 @@
     "react-dropdowns": "^0.2.1",
     "react-list": "^0.7.15",
     "react-modal": "^0.6.1",
+    "react-motion": "^0.4.2",
     "react-redux": "^4.0.5",
     "react-router": "^2.0.0",
     "react-router-redux": "^3.0.0",
