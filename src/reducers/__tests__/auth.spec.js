@@ -50,7 +50,7 @@ describe('Auth Actions', function actions() {
     setTimeout(() => {
       expect(_.last(store.getActions()).type).to.equal(LOGIN_SUCCESS);
       done();
-    }, 20);
+    }, 50);
   });
 
   it('LOGIN_FAILURE', function loginFailure(done) {
