@@ -87,10 +87,9 @@ export default class Channel extends Component {
     const { song, playList, playing } = this.props;
 
     return (
-      <div className={styles.player}>
+      <div className={styles.content}>
         <Player
           song={song}
-          listTitle="听过的"
           playList={playList}
           playing={playing}
           onEnd={this.onNext('p')}

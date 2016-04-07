@@ -1,7 +1,7 @@
 {
   "name": "DoubanFMac",
   "productName": "DoubanFMac",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "豆瓣FM for mac",
   "main": "main.js",
   "scripts": {
@@ -133,7 +133,9 @@
     "react-dom": "^0.14.2",
     "react-dropdowns": "^0.2.1",
     "react-list": "^0.7.15",
+    "react-loader": "git+https://github.com/darmody/react-loader.git#master",
     "react-modal": "^0.6.1",
+    "react-motion": "^0.4.2",
     "react-redux": "^4.0.5",
     "react-router": "^2.0.0",
     "react-router-redux": "^3.0.0",

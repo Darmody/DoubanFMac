@@ -6,6 +6,7 @@ import auth from './auth';
 import captcha from './captcha';
 import channel from './channel';
 import favorite from './favorite';
+import daily from './daily';
 import updater from './updater';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   captcha,
   channel,
   favorite,
+  daily,
   updater,
 });
 

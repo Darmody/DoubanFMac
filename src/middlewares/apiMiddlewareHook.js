@@ -11,6 +11,10 @@ import {
   BAN_REQUEST as FAVORITE_BAN_REQUEST,
   REFUSE as FAVORITE_REFUSE,
 } from '../actionTypes/favorite';
+import {
+  BAN_REQUEST as DAILY_BAN_REQUEST,
+  REFUSE as DAILY_REFUSE,
+} from '../actionTypes/daily';
 
 const decamelizeBody = (action) => {
   const callAPI = action[CALL_API];
@@ -70,6 +74,9 @@ const pendingRefuse = (action, store) => {
   }
   if (FAVORITE_BAN_REQUEST === callAPI.types[0]) {
     if (store.getState().favorite.loading) return { type: FAVORITE_REFUSE };
+  }
+  if (DAILY_BAN_REQUEST === callAPI.types[0]) {
+    if (store.getState().favorite.loading) return { type: DAILY_REFUSE };
   }
 
   return action;

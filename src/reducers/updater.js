@@ -8,14 +8,22 @@ import { FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE } from '../actionTypes/upda
 
 const initialState = Immutable({
   outdated: false,
-  currentVersion: pkg.version
+  currentVersion: pkg.version,
+  loading: false,
 });
 
 export default handleActions({
+  [FETCH_REQUEST]: (state) => state.merge({ loading: true }),
+
   [FETCH_SUCCESS]: (state, action) => {
     const latestVersion = semver.clean(action.payload.tagName);
-    return state.merge({ outdated: semver.gt(latestVersion, state.currentVersion) });
-  }
+    return state.merge({
+      outdated: semver.gt(latestVersion, state.currentVersion),
+      loading: false,
+    });
+  },
+
+  [FETCH_FAILURE]: (state) => state.merge({ loading: false }),
 }, initialState);
 
 export function check() {

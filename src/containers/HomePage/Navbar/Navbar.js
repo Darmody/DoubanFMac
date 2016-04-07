@@ -34,24 +34,35 @@ function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
   );
 }
 
-export default ({ currentUser, currentLocation, showSigninModal, logoutUser }) => {
+function NavItem({ title, link, active }) {
   const activeIcon = (<i className="material-icons" > volume_up </i>);
+  return (
+    <Link to={link} className="navItem" >
+      { title }
+      { active && activeIcon }
+    </Link>
+  );
+}
+
+export default ({ currentUser, currentLocation, showSigninModal, logoutUser }) => {
   return (
     <nav className={styles.navbar} >
       <div className={styles.navItems} >
-        <button className="navItem disabled" > 更多 MHz </button>
-        <Link to="channels/0" className="navItem" >
-          私人 MHz
-          {
-            (currentLocation === '/channels/0' || currentLocation === '/') && activeIcon
-          }
-        </Link>
-        <Link to="favorite" className="navItem" >
-          红心 MHz
-          {
-            (currentLocation === '/favorite') && activeIcon
-          }
-        </Link>
+        <NavItem
+          title="私人 MHz"
+          link="/channels/0"
+          active={currentLocation === '/' || currentLocation === '/channels/0' }
+        />
+        <NavItem
+          title="每日私人歌单"
+          link="/daily"
+          active={currentLocation === '/daily'}
+        />
+        <NavItem
+          title="红心 MHz"
+          link="/favorite"
+          active={currentLocation === '/favorite'}
+        />
       </div>
       <div className={styles.userItem} >
         <UserItem
