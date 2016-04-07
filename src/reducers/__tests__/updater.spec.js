@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import _ from 'ramda';
 import apiMiddlewareHook from '../../middlewares/apiMiddlewareHook';
 import camelizeState from '../../middlewares/camelizeState';
-import { FETCH_SUCCESS } from '../../actionTypes/updater';
+import { FETCH_REQUEST, FETCH_SUCCESS } from '../../actionTypes/updater';
 import updater, { check } from '../updater';
 
 const middlewares = [
@@ -39,24 +39,26 @@ describe('Updater Actions', function actions() {
 });
 
 describe('Updater Reducers', function reducers() {
-  it('FETCH_SUCCESS', function fetchSuccess() {
+  it('FETCH_REQUEST', function fetchRequest() {
     expect(
       updater(Immutable({
         currentVersion: '1.0.0',
         outdated: false,
+        loading: false,
       }), {
-        type: FETCH_SUCCESS,
-        payload: { tagName: 'v1.0.1' }
+        type: FETCH_REQUEST,
       })
     ).to.deep.equal({
       currentVersion: '1.0.0',
-      outdated: true,
+      outdated: false,
+      loading: true,
     });
 
     expect(
       updater(Immutable({
         currentVersion: '1.0.0',
         outdated: false,
+        loading: true,
       }), {
         type: FETCH_SUCCESS,
         payload: { tagName: 'v1.0.0' }
@@ -64,6 +66,39 @@ describe('Updater Reducers', function reducers() {
     ).to.deep.equal({
       currentVersion: '1.0.0',
       outdated: false,
+      loading: false,
+    });
+  });
+
+  it('FETCH_SUCCESS', function fetchSuccess() {
+    expect(
+      updater(Immutable({
+        currentVersion: '1.0.0',
+        outdated: false,
+        loading: true,
+      }), {
+        type: FETCH_SUCCESS,
+        payload: { tagName: 'v1.0.1' }
+      })
+    ).to.deep.equal({
+      currentVersion: '1.0.0',
+      outdated: true,
+      loading: false,
+    });
+
+    expect(
+      updater(Immutable({
+        currentVersion: '1.0.0',
+        outdated: false,
+        loading: true,
+      }), {
+        type: FETCH_SUCCESS,
+        payload: { tagName: 'v1.0.0' }
+      })
+    ).to.deep.equal({
+      currentVersion: '1.0.0',
+      outdated: false,
+      loading: false,
     });
   });
 });
