@@ -51,7 +51,7 @@ export default class HomePage extends Component {
 
     const updaterInterval = setInterval(() => {
       props.check();
-    }, 1000 * 60 * 60 * 24 * 7);
+    }, 1000 * 60 * 60 * 24);
 
     this.state = { updaterInterval, loaded: false };
   }
