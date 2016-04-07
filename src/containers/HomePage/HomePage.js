@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Loader from 'react-loader';
 import { bindActionCreators } from 'redux';
 import { show } from 'redux-modal';
 import { connect } from 'react-redux';
@@ -7,13 +8,17 @@ import { fetch as fetchCaptcha } from 'reducers/captcha';
 import { check } from 'reducers/updater';
 import { shell } from 'electron';
 import Navbar from './Navbar/Navbar';
+import { Spinner } from 'components';
 import styles from './HomePage.scss';
 import updaterIcon from './updater.gif';
 
 @connect(
   state => ({
     currentUser: state.auth.user,
-    song: state.channel.song,
+    channelSong: state.channel.song,
+    favoriteSong: state.favorite.song,
+    dailySong: state.daily.song,
+    updaterLoading: state.updater.loading,
     outdated: state.updater.outdated,
   }),
   dispatch => ({
@@ -25,7 +30,10 @@ export default class HomePage extends Component {
     children: PropTypes.element.isRequired,
     location: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
-    song: PropTypes.object,
+    channelSong: PropTypes.object,
+    favoriteSong: PropTypes.object,
+    dailySong: PropTypes.object,
+    updaterLoading: PropTypes.bool,
     outdated: PropTypes.bool.isRequired,
     show: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
@@ -45,7 +53,7 @@ export default class HomePage extends Component {
       props.check();
     }, 1000 * 60 * 60 * 24 * 7);
 
-    this.state = { updaterInterval };
+    this.state = { updaterInterval, loaded: false };
   }
 
   componentDidMount() {
@@ -54,8 +62,14 @@ export default class HomePage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.song.id !== nextProps.song.id) {
-      this.notice(nextProps.song);
+    ['channelSong', 'dailySong', 'favoriteSong'].map(song => {
+      if (this.props[song].id !== nextProps[song].id) {
+        this.notice(nextProps[song]);
+      }
+    });
+
+    if (this.props.updaterLoading && !nextProps.updaterLoading) {
+      this.setState({ loaded: true });
     }
   }
 
@@ -103,9 +117,10 @@ export default class HomePage extends Component {
 
   render() {
     const { children, currentUser, location, outdated } = this.props;
+    const { loaded } = this.state;
 
     return (
-      <div>
+      <Loader loaded={loaded} component={Spinner}>
         <Navbar
           currentLocation={location.pathname}
           currentUser={currentUser}
@@ -119,7 +134,7 @@ export default class HomePage extends Component {
             <a href="mailto:eterlf41@gmail.com" className={styles.link} >问题反馈</a>
           </div>
         </div>
-      </div>
+      </Loader>
     );
   }
 }

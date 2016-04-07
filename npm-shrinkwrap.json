@@ -5749,6 +5749,11 @@
       "from": "react-list@>=0.7.15 <0.8.0",
       "resolved": "https://registry.npmjs.org/react-list/-/react-list-0.7.16.tgz"
     },
+    "react-loader": {
+      "version": "2.2.1",
+      "from": "git+https://github.com/darmody/react-loader.git#master",
+      "resolved": "git+https://github.com/darmody/react-loader.git#b909c2f908afce8547f03db901bd39df600b833f"
+    },
     "react-mixin": {
       "version": "1.7.0",
       "from": "react-mixin@>=1.7.0 <2.0.0",
@@ -6262,6 +6267,11 @@
       "version": "0.1.4",
       "from": "speedometer@>=0.1.2 <0.2.0",
       "resolved": "https://registry.npmjs.org/speedometer/-/speedometer-0.1.4.tgz"
+    },
+    "spin.js": {
+      "version": "2.3.2",
+      "from": "spin.js@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/spin.js/-/spin.js-2.3.2.tgz"
     },
     "sprintf-js": {
       "version": "1.0.3",
