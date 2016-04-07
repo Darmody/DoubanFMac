@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import ReactList from 'react-list';
 import moment from 'moment';
+import PlayList from '../PlayList/PlayList';
 import Processbar from './Processbar/Processbar';
 import Buttonbar from './Buttonbar/Buttonbar';
 import styles from './Player.scss';
@@ -8,7 +8,6 @@ import styles from './Player.scss';
 export default class Player extends Component {
   static propTypes = {
     song: PropTypes.object.isRequired,
-    listTitle: PropTypes.string.isRequired,
     playList: PropTypes.array.isRequired,
     playing: PropTypes.bool.isRequired,
     onBan: PropTypes.func.isRequired,
@@ -54,41 +53,19 @@ export default class Player extends Component {
     if (this.state.playInterval) clearInterval(this.state.playInterval);
   }
 
-  renderSongName = (index, key) => {
-    const renderSong = this.props.playList[index];
-
-    return (
-      <div className="songName" key={key} onClick={this.props.onJump(renderSong)} >
-        {renderSong.name}
-      </div>
-    );
-  }
-
   render() {
     const { step, buffer } = this.state;
-    const { song, listTitle, playList, playing } = this.props;
+    const { song, playList, playing } = this.props;
 
     const remainTime = 1000.0 * (song.size - step);
 
     return (
       <div className={styles.player}>
+        <PlayList playList={playList} onJump={this.props.onJump} />
         <div className="songCover"
           style={{ backgroundImage: `url(${song.cover})` }}
         />
         <div className="songInfoBar" >
-          <div className="songNameList">
-            <div className="playListTitle">
-              <i className="material-icons" > details </i>
-              {listTitle}
-            </div>
-            <div className="playListPanel">
-              <ReactList
-                itemRenderer={this.renderSongName}
-                length={playList.length}
-                updateWhenThisValueChanges={playList}
-              />
-            </div>
-          </div>
           <h2 className="songNameTitle" > {song.name} </h2>
           <h4 className="artistName"> {song.artist} </h4>
           <span className="songTime">
