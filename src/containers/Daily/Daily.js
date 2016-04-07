@@ -99,7 +99,6 @@ export default class Favorite extends Component {
           <div className="player">
             <Player
               song={song}
-              listTitle="每日歌单"
               playList={playList}
               playing={playing}
               onControl={this.onControl}

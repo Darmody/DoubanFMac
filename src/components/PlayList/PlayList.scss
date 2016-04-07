@@ -1,0 +1,48 @@
+.playList {
+  position: fixed;
+  left: 0;
+  top: -20rem;
+  width: 100%;
+  height: 20rem;
+  opacity: 0.8;
+  background: white;
+  box-shadow: 0px 1px 3px #CCC;
+
+  :global {
+    .listPanel {
+      max-height: 18rem;
+      overflow: auto;
+
+      .songItem {
+        font-size: 0.8rem;
+        border: 0.1rem #CCC solid;
+        padding: 1rem 0.5rem;
+        margin: 0.4rem 0.8rem;
+        color: #9b9b9b;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background: #ceecd2;
+          color: #4a4a4a;
+          transition: .5s;
+        }
+      }
+    }
+    .indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 2rem;
+      height: 2rem;
+      background: #6bbd7a;
+      text-align: center;
+      line-height: 3rem;
+      border-radius: 100%;
+      color: white;
+      transform: translate(-50%, 50%);
+      box-shadow: 0px 1px 3px #CCC;
+      cursor: pointer;
+    }
+  }
+}
