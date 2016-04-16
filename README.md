@@ -16,13 +16,13 @@ A beautiful mac desktop application for [Douban FM](http://douban.fm)
 <img src="static/screenshots/screenshot-app.png" alt="screenshot" width="250px" />
 <img src="static/screenshots/screenshot-login.png" alt="screenshot" width="250px" />
 
-## Features
+## Shortcuts
 
-1. play/pause. [`Ctrl+Alt+p`]
-2. like. [`Crtl+Alt+l`]
-3. dislike. [`Ctrl+Alt+u`]
-4. skip. [`Ctrl+Alt+n`]
-5. ban. [`Ctrl+Alt+b`]
+1. <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>p</kbd> play/pause
+2. <kbd>Crtl</kbd>+<kbd>Alt</kbd>+<kbd>l</kbd> like
+3. <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>u</kbd> dislike
+4. <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>n</kbd> skip
+5. <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>b</kbd> ban
 
 ## Download
 
