@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { show as showModal } from 'redux-modal';
-import { App, HomePage, Channel, Favorite, Daily } from 'containers';
+import { App } from 'components';
+import { HomePage, Channel, Favorite, Daily } from 'containers';
 
 export default (store) => {
   const requireAuth = () => {

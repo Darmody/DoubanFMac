@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
-import PlayList from '../PlayList/PlayList';
-import Processbar from './Processbar/Processbar';
-import Buttonbar from './Buttonbar/Buttonbar';
-import styles from './Player.scss';
+import PlayList from '../PlayList';
+import Processbar from './Processbar';
+import Buttonbar from './Buttonbar';
+import styles from './styles.scss';
 
 export default class Player extends Component {
   static propTypes = {

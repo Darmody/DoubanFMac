@@ -1,30 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
-import { bindActionCreators } from 'redux';
-import { show } from 'redux-modal';
-import { connect } from 'react-redux';
-import { logout, verify } from 'reducers/auth';
-import { fetch as fetchCaptcha } from 'reducers/captcha';
-import { check } from 'reducers/updater';
 import { shell } from 'electron';
 import Navbar from './Navbar/Navbar';
 import { Spinner } from 'components';
-import styles from './HomePage.scss';
+import styles from './styles.scss';
 import updaterIcon from './updater.gif';
 
-@connect(
-  state => ({
-    currentUser: state.auth.user,
-    channelSong: state.channel.song,
-    favoriteSong: state.favorite.song,
-    dailySong: state.daily.song,
-    updaterLoading: state.updater.loading,
-    outdated: state.updater.outdated,
-  }),
-  dispatch => ({
-    ...bindActionCreators({ show, fetchCaptcha, logout, verify, check }, dispatch)
-  })
-)
 export default class HomePage extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
-import styles from './Buttonbar.scss';
+import styles from './styles.scss';
 
 export default class Buttonbar extends Component {
   static propTypes = {

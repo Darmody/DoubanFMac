@@ -1,23 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { connectModal } from 'redux-modal';
 import Modal from 'react-modal';
 import { shell } from 'electron';
-import { login } from 'reducers/auth';
-import { fetch as fetchCaptcha } from 'reducers/captcha';
 import Form from './Form';
-import styles from './Signin.scss';
+import styles from './styles.scss';
 
-@connectModal({ name: 'signin' })
-@connect(
-  state => ({
-    captchaCode: state.captcha.code,
-  }),
-  dispatch => ({
-    ...bindActionCreators({ login, fetchCaptcha }, dispatch)
-  })
-)
 export default class Signin extends Component {
   static propTypes = {
     captchaCode: PropTypes.string,

@@ -1,22 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetch, like, dislike, ban, play, pause, jump } from 'reducers/channel';
 import { shortcut } from 'utils';
-import styles from './Channel.scss';
+import styles from './styles.scss';
 
-@connect(
-  (state, { params }) => ({
-    song: state.channel.song,
-    playList: state.channel.playList,
-    playing: state.channel.playing,
-    channelId: params.id || '0',
-  }),
-  dispatch => ({
-    ...bindActionCreators({ fetch, like, dislike, ban, play, pause, jump }, dispatch)
-  })
-)
 export default class Channel extends Component {
   static propTypes = {
     fetch: PropTypes.func.isRequired,

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './Processbar.scss';
+import styles from './styles.scss';
 
 export default class Processbar extends Component {
   static propTypes = {

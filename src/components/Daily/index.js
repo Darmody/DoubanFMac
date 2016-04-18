@@ -1,29 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Player } from 'components';
-import { fetchAll, next, like, dislike, ban, play, pause, jump } from 'reducers/favorite';
 import { shortcut } from 'utils';
-import styles from './Favorite.scss';
+import styles from './styles.scss';
 
-@connect(
-  state => ({
-    currentUser: state.auth.user,
-    song: state.favorite.song,
-    playing: state.favorite.playing,
-    playList: state.favorite.playList,
-  }),
-  dispatch => ({
-    ...bindActionCreators({ fetchAll, next, play, pause, ban, like, dislike, jump }, dispatch)
-  })
-)
-export default class Favorite extends Component {
+export default class Daily extends Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
     song: PropTypes.object.isRequired,
     playList: PropTypes.array.isRequired,
     playing: PropTypes.bool.isRequired,
-    fetchAll: PropTypes.func.isRequired,
+    fetch: PropTypes.func.isRequired,
     next: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
     pause: PropTypes.func.isRequired,
@@ -44,12 +30,12 @@ export default class Favorite extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAll();
+    this.props.fetch();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.currentUser.id === 0 && nextProps.currentUser.id !== 0) {
-      this.props.fetchAll();
+      this.props.fetch();
     }
   }
 
@@ -115,7 +101,7 @@ export default class Favorite extends Component {
     return (
       <div className={styles.mask} >
         <i className="material-icons" > announcement </i>
-        Oops, 还没有红心歌曲，是不是忘记登录了？
+        Oops, 是不是忘记登录了？
       </div>
     );
   }

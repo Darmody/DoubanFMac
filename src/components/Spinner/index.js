@@ -11,7 +11,7 @@ export default class Spinner extends Component {
     return (
       <div>
         {!loaded && (
-          <div className={require('./Spinner.scss').spinner} >
+          <div className={require('./styles.scss').spinner} >
             <img src={require('./spinner.gif')} />
             <div>loading...</div>
           </div>

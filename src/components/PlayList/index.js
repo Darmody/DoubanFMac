@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactList from 'react-list';
 import { Motion, spring } from 'react-motion';
-import styles from './PlayList.scss';
+import styles from './styles.scss';
 
 export default class PlayList extends Component {
   static propTypes = {
