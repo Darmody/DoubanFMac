@@ -9,6 +9,8 @@ A beautiful mac desktop application for [Douban FM](http://douban.fm)
 <img src="static/logo.png" alt="DoubanFMac" width="256px" />
 <br/> <br/>
 
+Recommand [BackgroundMusic](https://github.com/kyleneideck/BackgroundMusic) to control volume
+
 ## Screenshots
 
 <img src="static/screenshots/demo.gif" alt="demo" width="250px" />
