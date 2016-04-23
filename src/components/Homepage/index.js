@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { shell } from 'electron';
-import Navbar from './Navbar/Navbar';
+import Navbar from './Navbar';
 import { Spinner } from 'components';
 import styles from './styles.scss';
 import updaterIcon from './updater.gif';

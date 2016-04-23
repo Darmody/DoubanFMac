@@ -1,24 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import { mapProps } from 'recompose';
 import styles from './styles.scss';
 
-export default class Processbar extends Component {
-  static propTypes = {
-    buffer: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-  }
+const ProcessbarComponent = ({
+  playingPercent, loadingPercent,
+}) => (
+  <div className={styles.processbar} >
+    <div className="default" />
+    <div className="loading" style={{ width: `${loadingPercent}%` }} />
+    <div className="playing" style={{ width: `${playingPercent}%` }} />
+  </div>
+);
 
-  render() {
-    const { buffer, step, total } = this.props;
-    const playingPercent = 100.0 * step / total;
-    const loadingPercent = 100.0 * buffer / total;
-
-    return (
-      <div className={styles.processbar} >
-        <div className="default" />
-        <div className="loading" style={{ width: `${loadingPercent}%` }} />
-        <div className="playing" style={{ width: `${playingPercent}%` }} />
-      </div>
-    );
-  }
-}
+export default mapProps(props => ({
+  playingPercent: 100.0 * props.step / props.total,
+  loadingPercent: 100.0 * props.buffer / props.total,
+}))(ProcessbarComponent);

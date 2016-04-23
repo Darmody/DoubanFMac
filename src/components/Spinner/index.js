@@ -1,23 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-export default class Spinner extends Component {
-  static propTypes = {
-    loaded: PropTypes.bool,
-    children: PropTypes.any
-  }
-
-  render() {
-    const { loaded, children } = this.props;
-    return (
-      <div>
-        {!loaded && (
-          <div className={require('./styles.scss').spinner} >
-            <img src={require('./spinner.gif')} />
-            <div>loading...</div>
-          </div>
-        )}
-        {loaded && children}
+export default ({ loaded, children }) => (
+  <div>
+    {!loaded && (
+      <div className={require('./styles.scss').spinner} >
+        <img src={require('./spinner.gif')} />
+        <div>loading...</div>
       </div>
-    );
-  }
-}
+    )}
+    {loaded && children}
+  </div>
+);
