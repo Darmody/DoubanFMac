@@ -3,7 +3,7 @@ import Dropdown from 'react-dropdowns';
 import { Link } from 'react-router';
 import cx from 'classnames';
 import { Signin } from 'containers';
-import styles from './Navbar.scss';
+import styles from './styles.scss';
 
 function UserItem({ currentUser = {}, showSigninModal, logoutUser }) {
   if (currentUser.id !== 0) {
