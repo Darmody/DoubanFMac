@@ -64,7 +64,7 @@ app.on('ready', () => {
           webContents.session.cookies.set({
             name: cookie[0],
             value: cookie[1],
-            url: 'http://douban.fm',
+            url: 'https://douban.fm',
           }, (error) => {
             if (error) console.log('Douban cookie set error.', error);
           });
@@ -74,7 +74,7 @@ app.on('ready', () => {
 
   };
   const setDoubanCookies = (webContents, originalURL, headers) => {
-    if (originalURL !== 'http://douban.fm/j/login') return;
+    if (originalURL !== 'https://douban.fm/j/login') return;
 
     const cookies = (headers['set-cookie'] || []).map((cookie) => {
       return cookie.split(';')[0].split('=');
@@ -89,10 +89,10 @@ app.on('ready', () => {
     storage.remove(config.electronStorageKey, (error) => {
       if (error) console.log('storage remove error:', error);
     });
-    webContents.session.cookies.remove('http://douban.fm', 'bid', (error) => {
+    webContents.session.cookies.remove('https://douban.fm', 'bid', (error) => {
       if (error) console.log('remove electron cookie error:', error);
     });
-    webContents.session.cookies.remove('http://douban.fm', 'dbcl2', (error) => {
+    webContents.session.cookies.remove('https://douban.fm', 'dbcl2', (error) => {
       if (error) console.log('remove electron cookie error:', error);
     });
   };

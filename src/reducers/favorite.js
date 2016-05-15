@@ -84,7 +84,7 @@ export function fetchAll() {
 
     dispatch({
       [CALL_API]: {
-        endpoint: 'http://douban.fm/j/v2/redheart/basic',
+        endpoint: 'https://douban.fm/j/v2/redheart/basic',
         method: 'GET',
         credentials: 'include',
         types: [

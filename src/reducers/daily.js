@@ -82,7 +82,7 @@ export default handleActions({
 export function fetch() {
   return {
     [CALL_API]: {
-      endpoint: 'http://douban.fm/j/v2/songlist/user_daily?kbs=192',
+      endpoint: 'https://douban.fm/j/v2/songlist/user_daily?kbs=192',
       method: 'GET',
       credentials: 'include',
       types: [
