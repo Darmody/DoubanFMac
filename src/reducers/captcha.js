@@ -18,7 +18,7 @@ export default handleActions({
 export function fetch() {
   return {
     [CALL_API]: {
-      endpoint: 'http://douban.fm/j/new_captcha',
+      endpoint: 'https://douban.fm/j/new_captcha',
       method: 'GET',
       credentials: 'include',
       types: [
