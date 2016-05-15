@@ -24,7 +24,7 @@ function fetch(actionTypes, channel, lastSongId = 0, type = 's') {
   return dispatch => {
     dispatch({
       [CALL_API]: {
-        endpoint: `http://douban.fm/j/v2/playlist?${queryString}`,
+        endpoint: `https://douban.fm/j/v2/playlist?${queryString}`,
         method: 'GET',
         credentials: 'include',
         types: actionTypes(dispatch),
@@ -42,7 +42,7 @@ function fetchFavorite(ids) {
   const body = { bps: 192, sids: _.join('|', ids), ck: token };
   return {
     [CALL_API]: {
-      endpoint: 'http://douban.fm/j/v2/redheart/songs',
+      endpoint: 'https://douban.fm/j/v2/redheart/songs',
       method: 'POST',
       body,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

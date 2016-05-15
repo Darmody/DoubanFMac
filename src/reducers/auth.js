@@ -58,7 +58,7 @@ export function login(data) {
   return dispatch => {
     dispatch({
       [CALL_API]: {
-        endpoint: 'http://douban.fm/j/login',
+        endpoint: 'https://douban.fm/j/login',
         method: 'POST',
         body: {
           ...defaultParams,
@@ -93,7 +93,7 @@ export function verify() {
   return dispatch => {
     dispatch({
       [CALL_API]: {
-        endpoint: 'http://douban.fm/j/v2/user_info',
+        endpoint: 'https://douban.fm/j/v2/user_info',
         method: 'GET',
         credentials: 'include',
         types: [
