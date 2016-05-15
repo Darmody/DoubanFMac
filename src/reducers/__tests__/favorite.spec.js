@@ -31,7 +31,7 @@ describe('Favorite Actions', function actions() {
   };
 
   it('FETCH_ALL_SUCCESS', function fetchSuccess(done) {
-    nock('http://douban.fm')
+    nock('https://douban.fm')
       .get('/j/v2/redheart/basic')
       .reply(200, {
         songs: [{
@@ -44,7 +44,7 @@ describe('Favorite Actions', function actions() {
           favorite: 1,
         }]
       });
-    nock('http://douban.fm')
+    nock('https://douban.fm')
       .post('/j/v2/redheart/songs', _.join('&', ['bps=192', 'sids=1', 'ck=']))
       .reply(200, [{
         sid: 1,
@@ -71,7 +71,7 @@ describe('Favorite Actions', function actions() {
   });
 
   it('LIKE_SUCCESS', function likeSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'r' })
       .reply(200, {
@@ -101,7 +101,7 @@ describe('Favorite Actions', function actions() {
   });
 
   it('DISLIKE_SUCCESS', function dislikeSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'u' })
       .reply(200, {
@@ -131,7 +131,7 @@ describe('Favorite Actions', function actions() {
   });
 
   it('BAN_SUCCESS', function banSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'b' })
       .reply(200, {
@@ -163,7 +163,7 @@ describe('Favorite Actions', function actions() {
   });
 
   it('BAN_FAILURE', function banFailure(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'b' })
       .reply(200, {

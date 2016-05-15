@@ -31,7 +31,7 @@ describe('Daily Actions', function actions() {
   };
 
   it('FETCH_SUCCESS', function fetchSuccess(done) {
-    nock('http://douban.fm')
+    nock('https://douban.fm')
       .get('/j/v2/songlist/user_daily?kbs=192')
       .reply(200, {
         songs: [{
@@ -60,7 +60,7 @@ describe('Daily Actions', function actions() {
   });
 
   it('LIKE_SUCCESS', function likeSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'r' })
       .reply(200, {
@@ -90,7 +90,7 @@ describe('Daily Actions', function actions() {
   });
 
   it('DISLIKE_SUCCESS', function dislikeSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'u' })
       .reply(200, {
@@ -120,7 +120,7 @@ describe('Daily Actions', function actions() {
   });
 
   it('BAN_SUCCESS', function banSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'b' })
       .reply(200, {
@@ -152,7 +152,7 @@ describe('Daily Actions', function actions() {
   });
 
   it('BAN_FAILURE', function banFailure(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/playlist')
       .query({ ...nockParams, type: 'b' })
       .reply(200, {

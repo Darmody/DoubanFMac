@@ -20,7 +20,7 @@ describe('Captcha Actions', function actions() {
   });
 
   it('FETCH_SUCCESS', function fetchSuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/new_captcha')
       .reply(200, 'code');
 

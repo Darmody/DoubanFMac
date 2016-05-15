@@ -33,7 +33,7 @@ describe('Auth Actions', function actions() {
       'captcha_solution=captcha',
       'captcha_id=captchaId'
     ];
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .post('/j/login', _.join('&', params))
       .reply(200, {
         user_info: {
@@ -62,7 +62,7 @@ describe('Auth Actions', function actions() {
       'captcha_solution=captcha',
       'captcha_id=captchaId'
     ];
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .post('/j/login', _.join('&', params))
       .reply(200, { err_msg: 'wrong_password' });
 
@@ -78,7 +78,7 @@ describe('Auth Actions', function actions() {
   });
 
   it('VERIFY_SUCCESS', function verifySuccess(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/user_info')
       .reply(200, {
         user_id: 1,
@@ -93,7 +93,7 @@ describe('Auth Actions', function actions() {
   });
 
   it('VERIFY_FAILURE', function verifyFailure(done) {
-    nock('http://douban.fm/')
+    nock('https://douban.fm/')
       .get('/j/v2/user_info')
       .reply(200, { msg: 'need_permission' });
 
@@ -122,8 +122,8 @@ describe('Auth Reducers', function reducers() {
       auth({ user: { id: 0 } }, { type: LOGIN_SUCCESS, payload: null })
     ).to.deep.equal({ user: { id: 0, name: '', token: '' }, logged: false });
     expect(
-      signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: 'wrong_password' })._error
-    ).to.equal('账号或密码不正确');
+      signForm({ user: { id: 0 } }, { type: LOGIN_FAILURE, error: '账号不能为空' })._error
+    ).to.equal('账号不能为空');
   });
 
   it('VERIFY_SUCCESS', function verifySuccess() {
