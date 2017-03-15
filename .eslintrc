@@ -1,0 +1,53 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "env": {
+    "browser": true,
+  },
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-filename-extension": 0,
+    "react/react-in-jsx-scope": 2,
+    "react/jsx-quotes": 0,
+    "react/no-multi-comp": 0,
+    "react/prefer-stateless-function": 0,
+    "jsx-quotes": 2,
+    "arrow-parens": 0,
+    "block-scoped-var": 0,
+    "padded-blocks": 0,
+    "comma-dangle": 0,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "new-cap": 0,
+    "no-alert": 0,
+    "no-bitwise": 0,
+    "no-constant-condition": 0,
+    "no-console": 0,
+    "no-multi-str": 0,
+    "id-length": [2, {"exceptions": ["_", "$"]}],
+    "no-shadow": 0,
+    "no-script-url": 0,
+    "no-unused-expressions": 0,
+    "semi": [2, "never"],
+    "max-len": [2, 90, 4, {"ignoreUrls": true}],
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
+    "global-require": 0,
+  },
+  "plugins": [
+    "react",
+    "import",
+    "flowtype"
+  ],
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": 'webpack/development.config.js'
+      }
+    }
+  },
+}
