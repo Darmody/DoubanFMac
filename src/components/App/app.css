@@ -1,3 +1,15 @@
+html, body, #root {
+  height: 100%;
+}
+
 body {
   background: rgba(250, 250, 250, 0.933333);
+}
+
+* {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Source Han Sans CN,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  font-weight: 400;
 }

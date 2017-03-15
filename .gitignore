@@ -27,5 +27,3 @@ node_modules
 dist
 release
 build
-app
-!src/**/app
