@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Body, Header } from 'components'
+import { Body, Header, Footer } from 'components'
 import 'normalize.css'
 import './app.css'
 
@@ -21,7 +21,7 @@ export default class AppContainer extends PureComponent {
         <App>
           <Header />
           <Body />
-          <div>footer</div>
+          <Footer />
         </App>
       </ThemeProvider>
     )

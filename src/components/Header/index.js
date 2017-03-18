@@ -3,11 +3,15 @@ import styled from 'styled-components'
 import UserPanel from './UserPanel'
 import LogoImage from './logo.svg'
 
+const HeaderWrapper = styled.div`
+  width: 100%;
+`
+
 const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 50rem;
+  width: 45.975rem;
   margin: 1.75rem auto;
 `
 
@@ -32,13 +36,15 @@ const FeedBack = styled.a`
 export default class HeaderContainer extends PureComponent {
   render() {
     return (
-      <Header>
-        <FrontPanel>
-          <Logo src={LogoImage} alt="" />
-          <FeedBack href="javascript:void(0);">我要反馈</FeedBack>
-        </FrontPanel>
-        <UserPanel />
-      </Header>
+      <HeaderWrapper>
+        <Header>
+          <FrontPanel>
+            <Logo src={LogoImage} alt="" />
+            <FeedBack href="javascript:void(0);">我要反馈</FeedBack>
+          </FrontPanel>
+          <UserPanel />
+        </Header>
+      </HeaderWrapper>
     )
   }
 }
