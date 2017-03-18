@@ -1,2 +1,5 @@
+export Body from './Body'
+export Channel from './Channel'
 export Header from './Header'
+export Player from './Player'
 export Root from './Root'
