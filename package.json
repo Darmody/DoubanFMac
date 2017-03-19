@@ -3,12 +3,13 @@
   "productName": "DoubanFMac",
   "version": "next",
   "description": "豆瓣FM for mac",
-  "main": "main.js",
+  "main": "src/electron/main.js",
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
   "scripts": {
-    "start": "./bin/dev-server"
+    "dev-server": "./bin/dev-server",
+    "start": "./bin/electron"
   },
   "build": {
     "osx": {
@@ -79,6 +80,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "electron": "^1.6.2",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
