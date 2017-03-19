@@ -1,56 +1,60 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWin
 let lyricsWin
 
-const createWindow = (options) => {
-  // Create the browser window.
+const HOST = 'http://localhost:8080'
+const HEIGHT = 659
+const WIDTH = 800
+const createWindow = (options, url = HOST) => {
   const win = new BrowserWindow(options)
 
-  // and load the index.html of the app.
-  win.loadURL('http://localhost:8080')
+  win.loadURL(url)
 
-  // Emitted when the window is closed.
   win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWin = null
   })
 
   return win
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   mainWin = createWindow({
-    width: 800, height: 600, hasShadow: false, titleBarStyle: 'hidden',
-  })
+    width: WIDTH,
+    height: HEIGHT,
+    hasShadow: false,
+    titleBarStyle: 'hidden',
+    resizable: false,
+  }, `${HOST}/app`)
   lyricsWin = createWindow({
-    width: 0, height: 600, frame: false, parent: mainWin, hasShadow: false
-  })
+    width: 0,
+    height: HEIGHT,
+    frame: false,
+    parent: mainWin,
+    hasShadow: false,
+    movable: false,
+    resizable: false,
+  }, `${HOST}/lyrics`)
 
   // events
   ipcMain.on('lyricsWindow', (event, message) => {
     const opening = () => {
       const mainPosition = mainWin.getPosition()
       const lyricsPosition = lyricsWin.getPosition()
+      const lyricsPositionX = (mainPosition[0] + WIDTH) - 10
 
       if (
-        ((mainPosition[0] + 790) !== lyricsPosition[0]) ||
+        (lyricsPositionX !== lyricsPosition[0]) ||
         (mainPosition[1] !== lyricsPosition[1])
       ) {
-        lyricsWin.setPosition(mainPosition[0] + 790, mainPosition[1])
+        lyricsWin.setPosition(lyricsPositionX, mainPosition[1])
       }
 
-      lyricsWin.setSize(300, 600, true)
+      lyricsWin.setSize(300, HEIGHT, true)
     }
     const closing = () => {
-      lyricsWin.setSize(0, 600, true)
+      lyricsWin.setSize(0, HEIGHT, true)
+      mainWin.focus()
     }
 
     const toggling = () => {

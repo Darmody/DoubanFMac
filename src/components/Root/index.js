@@ -1,6 +1,15 @@
 import React from 'react'
-import App from 'components/App'
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom'
+import { App, Lyrics } from 'components'
 
 export default () => (
-  <App />
+  <Router>
+    <div>
+      <Route excat path="/app" component={App} />
+      <Route excat path="/lyrics" component={Lyrics} />
+    </div>
+  </Router>
 )
