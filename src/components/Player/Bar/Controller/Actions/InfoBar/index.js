@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import {
   Create as IconCreate,
@@ -7,6 +7,8 @@ import {
   Share as IconShare,
   Volume as IconVolume,
 } from 'components/Icons'
+
+const ipc = require('electron').ipcRenderer
 
 const InfoBar = styled.div`
   display: flex;
@@ -49,13 +51,19 @@ const StyledLink = styled.a`
   }
 `
 const Link = props => (
-  <StyledLink href="javascript:void(0);">{props.children}</StyledLink>
+  <StyledLink
+    href="javascript:void(0);"
+    onClick={props.onClick}
+  >
+    {props.children}
+  </StyledLink>
 )
-Link.propTypes = {
-  children: PropTypes.element.isRequired,
-}
 
 export default class InfoBarContainer extends PureComponent {
+  handleLyricsClick = () => {
+    ipc.send('lyricsWindow', 'toggle')
+  }
+
   render() {
     return (
       <InfoBar>
@@ -66,7 +74,7 @@ export default class InfoBarContainer extends PureComponent {
           <IconVolume />
         </Header>
         <Links>
-          <Link><IconLyrics /></Link>
+          <Link onClick={this.handleLyricsClick}><IconLyrics /></Link>
           <Link><IconDownload /></Link>
           <Link><IconCreate /></Link>
           <Link><IconShare /></Link>

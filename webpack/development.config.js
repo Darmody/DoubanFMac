@@ -9,7 +9,7 @@ const assetsPath = path.join(__dirname, '..', 'public')
 const plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
-    template: path.resolve(srcPath, 'index.html'),
+    template: path.resolve(srcPath, 'index.development.html'),
   }),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')
@@ -35,7 +35,7 @@ module.exports = {
     path.join(srcPath, 'index.js'),
   ],
   output: {
-    filename: '[name]-[hash].js',
+    filename: '[name].js',
     publicPath: '/',
     pathinfo: true,
     path: assetsPath,
@@ -68,6 +68,7 @@ module.exports = {
     }]
   },
   devServer: {
+    inline: false,
     hot: true,
     quiet: false,
     noInfo: false,
@@ -81,4 +82,5 @@ module.exports = {
       srcPath,
     ],
   },
+  target: 'electron-renderer',
 }

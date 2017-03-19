@@ -3,7 +3,7 @@
   "productName": "DoubanFMac",
   "version": "next",
   "description": "豆瓣FM for mac",
-  "main": "src/electron/main.js",
+  "main": "src/desktop/main.development.js",
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },

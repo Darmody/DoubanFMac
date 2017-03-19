@@ -4,6 +4,11 @@ html, body, #root {
 
 body {
   background: rgba(250, 250, 250, 0.933333);
+  -webkit-app-region: drag;
+}
+
+button, a {
+  -webkit-app-region: no-drag;
 }
 
 * {
