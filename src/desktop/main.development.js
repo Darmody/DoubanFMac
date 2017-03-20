@@ -1,3 +1,4 @@
+/* eslint-disable  id-length */
 const { app, BrowserWindow, ipcMain } = require('electron')
 
 let mainWin
@@ -40,16 +41,9 @@ app.on('ready', () => {
   ipcMain.on('lyricsWindow', (event, message) => {
     const opening = () => {
       const mainPosition = mainWin.getPosition()
-      const lyricsPosition = lyricsWin.getPosition()
       const lyricsPositionX = (mainPosition[0] + WIDTH) - 10
 
-      if (
-        (lyricsPositionX !== lyricsPosition[0]) ||
-        (mainPosition[1] !== lyricsPosition[1])
-      ) {
-        lyricsWin.setPosition(lyricsPositionX, mainPosition[1])
-      }
-
+      lyricsWin.setPosition(lyricsPositionX, mainPosition[1])
       lyricsWin.setSize(300, HEIGHT, true)
     }
     const closing = () => {

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import UserPanel from './UserPanel'
+// import UserPanel from './UserPanel'
+import LoginPanel from './LoginPanel'
 import LogoImage from './logo.svg'
 
 const HeaderWrapper = styled.div`
@@ -42,7 +43,7 @@ export default class HeaderContainer extends PureComponent {
             <Logo src={LogoImage} alt="" />
             <FeedBack href="javascript:void(0);">我要反馈</FeedBack>
           </FrontPanel>
-          <UserPanel />
+          <LoginPanel />
         </Header>
       </HeaderWrapper>
     )
