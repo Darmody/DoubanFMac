@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Body, Header, Footer } from 'components'

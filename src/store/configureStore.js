@@ -1,4 +1,6 @@
+// @flow
 import { applyMiddleware, createStore, compose } from 'redux'
+import type { StateShape } from 'constants/types/Redux'
 import rootReducer from 'reducers'
 import middlewares from 'middlewares'
 
@@ -7,9 +9,9 @@ const finalCreateStore = compose(
   window.devToolsExtension ? window.devToolsExtension() : (fn => fn),
 )(createStore)
 
-const initialState = {}
+const initialState: StateShape = {}
 
-export default (state = initialState) => {
+export default (state: StateShape = initialState) => {
   const store = finalCreateStore(rootReducer, state)
 
   if (module.hot) {

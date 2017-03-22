@@ -1,12 +1,16 @@
+// @flow
 import React from 'react'
 import { Provider } from 'react-redux'
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom'
-import { App, Lyrics } from 'components'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import type { Store as ReduxStore } from 'constants/types/Redux'
+import { App } from 'containers'
+import { Lyrics } from 'components'
 
-export default ({ store }) => (
+type RootPropTypes = {
+  store: ReduxStore,
+}
+
+export default ({ store }: RootPropTypes) => (
   <Provider store={store}>
     <Router>
       <div>
