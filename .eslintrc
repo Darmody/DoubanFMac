@@ -2,10 +2,12 @@
   "parser": "babel-eslint",
   "extends": [
     "eslint-config-airbnb",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended"
   ],
   "env": {
     "browser": true,
+    "jest/globals": true
   },
   "rules": {
     "react/jsx-uses-react": 2,
@@ -41,7 +43,8 @@
   "plugins": [
     "react",
     "import",
-    "flowtype"
+    "flowtype",
+    "jest"
   ],
   "settings": {
     "import/resolver": {

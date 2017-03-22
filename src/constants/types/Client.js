@@ -1,13 +1,15 @@
 // @flow
 
 export type Credentials = 'same-origin' | 'include'
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+| 'get' | 'post' | 'put' | 'delete' | 'patch'
 
 export type Prop = {
-  method: string,
-  endpoint: string,
-  queryString: Object,
-  body: Object,
-  headers: Object,
-  json: boolean,
-  credentials: Credentials,
+  method?: string,
+  endpoint?: string,
+  queryString?: Object,
+  body?: Object,
+  headers?: Object,
+  json?: boolean,
+  credentials?: Credentials,
 }
