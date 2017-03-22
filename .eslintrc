@@ -27,7 +27,7 @@
     "no-constant-condition": 0,
     "no-console": 0,
     "no-multi-str": 0,
-    "id-length": [2, {"exceptions": ["_", "$"]}],
+    "id-length": [2, {"exceptions": ["_", "$", "R"]}],
     "no-shadow": 0,
     "no-script-url": 0,
     "no-unused-expressions": 0,

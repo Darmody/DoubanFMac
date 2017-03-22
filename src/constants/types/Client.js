@@ -2,7 +2,7 @@
 
 export type Credentials = 'same-origin' | 'include'
 
-export type ClientProp = {
+export type Prop = {
   method: string,
   endpoint: string,
   queryString: Object,
