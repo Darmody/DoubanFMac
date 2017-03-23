@@ -1,10 +1,10 @@
 // @flow
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 import type { Reducer } from 'constants/types/Redux'
-import fake from './fake'
 
 const rootReducer: Reducer = combineReducers({
-  fake,
+  form: formReducer,
 })
 
 export default rootReducer
