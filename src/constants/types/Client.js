@@ -4,7 +4,7 @@ export type Credentials = 'same-origin' | 'include'
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 | 'get' | 'post' | 'put' | 'delete' | 'patch'
 
-export type Prop = {
+export type RequestProps = {
   method?: string,
   endpoint?: string,
   queryString?: Object,
@@ -13,3 +13,5 @@ export type Prop = {
   json?: boolean,
   credentials?: Credentials,
 }
+
+export type ClientProps = RequestProps | string

@@ -18,6 +18,15 @@ describe('httpClient', () => {
 
   })
 
+  test('将 string 的参数转换为 GET 请求参数', () => {
+    httpClient('endpoint')
+
+    const fetchCalls = window.fetch.mock.calls
+    expect(fetchCalls.length).toBe(1)
+    expect(fetchCalls[0][1].method).toBe('GET')
+    expect(fetchCalls[0][0]).toBe('endpoint')
+  })
+
   test('method 自动转化为大写', () => {
     httpClient({ method: 'get' })
 
@@ -70,5 +79,68 @@ describe('httpClient', () => {
     const fetchCalls = window.fetch.mock.calls
     expect(fetchCalls.length).toBe(1)
     expect(fetchCalls[0][1].body).toBeUndefined()
+  })
+
+  describe('verb client', () => {
+    beforeEach(() => {
+      window.fetch = jest.fn()
+    })
+
+    test('httpClient.get', () => {
+      httpClient.get('endpoint')
+
+      const fetchCalls = window.fetch.mock.calls
+      expect(fetchCalls.length).toBe(1)
+      expect(fetchCalls[0][1].method).toBe('GET')
+      expect(fetchCalls[0][0]).toBe('endpoint')
+    })
+
+    test('httpClient.post', () => {
+      const endpoint = 'endpoint'
+      const body = { value: 'body' }
+      httpClient.post({ endpoint, body })
+
+      const fetchCalls = window.fetch.mock.calls
+      expect(fetchCalls.length).toBe(1)
+      expect(fetchCalls[0][1].method).toBe('POST')
+      expect(fetchCalls[0][0]).toBe(endpoint)
+      expect(fetchCalls[0][1].body).toMatchObject(body)
+    })
+
+    test('httpClient.put', () => {
+      const endpoint = 'endpoint'
+      const body = { value: 'body' }
+      httpClient.put({ endpoint, body })
+
+      const fetchCalls = window.fetch.mock.calls
+      expect(fetchCalls.length).toBe(1)
+      expect(fetchCalls[0][1].method).toBe('PUT')
+      expect(fetchCalls[0][0]).toBe(endpoint)
+      expect(fetchCalls[0][1].body).toMatchObject(body)
+    })
+
+    test('httpClient.patch', () => {
+      const endpoint = 'endpoint'
+      const body = { value: 'body' }
+      httpClient.patch({ endpoint, body })
+
+      const fetchCalls = window.fetch.mock.calls
+      expect(fetchCalls.length).toBe(1)
+      expect(fetchCalls[0][1].method).toBe('PATCH')
+      expect(fetchCalls[0][0]).toBe(endpoint)
+      expect(fetchCalls[0][1].body).toMatchObject(body)
+    })
+
+    test('httpClient.del', () => {
+      const endpoint = 'endpoint'
+      const body = { value: 'body' }
+      httpClient.del({ endpoint, body })
+
+      const fetchCalls = window.fetch.mock.calls
+      expect(fetchCalls.length).toBe(1)
+      expect(fetchCalls[0][1].method).toBe('DELETE')
+      expect(fetchCalls[0][0]).toBe(endpoint)
+      expect(fetchCalls[0][1].body).toMatchObject(body)
+    })
   })
 })
