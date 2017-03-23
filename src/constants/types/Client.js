@@ -15,3 +15,5 @@ export type RequestProps = {
 }
 
 export type ClientProps = RequestProps | string
+
+export type Client = ClientProps => Promise<*>

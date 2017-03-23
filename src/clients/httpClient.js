@@ -3,16 +3,16 @@ import R from 'ramda'
 import { defaults } from 'utils/ramda'
 import qs from 'qs'
 import type {
+  Client,
   ClientProps,
   RequestProps as Props,
-  Method,
 } from 'constants/types/Client'
+import verbClient from './verbClient'
 
 const URLENCODE_TYPE = 'application/x-www-form-urlencoded'
 const JSON_TYPE = 'application/json'
 
-
-const defaultProps = (props: ClientProps): Props => {
+export const defaultProps = (props: ClientProps): Props => {
   const constructGetprops = endpoint => ({
     method: 'GET',
     endpoint,
@@ -77,7 +77,7 @@ const removeBodyWhenGet = (props: Props): Props => {
   }
 }
 
-const httpClient = (props: ClientProps): Props => {
+const httpClient: Client = (props) => {
   const finalProps = R.compose(
     removeBodyWhenGet,
     formUrlencode,
@@ -93,16 +93,10 @@ const httpClient = (props: ClientProps): Props => {
   return window.fetch(url, fetchParams)
 }
 
-const verbClient = (method: Method) => (props: ClientProps) => R.compose(
-  httpClient,
-  R.merge(R.__, { method }),
-  defaultProps,
-)(props)
-
-httpClient.get = verbClient('GET')
-httpClient.post = verbClient('POST')
-httpClient.put = verbClient('PUT')
-httpClient.patch = verbClient('PATCH')
-httpClient.del = verbClient('DELETE')
+httpClient.get = verbClient('GET', httpClient)
+httpClient.post = verbClient('POST', httpClient)
+httpClient.put = verbClient('PUT', httpClient)
+httpClient.patch = verbClient('PATCH', httpClient)
+httpClient.del = verbClient('DELETE', httpClient)
 
 export default httpClient
