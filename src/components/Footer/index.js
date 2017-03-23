@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Navbar from './Navbar'
@@ -26,7 +27,7 @@ const Purchase = styled.a`
   cursor: pointer;
 `
 
-export default class FooterContainer extends PureComponent {
+export default class FooterComponent extends PureComponent {
   render() {
     return (
       <Footer>

@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import IconSelect from 'components/Icons/Select'
@@ -18,7 +19,7 @@ const Name = styled.span`
   color: rgb(47, 152, 66);
 `
 
-export default class ChannelContainer extends PureComponent {
+export default class ChannelComponent extends PureComponent {
   render() {
     return (
       <Channel>

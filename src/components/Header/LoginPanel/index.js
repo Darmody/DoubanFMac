@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-modal'
@@ -68,6 +69,12 @@ const modalStyle = {
   }
 }
 
+type Props = {
+}
+
+type State = {
+  modalIsOpen: boolean,
+}
 
 export default class LoginPanelContainer extends PureComponent {
   constructor() {
@@ -77,6 +84,9 @@ export default class LoginPanelContainer extends PureComponent {
       modalIsOpen: false,
     }
   }
+
+  state: State
+  props: Props
 
   openModal = () => {
     this.setState({ modalIsOpen: true })

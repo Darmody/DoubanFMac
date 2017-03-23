@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component::Header 渲染正确的 DOM 结构 1`] = `
+<div
+  className="bMAZFf"
+>
+  <div
+    className="jkBogs"
+  >
+    <div
+      className="glkAad"
+    >
+      <img
+        alt=""
+        className="ijNzyI"
+        src={Object {}}
+      />
+      <a
+        className="ipowgx"
+        href="javascript:void(0);"
+      >
+        我要反馈
+      </a>
+    </div>
+    <div>
+      <noscript />
+      <a
+        className="fYxbAV"
+        href="javascript:void(0);"
+        onClick={[Function]}
+      >
+        登录
+      </a>
+    </div>
+  </div>
+</div>
+`;

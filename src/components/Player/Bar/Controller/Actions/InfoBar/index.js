@@ -7,6 +7,7 @@ import {
   Share as IconShare,
   Volume as IconVolume,
 } from 'components/Icons'
+import Link from './Link'
 
 const ipc = require('electron').ipcRenderer
 
@@ -38,28 +39,7 @@ const Links = styled.span`
   align-items: center;
 `
 
-const StyledLink = styled.a`
-  &:not(:last-child) {
-    margin-right: 1.563rem;
-  }
-
-  svg {
-    cursor: pointer;
-    * {
-      cursor: pointer;
-    }
-  }
-`
-const Link = props => (
-  <StyledLink
-    href="javascript:void(0);"
-    onClick={props.onClick}
-  >
-    {props.children}
-  </StyledLink>
-)
-
-export default class InfoBarContainer extends PureComponent {
+export default class InfoBarComponent extends PureComponent {
   handleLyricsClick = () => {
     ipc.send('lyricsWindow', 'toggle')
   }

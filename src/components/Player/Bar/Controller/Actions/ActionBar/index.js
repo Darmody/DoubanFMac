@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+// @flow
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import {
   Love as IconLove,
@@ -6,6 +7,7 @@ import {
   Play as IconPlay,
   Skip as IconSkip,
 } from 'components/Icons'
+import Button from './Button'
 
 const ActionBar = styled.div`
   margin-top: 3.688rem;
@@ -30,20 +32,7 @@ const Tail = styled.div`
   }
 `
 
-const StyledButton = styled.a`
-  svg {
-    cursor: pointer;
-    * {
-      cursor: pointer;
-    }
-  }
-`
-const Button = props => <StyledButton>{props.children}</StyledButton>
-Button.propTypes = {
-  children: PropTypes.element.isRequired,
-}
-
-export default class ActionBarContainer extends PureComponent {
+export default class ActionBarComponent extends PureComponent {
   render() {
     return (
       <ActionBar>

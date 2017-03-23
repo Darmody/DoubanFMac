@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Channel from 'components/Channel'
@@ -12,7 +13,7 @@ const Player = styled.div`
   margin: 1.75rem auto;
 `
 
-export default class PlayerContainer extends PureComponent {
+export default class PlayerComponent extends PureComponent {
   render() {
     return (
       <Player >

@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
@@ -43,7 +44,7 @@ const Line = styled.p`
   cursor: text;
 `
 
-export default class LyricsContainer extends PureComponent {
+export default class LyricsComponent extends PureComponent {
   handleClose = () => {
     ipc.send('lyricsWindow', 'close')
   }

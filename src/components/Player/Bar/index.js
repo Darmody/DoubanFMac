@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Controller from './Controller'
@@ -17,7 +18,7 @@ const Cover = styled.img`
   border-radius: 50%;
 `
 
-export default class BarContainer extends PureComponent {
+export default class BarComponent extends PureComponent {
   render() {
     return (
       <Bar>

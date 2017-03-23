@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Arrow from 'components/Icons/Arrow'
@@ -44,7 +45,7 @@ const indicatedArrowCss = `
   }
 `
 
-export default class UserPanelContainer extends PureComponent {
+export default class UserPanelComponent extends PureComponent {
   render() {
     return (
       <UserPanel>

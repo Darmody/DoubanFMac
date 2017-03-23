@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component::Lyrics 渲染正确的 DOM 结构 1`] = `
+<div
+  className="dJEGex"
+>
+  <div
+    className="fHcqxU"
+  >
+    <p
+      className="eAQULc"
+    >
+      Pick apart
+    </p>
+    <p
+      className="eAQULc"
+    >
+      The pieces of your heart
+    </p>
+    <p
+      className="eAQULc"
+    >
+      And let me peer inside
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Let me in
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Where only your thoughts have been
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Let me occupy your mind
+    </p>
+    <p
+      className="eAQULc"
+    >
+      As you do mine
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Your heart’s a mess
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You won’t admit to it
+    </p>
+    <p
+      className="eAQULc"
+    >
+      It makes no sense
+    </p>
+    <p
+      className="eAQULc"
+    >
+      But I’m desperate to connect
+    </p>
+    <p
+      className="eAQULc"
+    >
+      And you, you can’t live like this
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You have lost
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Too much love
+    </p>
+    <p
+      className="eAQULc"
+    >
+      To fear, doubt and distrust
+    </p>
+    <p
+      className="eAQULc"
+    >
+      (It’s not enough)
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You just threw away the key
+    </p>
+    <p
+      className="eAQULc"
+    >
+      To your heart
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You don’t get burned
+    </p>
+    <p
+      className="eAQULc"
+    >
+      (’Cause nothing gets through)
+    </p>
+    <p
+      className="eAQULc"
+    >
+      It makes it easier
+    </p>
+    <p
+      className="eAQULc"
+    >
+      (Easier on you)
+    </p>
+    <p
+      className="eAQULc"
+    >
+      But that much more difficult for me
+    </p>
+    <p
+      className="eAQULc"
+    >
+      To make you see…
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Love ain’t fair
+    </p>
+    <p
+      className="eAQULc"
+    >
+      So there you are
+    </p>
+    <p
+      className="eAQULc"
+    >
+      My love
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Your heart’s a mess
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You won’t admit to it
+    </p>
+    <p
+      className="eAQULc"
+    >
+      It makes no sense
+    </p>
+    <p
+      className="eAQULc"
+    >
+      But I’m desperate to connect
+    </p>
+    <p
+      className="eAQULc"
+    >
+      And you, you can’t live like this
+    </p>
+    <p
+      className="eAQULc"
+    >
+      Love ain’t safe
+    </p>
+    <p
+      className="eAQULc"
+    >
+      You won’t get hurt if you stay chaste
+    </p>
+    <p
+      className="eAQULc"
+    >
+      So you can wait
+    </p>
+    <p
+      className="eAQULc"
+    >
+      But I don’t wanna waste my love
+    </p>
+  </div>
+  <div
+    className="iWMXlF"
+  >
+    <a
+      className="iYKYhB"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      关闭歌词
+    </a>
+  </div>
+</div>
+`;

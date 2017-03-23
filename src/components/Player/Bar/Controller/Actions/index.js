@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import ActionBar from './ActionBar'
@@ -7,7 +8,7 @@ import ProcessBar from './ProcessBar'
 const Actions = styled.div`
 `
 
-export default class ActionsContainer extends PureComponent {
+export default class ActionsComponent extends PureComponent {
   render() {
     return (
       <Actions>

@@ -9,7 +9,11 @@
   },
   "scripts": {
     "dev-server": "./bin/dev-server",
-    "start": "./bin/electron"
+    "start": "./bin/electron",
+    "flow": "./node_modules/.bin/flow",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "test": "./node_modules/.bin/jest",
+    "check": "yarn run lint && yarn run flow && yarn test"
   },
   "build": {
     "osx": {
@@ -57,6 +61,7 @@
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.4.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
@@ -75,6 +80,7 @@
     "html-webpack-plugin": "^2.28.0",
     "jest": "^19.0.2",
     "react-hot-loader": "next",
+    "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.10.1",
     "style-loader": "^0.14.0",
     "url-loader": "^0.5.8",
@@ -95,7 +101,16 @@
     "styled-components": "^1.4.4"
   },
   "jest": {
-    "moduleFileExtensions": ["js"],
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

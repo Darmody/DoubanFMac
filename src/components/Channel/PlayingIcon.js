@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -27,7 +28,7 @@ const Volume = styled.div`
   animation: ${stretching} ${props => `${props.duration}s`} infinite ease;
 `
 
-export default class PlayingIconContainer extends PureComponent {
+export default class PlayingIconComponent extends PureComponent {
   render() {
     return (
       <Container>

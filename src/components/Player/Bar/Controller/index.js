@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Actions from './Actions'
@@ -37,7 +38,7 @@ const Artist = styled.a`
   }
 `
 
-export default class ControllerContainer extends PureComponent {
+export default class ControllerComponent extends PureComponent {
   render() {
     return (
       <Controller>

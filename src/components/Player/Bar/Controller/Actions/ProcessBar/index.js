@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
@@ -30,7 +31,7 @@ const DownloadedBar = styled.div`
   height: 1px;
 `
 
-export default class ProcessBarContainer extends PureComponent {
+export default class ProcessBarComponent extends PureComponent {
   render() {
     return (
       <ProcessBar>
