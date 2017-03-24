@@ -1,7 +1,7 @@
 // @flow
 import { combineEpics } from 'redux-observable'
-import fake from './fake'
+import auth from './auth'
 
 export default combineEpics(
-  ...fake,
+  ...auth,
 )

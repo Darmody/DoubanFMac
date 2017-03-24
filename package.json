@@ -92,6 +92,7 @@
   },
   "dependencies": {
     "electron": "^1.6.2",
+    "immutable": "^3.8.1",
     "normalize.css": "^5.0.0",
     "ramda": "^0.23.0",
     "react": "^15.4.2",
@@ -101,6 +102,7 @@
     "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
+    "redux-localstorage": "^0.4.1",
     "redux-observable": "^0.14.1",
     "rxjs": "^5.2.0",
     "styled-components": "^1.4.4"
