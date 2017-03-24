@@ -2,6 +2,8 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-modal'
+import { LoginForm as LoginFormContainer } from 'containers'
+import Form from './Form'
 
 const LoginPanel = styled.a`
   font-size: .75rem;
@@ -12,50 +14,6 @@ const LoginPanel = styled.a`
   outline: none;
   cursor: pointer;
 }
-`
-
-const LoginForm = styled.form`
-  width: 22.375rem;
-  padding: 3.75rem 3.75rem 3.125rem 3.75rem;
-`
-
-const Field = styled.div`
-  height: 2.5rem;
-  margin-top: .875rem;
-  overflow: hidden;
-`
-
-const Input = styled.input`
-  border: 1px solid #ccc;
-  width: 21rem;
-  height: .875rem;
-  line-height: .875rem;
-  padding: .75rem 2.5rem .75rem .625rem;
-  color: #111;
-  font-size: .813rem;
-  outline: none;
-  cursor: text;
-  border-radius: 3px;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.06);
-`
-
-const Button = styled.input`
-  display: block;
-  border: none;
-  width: 100%;
-  height: 2.5rem;
-  border-radius: 3px;
-  background-color: #59b36a;
-  color: white;
-  cursor: pointer;
-`
-
-const Title = styled.h2`
-  text-align: center;
-  font-size: 1.563rem;
-  font-weight: normal;
-  margin-bottom: 1.875rem;
-  line-height: 1rem;
 `
 
 const modalStyle = {
@@ -105,18 +63,7 @@ export default class LoginPanelContainer extends PureComponent {
           contentLabel="登录"
           style={modalStyle}
         >
-          <LoginForm>
-            <Title>欢迎来到豆瓣, 请登录</Title>
-            <Field>
-              <Input type="text" placeholder="手机号/邮箱/用户名" />
-            </Field>
-            <Field>
-              <Input type="password" placeholder="密码" />
-            </Field>
-            <Field>
-              <Button type="submit" value="登录豆瓣" />
-            </Field>
-          </LoginForm>
+          <LoginFormContainer component={Form} />
         </Modal>
         <LoginPanel
           href="javascript:void(0);"

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component::Login Form 渲染正确的 DOM 结构 1`] = `
+<form
+  className="dyoihW"
+>
+  <h2
+    className="dIBfTJ"
+  >
+    欢迎来到豆瓣, 请登录
+  </h2>
+  <div
+    className="gfjhTq"
+  >
+    <div
+      className="redux-form-field-mock"
+    >
+      username
+    </div>
+  </div>
+  <div
+    className="gfjhTq"
+  >
+    <div
+      className="redux-form-field-mock"
+    >
+      password
+    </div>
+  </div>
+  <div
+    className="gfjhTq"
+  >
+    <input
+      className="bzvVCm"
+      onClick={[Function]}
+      type="submit"
+      value="登录豆瓣"
+    />
+  </div>
+</form>
+`;
