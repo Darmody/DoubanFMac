@@ -21,7 +21,21 @@ const FieldWrapper = styled.div`
   overflow: hidden;
 `
 
-const Input = styled.input`
+type InputProps = {
+  className: string,
+  input: Object,
+  placeholder: string,
+  type: string,
+}
+const ReduxInput = ({
+  input,
+  type = 'text',
+  placeholder = '',
+  className = '',
+}: InputProps) => (
+  <input type={type} placeholder={placeholder} {...input} className={className} />
+)
+const Input = styled(ReduxInput)`
   border: 1px solid #ccc;
   width: calc(100% - .75rem);
   height: .875rem;

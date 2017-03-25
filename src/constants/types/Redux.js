@@ -6,11 +6,10 @@ import type {
   Reducer as ReduxReducer,
 } from 'redux'
 import type { Observable } from 'redux-observable'
-import type { Map } from 'immutable'
 
 export type ActionType = string
 
-export type StateShape = Map<string, any> | Object
+export type StateShape = Object
 
 export type Action = {
   +type: ActionType,

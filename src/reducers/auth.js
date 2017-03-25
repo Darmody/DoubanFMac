@@ -1,13 +1,13 @@
 // @flow
-import { Map } from 'immutable'
+import Immutable from 'seamless-immutable'
 import * as types from 'constants/types/ActionTypes'
 import type { Reducer } from 'constants/types/Redux'
 
-const initialState: Map<string, any> = Map({
-  id: undefined,
-  token: undefined,
-  refreshToken: undefined,
-  expiredAt: undefined,
+const initialState = Immutable({
+  id: null,
+  token: '',
+  refreshToken: '',
+  expiredAt: null,
 })
 
 const reducer: Reducer = (state = initialState, { type, payload }) => {
