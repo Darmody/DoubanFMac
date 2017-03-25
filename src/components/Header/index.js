@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-// import UserPanel from './UserPanel'
+import UserPanel from './UserPanel'
 import LoginPanel from './LoginPanel'
 import LogoImage from './logo.svg'
 
@@ -36,6 +36,17 @@ const FeedBack = styled.a`
 `
 
 export default class HeaderContainer extends PureComponent {
+  props: {
+    auth: boolean,
+  }
+
+  renderUserPanel = () => {
+    if (this.props.auth) {
+      return <UserPanel />
+    }
+
+    return <LoginPanel />
+  }
   render() {
     return (
       <HeaderWrapper>
@@ -44,7 +55,7 @@ export default class HeaderContainer extends PureComponent {
             <Logo src={LogoImage} alt="" />
             <FeedBack href="javascript:void(0);">我要反馈</FeedBack>
           </FrontPanel>
-          <LoginPanel />
+          {this.renderUserPanel()}
         </Header>
       </HeaderWrapper>
     )

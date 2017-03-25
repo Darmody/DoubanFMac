@@ -26,6 +26,7 @@ app.on('ready', () => {
     hasShadow: false,
     titleBarStyle: 'hidden',
     resizable: false,
+    webPreferences: { webSecurity: false },
   }, `${HOST}/app`)
   lyricsWin = createWindow({
     width: 0,
@@ -35,6 +36,7 @@ app.on('ready', () => {
     hasShadow: false,
     movable: false,
     resizable: false,
+    webPreferences: { webSecurity: false },
   }, `${HOST}/lyrics`)
 
   // events

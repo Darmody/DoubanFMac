@@ -1,4 +1,7 @@
 import R from 'ramda'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const defaultConfig = {
   DOUBAN: {

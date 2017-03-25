@@ -2,10 +2,10 @@
 
 exports[`reducer::auth initialize state 1`] = `
 Object {
-  "expiredAt": undefined,
-  "id": undefined,
-  "refreshToken": undefined,
-  "token": undefined,
+  "expiredAt": null,
+  "id": null,
+  "refreshToken": "",
+  "token": "",
 }
 `;
 

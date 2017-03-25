@@ -12,7 +12,7 @@ const initialState = Immutable({
 
 const reducer: Reducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case types.LOGINED: return state.merge({
+    case types.LOGINED: return Immutable.merge(state, {
       token: payload.access_token,
       refreshToken: payload.refresh_token,
       id: payload.douban_user_id,

@@ -4,11 +4,19 @@ import { reduxForm } from 'redux-form'
 import { login } from 'actions/auth'
 
 type Props = {
+  submitSucceeded: boolean,
   component: ReactClass<*>,
   handleSubmit: Function,
+  closeModal: Function,
 }
 
 class LoginFormContainer extends PureComponent {
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.submitSucceeded && nextProps.submitSucceeded) {
+      this.props.closeModal()
+    }
+  }
+
   props: Props
 
   render() {

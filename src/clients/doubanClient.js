@@ -13,7 +13,7 @@ const getAuth = (username, password) => httpClient.post({
   },
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-  }
+  },
 })
 
 const refreshAuth = refreshToken => httpClient.post({
@@ -26,7 +26,7 @@ const refreshAuth = refreshToken => httpClient.post({
   },
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-  }
+  },
 })
 
 const authorize = (usernameOrToken: string, password?: string): Promise<*> => {

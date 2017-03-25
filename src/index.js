@@ -4,11 +4,9 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import dotenv from 'dotenv'
 import configureStore from 'store/configureStore'
 import { Root } from 'containers'
 
-dotenv.config()
 const store = configureStore()
 
 const render = Component => {

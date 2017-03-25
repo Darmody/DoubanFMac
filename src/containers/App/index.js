@@ -1,7 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Body, Header, Footer } from 'components'
+import { Header } from 'containers'
+import { Body, Footer } from 'components'
 import 'normalize.css'
 import './app.css'
 

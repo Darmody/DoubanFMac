@@ -63,7 +63,7 @@ export default class LoginPanelContainer extends PureComponent {
           contentLabel="登录"
           style={modalStyle}
         >
-          <LoginFormContainer component={Form} />
+          <LoginFormContainer component={Form} closeModal={this.closeModal} />
         </Modal>
         <LoginPanel
           href="javascript:void(0);"
