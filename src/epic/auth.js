@@ -7,6 +7,7 @@ const loginEpic: Epic = (action$, store, { authorize }) =>
   action$.ofType(LOGIN)
     .mergeMap(({ payload }) =>
       authorize(payload.username, payload.password)
+        .map(response => response.json())
         .map(response => logined(response))
     )
 

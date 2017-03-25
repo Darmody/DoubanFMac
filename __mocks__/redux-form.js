@@ -3,11 +3,11 @@ import React from 'react'
 
 const reduxForm = {}
 
-reduxForm.reduxForm = () => WrappedComponent =>
+reduxForm.reduxForm = ({ onSubmit }) => WrappedComponent =>
   class TestComponent extends React.PureComponent {
     render () {
       return (
-        <WrappedComponent {...this.props} handleSubmit={this.props.onSubmit} />
+        <WrappedComponent {...this.props} handleSubmit={onSubmit} />
       )
     }
   }

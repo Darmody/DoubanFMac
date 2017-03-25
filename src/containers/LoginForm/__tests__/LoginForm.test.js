@@ -6,10 +6,7 @@ describe('Container::LoginForm', () => {
   test('渲染正确的 DOM 结构', () => {
     const mockComponent = jest.fn(() => <form>form</form>)
     const component = renderer.create(
-      <LoginForm
-        component={mockComponent}
-        onSubmit={fn => fn}
-      />
+      <LoginForm component={mockComponent} />
     )
     const tree = component.toJSON()
 

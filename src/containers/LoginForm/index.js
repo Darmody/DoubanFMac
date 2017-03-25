@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { reduxForm } from 'redux-form'
+import { login } from 'actions/auth'
 
 type Props = {
   component: ReactClass<*>,
@@ -18,5 +19,6 @@ class LoginFormContainer extends PureComponent {
 }
 
 export default reduxForm({
-  form: 'login'
+  form: 'login',
+  onSubmit: (values, dispatch) => dispatch(login(values.username, values.password)),
 })(LoginFormContainer)

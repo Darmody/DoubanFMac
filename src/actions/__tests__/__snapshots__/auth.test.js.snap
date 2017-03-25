@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`action::auth 创建一个登录 action 1`] = `
+Object {
+  "payload": Object {
+    "password": "password",
+    "username": "username",
+  },
+  "type": "LOGIN",
+}
+`;
+
+exports[`action::auth 创建一个登录成功的 action 1`] = `
+Object {
+  "payload": Object {
+    "access_token": "token",
+  },
+  "type": "LOGINED",
+}
+`;

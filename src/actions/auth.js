@@ -1,11 +1,16 @@
 // @flow
-import { LOGINNED } from 'constants/types/ActionTypes'
+import * as types from 'constants/types/ActionTypes'
 import type { Action } from 'constants/types/Redux'
 
-export const logined = (username: string, password: string = ''): Action => ({
-  type: LOGINNED,
+export const login = (username: string, password: string): Action => ({
+  type: types.LOGIN,
   payload: {
     username,
     password,
   }
+})
+
+export const logined = (response: Object): Action => ({
+  type: types.LOGINED,
+  payload: response,
 })

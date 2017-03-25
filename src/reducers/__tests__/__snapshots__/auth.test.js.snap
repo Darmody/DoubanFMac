@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer::auth initialize state 1`] = `
+Object {
+  "expiredAt": undefined,
+  "id": undefined,
+  "refreshToken": undefined,
+  "token": undefined,
+}
+`;
+
+exports[`reducer::auth 存储认证信息 1`] = `
+Object {
+  "expiredAt": 123456,
+  "id": "id",
+  "refreshToken": "refresh token",
+  "token": "token",
+}
+`;
