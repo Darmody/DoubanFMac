@@ -5342,6 +5342,10 @@ redux-logger@^2.10.1:
   dependencies:
     deep-diff "0.3.4"
 
+redux-mock-store@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.2.2.tgz#38007dc38f12ca8d965c7521afee5ccacc234d03"
+
 redux-observable@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-0.14.1.tgz#9f3d870c69388fdc427ded6770a3e326f3b69693"

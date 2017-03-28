@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Container::LoginForm 渲染正确的 DOM 结构 1`] = `
-<form>
-  form
-</form>
-`;
+exports[`Container::LoginForm 渲染正确的 DOM 结构 1`] = `"<form>form</form>"`;

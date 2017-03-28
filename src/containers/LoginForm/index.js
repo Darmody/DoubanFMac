@@ -1,10 +1,12 @@
 // @flow
+import R from 'ramda'
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { login } from 'actions/auth'
 
 type Props = {
-  submitSucceeded: boolean,
+  authed: boolean,
   component: ReactClass<*>,
   handleSubmit: Function,
   closeModal: Function,
@@ -12,7 +14,7 @@ type Props = {
 
 class LoginFormContainer extends PureComponent {
   componentWillReceiveProps(nextProps) {
-    if (!this.props.submitSucceeded && nextProps.submitSucceeded) {
+    if (!this.props.authed && nextProps.authed) {
       this.props.closeModal()
     }
   }
@@ -26,7 +28,14 @@ class LoginFormContainer extends PureComponent {
   }
 }
 
-export default reduxForm({
-  form: 'login',
-  onSubmit: (values, dispatch) => dispatch(login(values.username, values.password)),
-})(LoginFormContainer)
+export default R.compose(
+  reduxForm({
+    form: 'login',
+    onSubmit: (values, dispatch) => dispatch(login(values.username, values.password)),
+  }),
+  connect(
+    state => ({
+      authed: state.auth.id,
+    })
+  )
+)(LoginFormContainer)

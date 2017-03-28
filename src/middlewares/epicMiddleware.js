@@ -1,9 +1,8 @@
 // @flow
 import { createEpicMiddleware } from 'redux-observable'
 import rootEpic from 'epic'
-import doubanClient from 'clients/doubanClient'
 
-const epicMiddleware = createEpicMiddleware(rootEpic, { dependencies: doubanClient })
+const epicMiddleware = createEpicMiddleware(rootEpic)
 
 if (module.hot) {
   module.hot.accept('epic', () => {

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component::UserPanel 渲染正确的 DOM 结构 1`] = `
+<div
+  className="ePLfcs"
+>
+  <img
+    alt=""
+    className="kjYOjA"
+    src={Object {}}
+  />
+  <span
+    className="gHMsaP"
+  >
+    <span
+      className="hpWlLF"
+    >
+      已听15606首
+    </span>
+  </span>
+  <svg
+    className="bNDeOQ"
+    height="16"
+    title="Arrow"
+    viewBox="0 0 16 16"
+    width="16"
+  >
+    <desc>
+      Icon
+    </desc>
+    <g
+      fill="none"
+      fillRule="evenodd"
+      id="Page-1"
+      stroke="none"
+      strokeWidth="1"
+    >
+      <polygon
+        fill="#c6c6c6"
+        id="Triangle-1"
+        points="8 6 12 11 4 11 "
+        transform="translate(8.000000, 8.500000) scale(1, -1) translate(-8.000000, -8.500000) "
+      />
+    </g>
+  </svg>
+</div>
+`;
