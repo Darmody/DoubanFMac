@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Arrow from 'components/Icons/Arrow'
-import MeImage from './i.jpg'
 
 const UserPanel = styled.div`
   display: flex;
@@ -45,13 +44,21 @@ const indicatedArrowCss = `
   }
 `
 
+type Props = {
+  me: Object,
+}
+
 export default class UserPanelComponent extends PureComponent {
+  props: Props
+
   render() {
+    const { me } = this.props
+
     return (
       <UserPanel>
-        <Avatar src={MeImage} alt="" />
+        <Avatar src={me.icon} alt="" />
         <ListenedWrapper>
-          <Listened>已听15606首</Listened>
+          <Listened>已听{me.playedNum}首</Listened>
         </ListenedWrapper>
         <Arrow styles={indicatedArrowCss} />
       </UserPanel>

@@ -7,7 +7,7 @@ exports[`Component::UserPanel 渲染正确的 DOM 结构 1`] = `
   <img
     alt=""
     className="kjYOjA"
-    src={Object {}}
+    src="icon"
   />
   <span
     className="gHMsaP"
@@ -15,7 +15,9 @@ exports[`Component::UserPanel 渲染正确的 DOM 结构 1`] = `
     <span
       className="hpWlLF"
     >
-      已听15606首
+      已听
+      1
+      首
     </span>
   </span>
   <svg

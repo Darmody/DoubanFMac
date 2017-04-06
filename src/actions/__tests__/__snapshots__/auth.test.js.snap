@@ -6,7 +6,7 @@ Object {
     "password": "password",
     "username": "username",
   },
-  "type": "LOGIN",
+  "type": "LOGIN/REQUEST",
 }
 `;
 
@@ -15,6 +15,6 @@ Object {
   "payload": Object {
     "access_token": "token",
   },
-  "type": "LOGINED",
+  "type": "LOGIN/SUCCESS",
 }
 `;

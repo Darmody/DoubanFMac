@@ -1,19 +1,17 @@
 // @flow
+import type { Observable } from 'rxjs'
 
-export type Credentials = 'same-origin' | 'include'
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 | 'get' | 'post' | 'put' | 'delete' | 'patch'
 
-export type RequestProps = {
-  method?: string,
-  endpoint?: string,
-  queryString?: Object,
+export type ClientProps = {
+  method: string,
+  url: string,
+  query?: Object,
   body?: Object,
   headers?: Object,
-  json?: boolean,
-  credentials?: Credentials,
+  responseType?: 'json' | 'text',
+  crossDomain?: boolean,
 }
 
-export type ClientProps = RequestProps | string
-
-export type Client = ClientProps => Promise<*>
+export type Client = ClientProps => Observable

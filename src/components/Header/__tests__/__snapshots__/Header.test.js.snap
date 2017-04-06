@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component::Header auth = false 时渲染 LoginPanel 1`] = `
+exports[`Component::Header me 不存在时渲染 LoginPanel 1`] = `
 <div
   className="bMAZFf"
 >
@@ -36,7 +36,7 @@ exports[`Component::Header auth = false 时渲染 LoginPanel 1`] = `
 </div>
 `;
 
-exports[`Component::Header auth = true 时渲染 UserPanel 1`] = `
+exports[`Component::Header me 存在时渲染 UserPanel 1`] = `
 <div
   className="bMAZFf"
 >
@@ -64,7 +64,7 @@ exports[`Component::Header auth = true 时渲染 UserPanel 1`] = `
       <img
         alt=""
         className="kjYOjA"
-        src={Object {}}
+        src="icon"
       />
       <span
         className="gHMsaP"
@@ -72,7 +72,9 @@ exports[`Component::Header auth = true 时渲染 UserPanel 1`] = `
         <span
           className="hpWlLF"
         >
-          已听15606首
+          已听
+          1
+          首
         </span>
       </span>
       <svg

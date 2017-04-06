@@ -36,13 +36,17 @@ const FeedBack = styled.a`
 `
 
 export default class HeaderContainer extends PureComponent {
+  static defaultProps = {
+    me: undefined,
+  }
+
   props: {
-    auth: boolean,
+    me?: Object,
   }
 
   renderUserPanel = () => {
-    if (this.props.auth) {
-      return <UserPanel />
+    if (this.props.me) {
+      return <UserPanel me={this.props.me} />
     }
 
     return <LoginPanel />
