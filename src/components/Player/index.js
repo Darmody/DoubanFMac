@@ -13,12 +13,18 @@ const Player = styled.div`
   margin: 1.75rem auto;
 `
 
+type Props = {
+  song: Object,
+}
+
 export default class PlayerComponent extends PureComponent {
+  props: Props
+
   render() {
     return (
       <Player >
         <Channel />
-        <Bar />
+        <Bar song={this.props.song} />
       </Player>
     )
   }

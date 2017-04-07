@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Controller from './Controller'
-import CoverImage from './cover.jpg'
 
 const Bar = styled.div`
   flex: 1;
@@ -18,12 +17,29 @@ const Cover = styled.img`
   border-radius: 50%;
 `
 
+type Props = {
+  song: {
+    sid: number,
+    title: string,
+    artist: string,
+    picture: string,
+    url: string,
+  },
+}
+
 export default class BarComponent extends PureComponent {
+  props: Props
+
   render() {
     return (
       <Bar>
-        <Controller />
-        <Cover src={CoverImage} />
+        <Controller
+          songName={this.props.song.title}
+          songId={this.props.song.sid}
+          artist={this.props.song.artist}
+          source={this.props.song.url}
+        />
+        <Cover src={this.props.song.picture} />
       </Bar>
     )
   }
