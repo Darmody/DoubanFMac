@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import Player from 'containers/Player'
+import Player from 'components/Player'
 
 const Body = styled.div`
   flex: 1;

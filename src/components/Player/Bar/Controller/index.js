@@ -1,8 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { playlist as fetchPlaylist, mark } from 'actions/songs'
 import Actions from './Actions'
 
 const Controller = styled.div`
@@ -41,39 +39,32 @@ const Artist = styled.a`
 `
 
 type Props = {
-  songName: string,
-  songId: number,
-  artist: string,
-  source: string,
-  fetchPlaylist: Function,
+  song: Object,
+  next: Function,
   mark: Function,
 }
 
-class ControllerComponent extends PureComponent {
+export default class ControllerComponent extends PureComponent {
   props: Props
 
   handleEnded = () => {
-    this.props.mark(0, this.props.songId)
-    this.props.fetchPlaylist(0, 'p', this.props.songId)
+    this.props.mark(0, this.props.song.sid)
+    this.props.next(0, this.props.song.sid)
   }
 
   render() {
+    const { song } = this.props
     return (
       <Controller>
         <audio
-          src={this.props.source}
+          src={song.url}
           autoPlay
           onEnded={this.handleEnded}
         />
-        <Name href="javascript:void(0);">{this.props.songName}</Name>
-        <Artist href="javascript:void(0);">{this.props.artist}</Artist>
+        <Name href="javascript:void(0);">{song.title}</Name>
+        <Artist href="javascript:void(0);">{song.artist}</Artist>
         <Actions />
       </Controller>
     )
   }
 }
-
-export default connect(
-  null,
-  { fetchPlaylist, mark },
-)(ControllerComponent)

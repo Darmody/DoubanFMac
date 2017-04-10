@@ -12,3 +12,11 @@ export const normalizeResponse = (response: Object, schema?: schema) => {
 
   return data
 }
+
+export const getToken = (store: Object): string => store.getState().auth.token
+
+export const fullfilled = (type: string) => (response?: Object) =>
+({ type, payload: response })
+
+export const rejected = (type: string) => () =>
+({ type, payload: undefined })

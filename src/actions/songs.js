@@ -2,16 +2,16 @@
 import * as types from 'constants/types/ActionTypes'
 import type { Action } from 'constants/types/Redux'
 
-export const playlist = (
-  channel: number,
-  type?: 'n' | 'p' = 'n',
-  sid?: number,
-): Action => ({
-  type: types.SONG_PLAYLIST_REQUEST,
+export const listen = (channel: number): Action => ({
+  type: types.SONG_LISTEN_REQUEST,
+  payload: channel,
+})
+
+export const next = (channel: number, sid?: number): Action => ({
+  type: types.SONG_NEXT_REQUEST,
   payload: {
     channel,
     sid,
-    type,
   }
 })
 

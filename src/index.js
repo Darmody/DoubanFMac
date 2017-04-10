@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import configureStore from 'store/configureStore'
-import { Root } from 'containers'
+import { Root } from 'components'
 
 const store = configureStore()
 
@@ -21,7 +21,7 @@ const render = Component => {
 render(Root)
 
 if (module.hot) {
-  module.hot.accept('containers/Root', () => {
+  module.hot.accept('components/Root', () => {
     render(Root)
   })
 }

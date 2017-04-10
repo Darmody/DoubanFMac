@@ -14,17 +14,21 @@ const Player = styled.div`
 `
 
 type Props = {
-  song: Object,
+  song?: Object,
 }
 
 export default class PlayerComponent extends PureComponent {
+  static defaultProps = {
+    song: {},
+  }
+
   props: Props
 
   render() {
     return (
       <Player >
         <Channel />
-        <Bar song={this.props.song} />
+        <Bar />
       </Player>
     )
   }

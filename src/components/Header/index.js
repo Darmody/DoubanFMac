@@ -1,6 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { selectCurrent } from 'selectors/users'
 import UserPanel from './UserPanel'
 import LoginPanel from './LoginPanel'
 import LogoImage from './logo.svg'
@@ -35,7 +37,7 @@ const FeedBack = styled.a`
   margin: 0.188rem 0 0 2.5rem;
 `
 
-export default class HeaderContainer extends PureComponent {
+class HeaderComponent extends PureComponent {
   static defaultProps = {
     me: undefined,
   }
@@ -65,3 +67,9 @@ export default class HeaderContainer extends PureComponent {
     )
   }
 }
+
+export default connect(
+  state => ({
+    me: selectCurrent(state),
+  })
+)(HeaderComponent)

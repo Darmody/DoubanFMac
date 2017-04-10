@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-modal'
-import { LoginForm as LoginFormContainer } from 'containers'
-import Form from './Form'
+import LoginForm from './Form'
 
 const LoginPanel = styled.a`
   font-size: .75rem;
@@ -34,7 +33,7 @@ type State = {
   modalIsOpen: boolean,
 }
 
-export default class LoginPanelContainer extends PureComponent {
+export default class LoginPanelComponent extends PureComponent {
   constructor() {
     super()
 
@@ -63,7 +62,7 @@ export default class LoginPanelContainer extends PureComponent {
           contentLabel="登录"
           style={modalStyle}
         >
-          <LoginFormContainer component={Form} closeModal={this.closeModal} />
+          <LoginForm closeModal={this.closeModal} />
         </Modal>
         <LoginPanel
           href="javascript:void(0);"

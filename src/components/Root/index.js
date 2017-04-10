@@ -3,8 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import type { Store as ReduxStore } from 'constants/types/Redux'
-import { App } from 'containers'
-import { Lyrics } from 'components'
+import { App, Lyrics } from 'components'
 
 type RootPropTypes = {
   store: ReduxStore,

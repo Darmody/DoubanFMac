@@ -1,7 +1,10 @@
 // @flow
+import R from 'ramda'
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
 import styled from 'styled-components'
-import { Field } from 'redux-form'
+import { login } from 'actions/auth'
 
 const LoginForm = styled.form`
   width: 22.375rem;
@@ -61,10 +64,18 @@ const Button = styled.input`
 `
 
 type Props = {
+  authed: boolean,
   handleSubmit: Function,
+  closeModal: Function,
 }
 
-export default class LoginFormComponent extends PureComponent {
+class LoginFormComponent extends PureComponent {
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.authed && nextProps.authed) {
+      this.props.closeModal()
+    }
+  }
+
   props: Props
 
   render() {
@@ -94,3 +105,15 @@ export default class LoginFormComponent extends PureComponent {
     )
   }
 }
+
+export default R.compose(
+  reduxForm({
+    form: 'login',
+    onSubmit: (values, dispatch) => dispatch(login(values.username, values.password)),
+  }),
+  connect(
+    state => ({
+      authed: state.auth.id,
+    })
+  )
+)(LoginFormComponent)

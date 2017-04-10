@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
-import { Header } from 'containers'
-import { Body, Footer } from 'components'
+import { Body, Footer, Header } from 'components'
 import { current as fetchMe } from 'actions/users'
 import 'normalize.css'
 import './app.css'
@@ -22,7 +21,7 @@ type Props = {
   fetchMe: Function,
 }
 
-class AppContainer extends PureComponent {
+class AppComponent extends PureComponent {
   static defaultProps = {
     userId: 0,
   }
@@ -46,4 +45,4 @@ class AppContainer extends PureComponent {
   }
 }
 
-export default connect(null, { fetchMe })(AppContainer)
+export default connect(null, { fetchMe })(AppComponent)

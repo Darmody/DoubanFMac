@@ -1,6 +1,9 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { selectCurrent } from 'selectors/songs'
+import { next, mark } from 'actions/songs'
 import Controller from './Controller'
 
 const Bar = styled.div`
@@ -18,29 +21,28 @@ const Cover = styled.img`
 `
 
 type Props = {
-  song: {
-    sid: number,
-    title: string,
-    artist: string,
-    picture: string,
-    url: string,
-  },
+  song: Object,
+  next: Function,
+  mark: Function,
 }
 
-export default class BarComponent extends PureComponent {
+class BarComponent extends PureComponent {
   props: Props
 
   render() {
+    const { song, next, mark } = this.props
     return (
       <Bar>
-        <Controller
-          songName={this.props.song.title}
-          songId={this.props.song.sid}
-          artist={this.props.song.artist}
-          source={this.props.song.url}
-        />
-        <Cover src={this.props.song.picture} />
+        <Controller song={song} next={next} mark={mark} />
+        <Cover src={song.picture} />
       </Bar>
     )
   }
 }
+
+export default connect(
+  state => ({
+    song: selectCurrent(state) || {},
+  }),
+  { next, mark },
+)(BarComponent)

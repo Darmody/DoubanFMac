@@ -1,6 +1,5 @@
 // @flow
 import qs from 'qs'
-import type { Observable } from 'rxjs'
 import type { Client } from 'constants/types/Client'
 import { ajax } from 'rxjs/observable/dom/ajax'
 import config from 'constants/configuration'
@@ -55,7 +54,7 @@ const refreshAuth = refreshToken => rxClient({
   },
 })
 
-export const authorize = (usernameOrToken: string, password?: string): Observable => {
+export const authorize = (usernameOrToken: string, password?: string) => {
   if (!password) {
     const token = usernameOrToken
     return refreshAuth(token)
@@ -65,15 +64,15 @@ export const authorize = (usernameOrToken: string, password?: string): Observabl
   return getAuth(username, password)
 }
 
-export const me = (token: Token): Observable =>
+export const me = (token: Token) => () =>
   authedClient(token)({
     method: 'GET',
     url: 'https://api.douban.com/v2/fm/user_info',
   })
 
-export const fetchPlayList = (
+export const songAction = (
   token: Token,
-  channel: number = 0,
+  channel: number,
   type?: 'n' | 'p' | 'e' = 'n',
   sid?: number,
 ) => authedClient(token)({
@@ -91,8 +90,15 @@ export const fetchPlayList = (
   }
 })
 
-export const markAsListened = (
-  token: Token,
-  channel: number = 0,
+export const listenSong = (token: Token) => (channel: number) =>
+  songAction(token, channel, 'n')
+
+export const nextSong = (token: Token) => (payload: {
+  channel: number,
+  sid?: number,
+}) => songAction(token, payload.channel, 'p', payload.sid)
+
+export const markSong = (token: Token) => (payload: {
+  channel: number,
   sid: number,
-) => fetchPlayList(token, channel, 'e', sid)
+}) => songAction(token, payload.channel, 'e', payload.sid)
