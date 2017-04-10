@@ -31,12 +31,14 @@ type Props = {
 class BarComponent extends PureComponent {
   props: Props
 
+  formatCoverUrl = () => (this.props.song.picture || '').replace('img7', 'img6')
+
   render() {
     const { channelId, song, next, mark } = this.props
     return (
       <Bar>
         <Controller song={song} next={next} mark={mark} channelId={channelId} />
-        <Cover src={song.picture} />
+        <Cover src={this.formatCoverUrl()} />
       </Bar>
     )
   }
