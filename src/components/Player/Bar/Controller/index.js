@@ -45,7 +45,26 @@ type Props = {
   mark: Function,
 }
 
+type States = {
+  playing: boolean,
+}
+
 export default class ControllerComponent extends PureComponent {
+  constructor(props: Props) {
+    super(props)
+
+    this.state = { playing: false }
+  }
+
+  state: States
+
+  setRef = (ref: HTMLAudioElement) => {
+    this.audio = ref
+    this.audio.onplaying = () => { this.setState({ playing: true }) }
+    this.audio.onpause = () => { this.setState({ playing: false }) }
+  }
+
+  audio = null
   props: Props
 
   handleEnded = () => {
@@ -54,18 +73,25 @@ export default class ControllerComponent extends PureComponent {
     this.props.next(channelId, song.sid)
   }
 
+  togglePlaying = () => {
+    if (this.audio) {
+      this.state.playing ? this.audio.pause() : this.audio.play()
+    }
+  }
+
   render() {
     const { song } = this.props
     return (
       <Controller>
         <audio
+          ref={this.setRef}
           src={song.url}
           autoPlay
           onEnded={this.handleEnded}
         />
         <Name href="javascript:void(0);">{song.title}</Name>
         <Artist href="javascript:void(0);">{song.artist}</Artist>
-        <Actions />
+        <Actions togglePlaying={this.togglePlaying} playing={this.state.playing} />
       </Controller>
     )
   }

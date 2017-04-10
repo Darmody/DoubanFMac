@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {
   Love as IconLove,
-  Trash as IconTrash,
+  Pause as IconPause,
   Play as IconPlay,
   Skip as IconSkip,
+  Trash as IconTrash,
 } from 'components/Icons'
 import { ban, like, dislike, next, } from 'actions/songs'
 import { selectCurrent as selectCurrentSong } from 'selectors/songs'
@@ -44,7 +45,9 @@ type Props = {
   dislike: Function,
   like: Function,
   next: Function,
+  playing: boolean,
   song: Object,
+  togglePlaying: Function,
 }
 
 class ActionBarComponent extends PureComponent {
@@ -65,6 +68,12 @@ class ActionBarComponent extends PureComponent {
   handleSkip = () => this.props.next(this.props.channelId, this.props.song.sid)
   handleBan = () => this.props.ban(this.props.channelId, this.props.song.sid)
 
+  renderPlayOrPauseButton = () => (
+    <Button onClick={this.props.togglePlaying}>
+      {this.props.playing ? <IconPause /> : <IconPlay />}
+    </Button>
+  )
+
   render() {
     return (
       <ActionBar>
@@ -75,7 +84,7 @@ class ActionBarComponent extends PureComponent {
           <Button onClick={this.handleBan}><IconTrash /></Button>
         </Head>
         <Tail>
-          <Button><IconPlay /></Button>
+          {this.renderPlayOrPauseButton()}
           <Button onClick={this.handleSkip}><IconSkip /></Button>
         </Tail>
       </ActionBar>
