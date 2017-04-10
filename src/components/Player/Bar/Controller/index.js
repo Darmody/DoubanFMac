@@ -1,5 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { Observable as Rx$ } from 'rxjs'
 import styled from 'styled-components'
 import Actions from './Actions'
 
@@ -47,24 +48,55 @@ type Props = {
 
 type States = {
   playing: boolean,
+  playingStep: number,
+  songBuffer: number,
 }
 
 export default class ControllerComponent extends PureComponent {
   constructor(props: Props) {
     super(props)
 
-    this.state = { playing: false }
+    this.state = {
+      playing: false,
+      songBuffer: 0,
+      playingStep: 0,
+    }
   }
 
   state: States
 
+  componentWillUnmount() {
+    if (this.progressWatcher) {
+      this.progressWatcher.unsubscribe()
+    }
+  }
+
   setRef = (ref: HTMLAudioElement) => {
+    if (!ref) { return }
+
     this.audio = ref
     this.audio.onplaying = () => { this.setState({ playing: true }) }
     this.audio.onpause = () => { this.setState({ playing: false }) }
+
+    const updateProgress = () => {
+      let songBuffer = 0
+      if (this.audio.buffered.length > 0) {
+        songBuffer = this.audio.buffered.end(this.audio.buffered.length - 1)
+      }
+
+      return ({
+        songBuffer,
+        playingStep: this.audio.currentTime || 0,
+      })
+    }
+    this.progressWatcher = Rx$
+      .interval(1000)
+      .map(updateProgress)
+      .subscribe(data => this.setState(data))
   }
 
-  audio = null
+  progressWatcher = undefined
+  audio = {}
   props: Props
 
   handleEnded = () => {
@@ -81,6 +113,7 @@ export default class ControllerComponent extends PureComponent {
 
   render() {
     const { song } = this.props
+    const { songBuffer, playing, playingStep } = this.state
     return (
       <Controller>
         <audio
@@ -91,7 +124,12 @@ export default class ControllerComponent extends PureComponent {
         />
         <Name href="javascript:void(0);">{song.title}</Name>
         <Artist href="javascript:void(0);">{song.artist}</Artist>
-        <Actions togglePlaying={this.togglePlaying} playing={this.state.playing} />
+        <Actions
+          togglePlaying={this.togglePlaying}
+          playing={playing}
+          playingStep={playingStep || 0}
+          songBuffer={songBuffer || 0}
+        />
       </Controller>
     )
   }

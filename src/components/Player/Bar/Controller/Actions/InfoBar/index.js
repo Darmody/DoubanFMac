@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {
   Create as IconCreate,
@@ -7,6 +8,7 @@ import {
   Share as IconShare,
   Volume as IconVolume,
 } from 'components/Icons'
+import { selectCurrent as selectCurrentSong } from 'selectors/songs'
 import Link from './Link'
 
 const ipc = require('electron').ipcRenderer
@@ -21,12 +23,16 @@ const InfoBar = styled.div`
 
 const Header = styled.div`
   display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const Time = styled.span`
   color: rgb(155, 155, 155);
   font-weight: 400;
   font-size: .75rem;
+  width: 2.5rem;
   margin-right: .625rem;
 
   &:before {
@@ -39,18 +45,30 @@ const Links = styled.span`
   align-items: center;
 `
 
-export default class InfoBarComponent extends PureComponent {
+type Props = {
+  total: number,
+  step: number,
+}
+
+class InfoBarComponent extends PureComponent {
+  props: Props
+
   handleLyricsClick = () => {
     ipc.send('lyricsWindow', 'toggle')
+  }
+
+  formatTime = () => {
+    const remainSeconds = this.props.total - this.props.step
+    const date = new Date(null)
+    date.setSeconds(remainSeconds)
+    return date.toISOString().substr(14, 5)
   }
 
   render() {
     return (
       <InfoBar>
         <Header>
-          <Time>
-            04:50
-          </Time>
+          <Time>{this.formatTime()}</Time>
           <IconVolume />
         </Header>
         <Links>
@@ -63,3 +81,9 @@ export default class InfoBarComponent extends PureComponent {
     )
   }
 }
+
+export default connect(
+  state => ({
+    total: (selectCurrentSong(state) || {}).length || 1,
+  }),
+)(InfoBarComponent)
