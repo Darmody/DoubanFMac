@@ -39,6 +39,7 @@ const Artist = styled.a`
 `
 
 type Props = {
+  channelId: number,
   song: Object,
   next: Function,
   mark: Function,
@@ -48,8 +49,9 @@ export default class ControllerComponent extends PureComponent {
   props: Props
 
   handleEnded = () => {
-    this.props.mark(0, this.props.song.sid)
-    this.props.next(0, this.props.song.sid)
+    const { channelId, song } = this.props
+    this.props.mark(channelId, song.sid)
+    this.props.next(channelId, song.sid)
   }
 
   render() {

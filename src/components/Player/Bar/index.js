@@ -2,7 +2,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { selectCurrent } from 'selectors/songs'
+import { selectCurrent as selectCurrentSong } from 'selectors/songs'
+import { selectCurrent as selectCurrentChannel } from 'selectors/channels'
 import { next, mark } from 'actions/songs'
 import Controller from './Controller'
 
@@ -21,6 +22,7 @@ const Cover = styled.img`
 `
 
 type Props = {
+  channelId: number,
   song: Object,
   next: Function,
   mark: Function,
@@ -30,10 +32,10 @@ class BarComponent extends PureComponent {
   props: Props
 
   render() {
-    const { song, next, mark } = this.props
+    const { channelId, song, next, mark } = this.props
     return (
       <Bar>
-        <Controller song={song} next={next} mark={mark} />
+        <Controller song={song} next={next} mark={mark} channelId={channelId} />
         <Cover src={song.picture} />
       </Bar>
     )
@@ -42,7 +44,8 @@ class BarComponent extends PureComponent {
 
 export default connect(
   state => ({
-    song: selectCurrent(state) || {},
+    song: selectCurrentSong(state) || {},
+    channelId: selectCurrentChannel(state),
   }),
   { next, mark },
 )(BarComponent)

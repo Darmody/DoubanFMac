@@ -9,8 +9,11 @@ import {
   Skip as IconSkip,
 } from 'components/Icons'
 import { ban, like, dislike, next, } from 'actions/songs'
-import { selectCurrent } from 'selectors/songs'
+import { selectCurrent as selectCurrentSong } from 'selectors/songs'
+import { selectCurrent as selectCurrentChannel } from 'selectors/channels'
 import Button from './Button'
+
+const DISLIKE_CODE = 0
 
 const ActionBar = styled.div`
   margin-top: 3.688rem;
@@ -37,6 +40,7 @@ const Tail = styled.div`
 
 type Props = {
   ban: Function,
+  channelId: number,
   dislike: Function,
   like: Function,
   next: Function,
@@ -46,20 +50,20 @@ type Props = {
 class ActionBarComponent extends PureComponent {
   props: Props
 
-  isLike = () => this.props.song.like && this.props.song.like !== 0
+  isLike = () => this.props.song.like && this.props.song.like !== DISLIKE_CODE
 
   handleFavorite = () => {
-    const { song, like, dislike } = this.props
+    const { channelId, song, like, dislike } = this.props
 
     if (this.isLike()) {
-      dislike(0, song.sid)
+      dislike(channelId, song.sid)
     } else {
-      like(0, song.sid)
+      like(channelId, song.sid)
     }
   }
 
-  handleSkip = () => this.props.next(0, this.props.song.sid)
-  handleBan = () => this.props.ban(0, this.props.song.sid)
+  handleSkip = () => this.props.next(this.props.channelId, this.props.song.sid)
+  handleBan = () => this.props.ban(this.props.channelId, this.props.song.sid)
 
   render() {
     return (
@@ -81,7 +85,8 @@ class ActionBarComponent extends PureComponent {
 
 export default connect(
   state => ({
-    song: selectCurrent(state) || {},
+    song: selectCurrentSong(state) || {},
+    channelId: selectCurrentChannel(state),
   }),
   { ban, like, dislike, next, },
 )(ActionBarComponent)

@@ -13,7 +13,7 @@ const current: Epic = (action$, store) => action$
   .pluck('response')
   .mergeMap(response => Rx$.merge(
     Rx$.of(normalizeResponse(response, USER)),
-    Rx$.of(listen(0)),
+    Rx$.of(listen(store.getState().channels.id)),
   )
   .catch(rejected(types.USER_CURRENT_FAILURE))
 )
