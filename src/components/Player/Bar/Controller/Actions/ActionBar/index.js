@@ -8,7 +8,7 @@ import {
   Play as IconPlay,
   Skip as IconSkip,
 } from 'components/Icons'
-import { like, dislike } from 'actions/songs'
+import { like, dislike, next, } from 'actions/songs'
 import { selectCurrent } from 'selectors/songs'
 import Button from './Button'
 
@@ -36,15 +36,16 @@ const Tail = styled.div`
 `
 
 type Props = {
-  like: Function,
   dislike: Function,
+  like: Function,
+  next: Function,
   song: Object,
 }
 
 class ActionBarComponent extends PureComponent {
   props: Props
 
-  isLike = () => this.props.song.like !== 0
+  isLike = () => this.props.song.like && this.props.song.like !== 0
 
   handleFavorite = () => {
     const { song, like, dislike } = this.props
@@ -55,6 +56,8 @@ class ActionBarComponent extends PureComponent {
       like(0, song.sid)
     }
   }
+
+  handleSkip = () => this.props.next(0, this.props.song.sid)
 
   render() {
     return (
@@ -67,7 +70,7 @@ class ActionBarComponent extends PureComponent {
         </Head>
         <Tail>
           <Button><IconPlay /></Button>
-          <Button><IconSkip /></Button>
+          <Button onClick={this.handleSkip}><IconSkip /></Button>
         </Tail>
       </ActionBar>
     )
@@ -78,5 +81,5 @@ export default connect(
   state => ({
     song: selectCurrent(state) || {},
   }),
-  { like, dislike, },
+  { like, dislike, next, },
 )(ActionBarComponent)
