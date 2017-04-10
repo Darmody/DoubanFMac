@@ -12,6 +12,8 @@ export const ENTITIES_UPDATE: ActionType = 'ENTITIES/UPDATE'
 
 // songs
 export const SONG_CURRENT: ActionType = 'SONGS/CURRENT'
+export const SONG_BAN_REQUEST: ActionType = 'SONGS/BAN/REQUEST'
+export const SONG_BAN_SUCCESS: ActionType = 'SONGS/BAN/SUCCESS'
 export const SONG_LISTEN_REQUEST: ActionType = 'SONGS/LISTEN/REQUEST'
 export const SONG_NEXT_REQUEST: ActionType = 'SONGS/NEXT/REQUEST'
 export const SONG_MARK_REQUEST: ActionType = 'SONGS/MARK/REQUEST'

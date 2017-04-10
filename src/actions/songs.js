@@ -2,6 +2,14 @@
 import * as types from 'constants/types/ActionTypes'
 import type { Action } from 'constants/types/Redux'
 
+export const ban = (channel: number, sid: number): Action => ({
+  type: types.SONG_BAN_REQUEST,
+  payload: {
+    channel,
+    sid,
+  }
+})
+
 export const current = (song: {}): Action => ({
   type: types.SONG_CURRENT,
   payload: song,

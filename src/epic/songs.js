@@ -20,6 +20,7 @@ const fetchSong = (type, api) => (action$, store) => action$
 
 const nextEpic: Epic = fetchSong(types.SONG_NEXT_REQUEST, API.nextSong)
 const listenEpic: Epic = fetchSong(types.SONG_LISTEN_REQUEST, API.listenSong)
+const banEpic: Epic = fetchSong(types.SONG_BAN_REQUEST, API.banSong)
 
 const markEpic: Epic = (action$, store) => action$
   .ofType(types.SONG_MARK_REQUEST)
@@ -58,6 +59,7 @@ const dislikeEpic: Epic = (action$, store) => {
 }
 
 export default [
+  banEpic,
   dislikeEpic,
   likeEpic,
   listenEpic,

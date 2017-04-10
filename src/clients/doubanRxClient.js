@@ -12,8 +12,9 @@ type Token = string
 * @type e: 标记为已听过
 * @type r: 喜欢
 * @type u: 取消喜欢
+* @type b: 不再播放
 */
-type SongActionType = 'n' | 'p' | 'e' | 'r' | 'u'
+type SongActionType = 'n' | 'p' | 'e' | 'r' | 'u' | 'b'
 
 const rxClient: Client = ({ query = {}, url, ...restParams }) => ajax({
   responseType: 'json',
@@ -98,6 +99,11 @@ export const songAction = (
     version: 116,
   }
 })
+
+export const banSong = (token: Token) => (payload: {
+  channel: number,
+  sid: number,
+}) => songAction(token, payload.channel, 'b', payload.sid)
 
 export const dislikeSong = (token: Token) => (payload: {
   channel: number,
