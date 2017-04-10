@@ -7,7 +7,8 @@ export const save = (data: Object): Action => ({
   payload: data,
 })
 
-export const update = (data: Object): Action => ({
+type Fields = Array<{ field: Array<string | number>, value: any }>
+export const update = (fields: Fields): Action => ({
   type: types.ENTITIES_UPDATE,
-  payload: data,
+  payload: fields,
 })

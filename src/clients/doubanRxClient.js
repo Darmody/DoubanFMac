@@ -5,6 +5,15 @@ import { ajax } from 'rxjs/observable/dom/ajax'
 import config from 'constants/configuration'
 
 type Token = string
+/**
+* 歌曲操作类别
+* @type n: 第一次获取播放列表
+* @type p: 下一首
+* @type e: 标记为已听过
+* @type r: 喜欢
+* @type u: 取消喜欢
+*/
+type SongActionType = 'n' | 'p' | 'e' | 'r' | 'u'
 
 const rxClient: Client = ({ query = {}, url, ...restParams }) => ajax({
   responseType: 'json',
@@ -73,7 +82,7 @@ export const me = (token: Token) => () =>
 export const songAction = (
   token: Token,
   channel: number,
-  type?: 'n' | 'p' | 'e' = 'n',
+  type?: SongActionType = 'n',
   sid?: number,
 ) => authedClient(token)({
   method: 'GET',
@@ -90,15 +99,25 @@ export const songAction = (
   }
 })
 
+export const dislikeSong = (token: Token) => (payload: {
+  channel: number,
+  sid: number,
+}) => songAction(token, payload.channel, 'u', payload.sid)
+
 export const listenSong = (token: Token) => (channel: number) =>
   songAction(token, channel, 'n')
 
-export const nextSong = (token: Token) => (payload: {
+export const likeSong = (token: Token) => (payload: {
   channel: number,
-  sid?: number,
-}) => songAction(token, payload.channel, 'p', payload.sid)
+  sid: number,
+}) => songAction(token, payload.channel, 'r', payload.sid)
 
 export const markSong = (token: Token) => (payload: {
   channel: number,
   sid: number,
 }) => songAction(token, payload.channel, 'e', payload.sid)
+
+export const nextSong = (token: Token) => (payload: {
+  channel: number,
+  sid?: number,
+}) => songAction(token, payload.channel, 'p', payload.sid)

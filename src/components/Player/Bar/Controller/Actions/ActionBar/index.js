@@ -1,5 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {
   Love as IconLove,
@@ -7,6 +8,8 @@ import {
   Play as IconPlay,
   Skip as IconSkip,
 } from 'components/Icons'
+import { like, dislike } from 'actions/songs'
+import { selectCurrent } from 'selectors/songs'
 import Button from './Button'
 
 const ActionBar = styled.div`
@@ -32,12 +35,34 @@ const Tail = styled.div`
   }
 `
 
-export default class ActionBarComponent extends PureComponent {
+type Props = {
+  like: Function,
+  dislike: Function,
+  song: Object,
+}
+
+class ActionBarComponent extends PureComponent {
+  props: Props
+
+  isLike = () => this.props.song.like !== 0
+
+  handleFavorite = () => {
+    const { song, like, dislike } = this.props
+
+    if (this.isLike()) {
+      dislike(0, song.sid)
+    } else {
+      like(0, song.sid)
+    }
+  }
+
   render() {
     return (
       <ActionBar>
         <Head>
-          <Button><IconLove /></Button>
+          <Button onClick={this.handleFavorite}>
+            <IconLove red={this.isLike()} />
+          </Button>
           <Button><IconTrash /></Button>
         </Head>
         <Tail>
@@ -48,3 +73,10 @@ export default class ActionBarComponent extends PureComponent {
     )
   }
 }
+
+export default connect(
+  state => ({
+    song: selectCurrent(state) || {},
+  }),
+  { like, dislike, },
+)(ActionBarComponent)

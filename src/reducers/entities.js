@@ -19,8 +19,14 @@ const reducer: Reducer = (state = initialState, { type, payload = {} }) => {
       return finalState
     }
     case types.ENTITIES_UPDATE: {
-      const { model, id, data } = payload
-      return Immutable.setIn(state, [model, id], state[model][id].merge(data))
+      let finalState = state
+      const updateField = ({ field, value }) => {
+        finalState = Immutable.setIn(state, field, value)
+      }
+
+      R.forEach(updateField, payload)
+
+      return finalState
     }
     default: return state
   }

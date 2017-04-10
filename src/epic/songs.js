@@ -4,6 +4,7 @@ import * as types from 'constants/types/ActionTypes'
 import type { Epic } from 'constants/types/Redux'
 import * as API from 'clients/doubanRxClient'
 import { current } from 'actions/songs'
+import { update as updateEntities } from 'actions/entities'
 import { normalizeResponse, getToken, fullfilled } from 'utils/operators'
 import { SONG } from 'schemas'
 
@@ -26,8 +27,40 @@ const markEpic: Epic = (action$, store) => action$
   .mergeMap(API.markSong(getToken(store)))
   .map(fullfilled(types.SONG_MARK_SUCCESS))
 
+const likeEpic: Epic = (action$, store) => {
+  const likeFullfilled = sid => () => Rx$.of(updateEntities([{
+    field: ['songs', sid, 'like'],
+    value: 1,
+  }]))
+
+  return action$
+    .ofType(types.SONG_LIKE_REQUEST)
+    .pluck('payload')
+    .mergeMap(payload => API
+      .likeSong(getToken(store))(payload)
+      .mergeMap(likeFullfilled(payload.sid))
+    )
+}
+
+const dislikeEpic: Epic = (action$, store) => {
+  const dislikeFullfilled = sid => () => Rx$.of(updateEntities([{
+    field: ['songs', sid, 'like'],
+    value: 0,
+  }]))
+
+  return action$
+    .ofType(types.SONG_DISLIKE_REQUEST)
+    .pluck('payload')
+    .mergeMap(payload => API
+      .dislikeSong(getToken(store))(payload)
+      .mergeMap(dislikeFullfilled(payload.sid))
+    )
+}
+
 export default [
-  nextEpic,
+  dislikeEpic,
+  likeEpic,
   listenEpic,
   markEpic,
+  nextEpic,
 ]

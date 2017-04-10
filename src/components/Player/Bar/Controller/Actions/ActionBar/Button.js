@@ -13,18 +13,20 @@ const StyledButton = styled.a`
 
 type Props = {
   children?: any,
+  onClick?: Function,
 }
 
 export default class Button extends PureComponent {
   static defaultProps = {
     children: null,
+    onClick: fn => fn,
   }
 
   props: Props
 
   render() {
     return (
-      <StyledButton>{this.props.children}</StyledButton>
+      <StyledButton onClick={this.props.onClick}>{this.props.children}</StyledButton>
     )
   }
 }
