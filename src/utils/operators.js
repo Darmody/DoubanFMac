@@ -1,4 +1,5 @@
 // @flow
+import { Observable as Rx$ } from 'rxjs'
 import humps from 'humps'
 import { normalize, schema } from 'normalizr'
 import { save as saveEntities } from 'actions/entities'
@@ -19,4 +20,4 @@ export const fullfilled = (type: string) => (response?: Object) =>
 ({ type, payload: response })
 
 export const rejected = (type: string) => () =>
-({ type, payload: undefined })
+  Rx$.of(({ type, payload: undefined }))

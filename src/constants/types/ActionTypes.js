@@ -5,6 +5,7 @@ export const LOGIN_FAILURE: ActionType = 'LOGIN/FAILURE'
 
 // users
 export const USER_CURRENT_REQUEST: ActionType = 'USER/CURRENT/REQUEST'
+export const USER_CURRENT_FAILURE: ActionType = 'USER/CURRENT/FAILURE'
 
 // entities
 export const ENTITIES_SAVE: ActionType = 'ENTITIES/SAVE'

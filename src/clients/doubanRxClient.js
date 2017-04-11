@@ -27,13 +27,19 @@ type AuthedClient = Token => Client
 const authedClient: AuthedClient = token => ({
   headers,
   ...restParams,
-}) => rxClient({
-  headers: {
-    Authorization: `Bearer ${token}`,
-    ...headers,
-  },
-  ...restParams,
-})
+}) => {
+  if (token) {
+    return rxClient({
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...headers,
+      },
+      ...restParams,
+    })
+  }
+
+  return rxClient({ headers, ...restParams })
+}
 
 const getAuth = (username, password) => rxClient({
   method: 'POST',

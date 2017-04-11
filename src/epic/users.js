@@ -7,15 +7,18 @@ import { listen } from 'actions/songs'
 import { normalizeResponse, getToken, rejected } from 'utils/operators'
 import { USER } from 'schemas'
 
+const startListen = store => Rx$.of(listen(store.getState().channels.id))
+
 const current: Epic = (action$, store) => action$
   .ofType(types.USER_CURRENT_REQUEST)
-  .mergeMap(API.me(getToken(store)))
-  .pluck('response')
-  .mergeMap(response => Rx$.merge(
-    Rx$.of(normalizeResponse(response, USER)),
-    Rx$.of(listen(store.getState().channels.id)),
+  .mergeMap(() => Rx$.concat(
+    API
+      .me(getToken(store))()
+      .pluck('response')
+      .map(response => normalizeResponse(response, USER))
+      .catch(rejected(types.USER_CURRENT_FAILURE)),
+    startListen(store),
   )
-  .catch(rejected(types.USER_CURRENT_FAILURE))
 )
 
 export default [
