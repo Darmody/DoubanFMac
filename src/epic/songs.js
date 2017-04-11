@@ -11,7 +11,7 @@ import { SONG } from 'schemas'
 const fetchSong = (type, api) => (action$, store) => action$
   .ofType(type)
   .pluck('payload')
-  .switchMap(api(getToken(store)))
+  .switchMap(payload => api(getToken(store), payload))
   .pluck('response', 'song')
   .mergeMap(([song]) => Rx$.merge(
     Rx$.of(normalizeResponse(song, SONG)),
@@ -25,7 +25,7 @@ const banEpic: Epic = fetchSong(types.SONG_BAN_REQUEST, API.banSong)
 const markEpic: Epic = (action$, store) => action$
   .ofType(types.SONG_MARK_REQUEST)
   .pluck('payload')
-  .mergeMap(API.markSong(getToken(store)))
+  .mergeMap(payload => API.markSong(getToken(store), payload))
   .map(fullfilled(types.SONG_MARK_SUCCESS))
 
 const likeEpic: Epic = (action$, store) => {
@@ -38,7 +38,7 @@ const likeEpic: Epic = (action$, store) => {
     .ofType(types.SONG_LIKE_REQUEST)
     .pluck('payload')
     .mergeMap(payload => API
-      .likeSong(getToken(store))(payload)
+      .likeSong(getToken(store), payload)
       .mergeMap(likeFullfilled(payload.sid))
     )
 }
@@ -53,7 +53,7 @@ const dislikeEpic: Epic = (action$, store) => {
     .ofType(types.SONG_DISLIKE_REQUEST)
     .pluck('payload')
     .mergeMap(payload => API
-      .dislikeSong(getToken(store))(payload)
+      .dislikeSong(getToken(store), payload)
       .mergeMap(dislikeFullfilled(payload.sid))
     )
 }

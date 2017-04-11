@@ -14,7 +14,13 @@ export const normalizeResponse = (response: Object, schema?: schema) => {
   return data
 }
 
-export const getToken = (store: Object): string => store.getState().auth.token
+export const getToken = (store: Object): string => {
+  const data = store.getState().auth.token
+
+  console.debug('token', data)
+
+  return data
+}
 
 export const fullfilled = (type: string) => (response?: Object) =>
 ({ type, payload: response })

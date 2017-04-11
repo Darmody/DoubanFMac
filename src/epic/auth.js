@@ -10,15 +10,17 @@ import { rejected } from 'utils/operators'
 const loginEpic: Epic = action$ => action$
   .ofType(types.LOGIN_REQUEST)
   .pluck('payload')
-  .mergeMap(payload => API.authorize(
-    payload.username || payload.refreshToken, payload.password
-  ))
-  .pluck('response')
-  .mergeMap(response => Observable.merge(
-    Observable.of(logined(response)),
-    Observable.of(current(response.access_token)),
-  ))
-  .catch(rejected(types.LOGIN_FAILURE))
+  .mergeMap(payload => API
+    .authorize(
+      payload.username || payload.refreshToken, payload.password
+    )
+    .pluck('response')
+    .mergeMap(response => Observable.merge(
+      Observable.of(logined(response)),
+      Observable.of(current(response.access_token)),
+    ))
+    .catch(rejected(types.LOGIN_FAILURE))
+  )
 
 export default [
   loginEpic

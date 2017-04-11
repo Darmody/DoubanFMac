@@ -106,30 +106,30 @@ export const songAction = (
   }
 })
 
-export const banSong = (token: Token) => (payload: {
+export const banSong = (token: Token, payload: {
   channel: number,
   sid: number,
 }) => songAction(token, payload.channel, 'b', payload.sid)
 
-export const dislikeSong = (token: Token) => (payload: {
+export const dislikeSong = (token: Token, payload: {
   channel: number,
   sid: number,
 }) => songAction(token, payload.channel, 'u', payload.sid)
 
-export const listenSong = (token: Token) => (channel: number) =>
+export const listenSong = (token: Token, channel: number) =>
   songAction(token, channel, 'n')
 
-export const likeSong = (token: Token) => (payload: {
+export const likeSong = (token: Token, payload: {
   channel: number,
   sid: number,
 }) => songAction(token, payload.channel, 'r', payload.sid)
 
-export const markSong = (token: Token) => (payload: {
+export const markSong = (token: Token, payload: {
   channel: number,
   sid: number,
 }) => songAction(token, payload.channel, 'e', payload.sid)
 
-export const nextSong = (token: Token) => (payload: {
+export const nextSong = (token: Token, payload: {
   channel: number,
   sid?: number,
 }) => songAction(token, payload.channel, 'p', payload.sid)
