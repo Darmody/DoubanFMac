@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import { shell } from 'electron'
 import Navbar from './Navbar'
 
 const Footer = styled.div`
@@ -28,12 +29,14 @@ const Purchase = styled.a`
 `
 
 export default class FooterComponent extends PureComponent {
+  handlePurchase = () => shell.openExternal('https://douban.fm/upgrade')
+
   render() {
     return (
       <Footer>
         <Navbar />
         <Ad>
-          <Purchase href="//douban.fm/upgrade" target="_blank">
+          <Purchase href="javascript:void(0);" onClick={this.handlePurchase}>
             一键购买豆瓣FM PRO，高音质无广告 ➝
           </Purchase>
         </Ad>

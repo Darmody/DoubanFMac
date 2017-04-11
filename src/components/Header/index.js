@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { shell } from 'electron'
 import { selectCurrent } from 'selectors/users'
 import UserPanel from './UserPanel'
 import LoginPanel from './LoginPanel'
@@ -17,6 +18,7 @@ const Header = styled.div`
   justify-content: space-between;
   width: 45.975rem;
   margin: 1.75rem auto;
+  padding-top: .625rem;
 `
 
 const FrontPanel = styled.div`
@@ -29,12 +31,20 @@ const Logo = styled.img`
   width: 6.25rem;
 `
 
-const FeedBack = styled.a`
+const menuLinkStyle = `
   font-size: 12px;
   color: #8f8e94;
   text-decoration: none;
   cursor: pointer;
   margin: 0.188rem 0 0 2.5rem;
+`
+
+const FeedBack = styled.a`
+  ${menuLinkStyle}
+`
+
+const VisitOfficial = styled.a`
+  ${menuLinkStyle}
 `
 
 class HeaderComponent extends PureComponent {
@@ -45,6 +55,8 @@ class HeaderComponent extends PureComponent {
   props: {
     me?: Object,
   }
+
+  handleVisitOfficial = () => shell.openExternal('https://douban.fm')
 
   renderUserPanel = () => {
     if (this.props.me) {
@@ -59,7 +71,13 @@ class HeaderComponent extends PureComponent {
         <Header>
           <FrontPanel>
             <Logo src={LogoImage} alt="" />
-            <FeedBack href="javascript:void(0);">我要反馈</FeedBack>
+            <FeedBack href="mailto:eterlf41@gmail.com">我要反馈</FeedBack>
+            <VisitOfficial
+              href="javascript:void(0);"
+              onClick={this.handleVisitOfficial}
+            >
+              访问官网
+            </VisitOfficial>
           </FrontPanel>
           {this.renderUserPanel()}
         </Header>

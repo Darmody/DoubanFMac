@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {
-  Create as IconCreate,
-  Download as IconDownload,
-  Lyrics as IconLyrics,
-  Share as IconShare,
+  // Create as IconCreate,
+  // Download as IconDownload,
+  // Lyrics as IconLyrics,
+  // Share as IconShare,
   Volume as IconVolume,
 } from 'components/Icons'
 import { selectCurrent as selectCurrentSong } from 'selectors/songs'
-import Link from './Link'
+// import Link from './Link'
 
 const InfoBar = styled.div`
   display: flex;
@@ -66,10 +66,10 @@ class InfoBarComponent extends PureComponent {
           <IconVolume />
         </Header>
         <Links>
-          <Link><IconLyrics /></Link>
+          {/* <Link><IconLyrics /></Link>
           <Link><IconDownload /></Link>
           <Link><IconCreate /></Link>
-          <Link><IconShare /></Link>
+          <Link><IconShare /></Link> */}
         </Links>
       </InfoBar>
     )
