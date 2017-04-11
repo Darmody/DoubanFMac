@@ -28,4 +28,5 @@ node_modules
 # App packaged
 dist
 release
-build
+build/
+app/

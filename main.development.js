@@ -39,6 +39,8 @@ app.on('ready', () => {
     webPreferences: { webSecurity: false },
   }, `${HOST}/lyrics`)
 
+  mainWin.webContents.openDevTools()
+
   // events
   ipcMain.on('lyricsWindow', (event, message) => {
     const opening = () => {

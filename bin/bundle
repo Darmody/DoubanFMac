@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+NODE_ENV=production
+
+rm -rf ./app/dist
+./node_modules/.bin/webpack --colors --config "webpack/production.config.js"

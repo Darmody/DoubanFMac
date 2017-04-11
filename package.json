@@ -1,9 +1,9 @@
 {
   "name": "DoubanFMac",
   "productName": "DoubanFMac",
-  "version": "next",
+  "version": "2.0.0-alpha-1",
   "description": "豆瓣FM for mac",
-  "main": "src/desktop/main.development.js",
+  "main": "main.js",
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
@@ -13,26 +13,14 @@
     "flow": "./node_modules/.bin/flow",
     "lint": "./node_modules/.bin/eslint ./src",
     "test": "./node_modules/.bin/jest --coverage",
-    "check": "yarn run lint && yarn run flow && yarn test"
+    "check": "yarn run lint && yarn run flow && yarn test",
+    "bundle": "NODE_ENV=production ./bin/bundle",
+    "pack": "./bin/pack",
+    "dist": "./bin/build && build"
   },
   "build": {
-    "osx": {
-      "icon": "build/icon.icns",
-      "icon-size": 80,
-      "background": "build/background.png",
-      "contents": [
-        {
-          "x": 460,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 160,
-          "y": 220,
-          "type": "file"
-        }
-      ]
+    "mac": {
+      "type": "development"
     }
   },
   "repository": {
@@ -67,6 +55,8 @@
     "babel-preset-stage-0": "^6.22.0",
     "coveralls": "^2.12.0",
     "css-loader": "^0.27.3",
+    "electron": "^1.6.2",
+    "electron-builder": "^16.8.2",
     "enzyme": "^2.7.1",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",
@@ -94,7 +84,6 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
-    "electron": "^1.6.2",
     "humps": "^2.0.0",
     "normalize.css": "^5.0.0",
     "normalizr": "^3.2.2",
