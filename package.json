@@ -3,7 +3,7 @@
   "productName": "DoubanFMac",
   "version": "2.0.0-alpha-1",
   "description": "豆瓣FM for mac",
-  "main": "main.js",
+  "main": "main.development.js",
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
@@ -92,7 +92,6 @@
     "react-dom": "^15.4.2",
     "react-modal": "^1.7.3",
     "react-redux": "^5.0.3",
-    "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
     "redux-localstorage": "^0.4.1",

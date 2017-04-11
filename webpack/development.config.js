@@ -9,7 +9,7 @@ const assetsPath = path.join(__dirname, '..', 'public')
 const plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
-    template: path.resolve(srcPath, 'index.development.html'),
+    template: path.resolve(srcPath, 'index.html'),
   }),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')

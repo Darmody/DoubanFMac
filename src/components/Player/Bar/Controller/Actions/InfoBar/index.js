@@ -11,8 +11,6 @@ import {
 import { selectCurrent as selectCurrentSong } from 'selectors/songs'
 import Link from './Link'
 
-const ipc = require('electron').ipcRenderer
-
 const InfoBar = styled.div`
   display: flex;
   align-items: center;
@@ -53,10 +51,6 @@ type Props = {
 class InfoBarComponent extends PureComponent {
   props: Props
 
-  handleLyricsClick = () => {
-    ipc.send('lyricsWindow', 'toggle')
-  }
-
   formatTime = () => {
     const remainSeconds = this.props.total - this.props.step
     const date = new Date(null)
@@ -72,7 +66,7 @@ class InfoBarComponent extends PureComponent {
           <IconVolume />
         </Header>
         <Links>
-          <Link onClick={this.handleLyricsClick}><IconLyrics /></Link>
+          <Link><IconLyrics /></Link>
           <Link><IconDownload /></Link>
           <Link><IconCreate /></Link>
           <Link><IconShare /></Link>

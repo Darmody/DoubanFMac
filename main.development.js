@@ -1,16 +1,14 @@
-/* eslint-disable  id-length */
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 
 let mainWin
-let lyricsWin
 
 const HOST = 'http://localhost:8080'
 const HEIGHT = 659
 const WIDTH = 800
-const createWindow = (options, url = HOST) => {
+const createWindow = options => {
   const win = new BrowserWindow(options)
 
-  win.loadURL(url)
+  win.loadURL(HOST)
 
   win.on('closed', () => {
     mainWin = null
@@ -27,48 +25,6 @@ app.on('ready', () => {
     titleBarStyle: 'hidden',
     resizable: false,
     webPreferences: { webSecurity: false },
-  }, `${HOST}/app`)
-  lyricsWin = createWindow({
-    width: 0,
-    height: HEIGHT,
-    frame: false,
-    parent: mainWin,
-    hasShadow: false,
-    movable: false,
-    resizable: false,
-    webPreferences: { webSecurity: false },
-  }, `${HOST}/lyrics`)
-
-  mainWin.webContents.openDevTools()
-
-  // events
-  ipcMain.on('lyricsWindow', (event, message) => {
-    const opening = () => {
-      const mainPosition = mainWin.getPosition()
-      const lyricsPositionX = (mainPosition[0] + WIDTH) - 10
-
-      lyricsWin.setPosition(lyricsPositionX, mainPosition[1])
-      lyricsWin.setSize(300, HEIGHT, true)
-    }
-    const closing = () => {
-      lyricsWin.setSize(0, HEIGHT, true)
-      mainWin.focus()
-    }
-
-    const toggling = () => {
-      if (lyricsWin.getSize()[0] === 0) {
-        opening()
-      } else {
-        closing()
-      }
-    }
-
-    switch (message) {
-      case 'close': closing(); break
-      case 'open': opening(); break
-      case 'toggle':
-      default: toggling()
-    }
   })
 })
 
