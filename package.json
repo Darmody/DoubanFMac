@@ -1,9 +1,9 @@
 {
   "name": "DoubanFMac",
-  "productName": "DoubanFMac",
+  "productName": "豆瓣FMac",
   "version": "2.0.0-alpha-1",
   "description": "豆瓣FM for mac",
-  "main": "main.js",
+  "main": "./main.js",
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
@@ -16,7 +16,7 @@
     "check": "yarn run lint && yarn run flow && yarn test",
     "bundle": "NODE_ENV=production ./bin/bundle",
     "pack": "./bin/pack",
-    "dist": "./bin/build && build"
+    "dist": "./bin/dist"
   },
   "build": {
     "mac": {

@@ -1,12 +1,18 @@
 import R from 'ramda'
-import dotenv from 'dotenv'
 
-dotenv.config()
+let env = {}
+
+if (process.env.NODE_ENV === 'production') {
+  env = require('./.env.json')
+} else {
+  require('dotenv').config()
+  env = process.env
+}
 
 const defaultConfig = {
   DOUBAN: {
-    CLIENT_ID: process.env.DOUBAN_CLIENT_ID,
-    CLIENT_SECRET: process.env.DOUBAN_CLIENT_SECRET,
+    CLIENT_ID: env.DOUBAN_CLIENT_ID,
+    CLIENT_SECRET: env.DOUBAN_CLIENT_SECRET,
   },
 }
 

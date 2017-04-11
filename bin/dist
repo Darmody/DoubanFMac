@@ -1,0 +1,8 @@
+
+#!/usr/bin/env bash
+
+NODE_ENV=production
+
+cd app
+
+build

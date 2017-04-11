@@ -34,7 +34,6 @@ app.on('ready', () => {
     webPreferences: { webSecurity: false },
   })
 
-
   if (process.platform === 'darwin') {
     const template = [{
       label: '豆瓣FMac',
@@ -92,6 +91,14 @@ app.on('ready', () => {
         accelerator: 'Command+A',
         selector: 'selectAll:'
       }]
+    // 调试用菜单
+    }, {
+      label: '调试',
+      submenu: [
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' },
+      ]
     }, {
       label: '窗口',
       submenu: [{
@@ -117,12 +124,4 @@ app.on('before-quit', () => {
 
 app.on('activate', () => {
   mainWin.show()
-})
-
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWin === null) {
-    createWindow()
-  }
 })

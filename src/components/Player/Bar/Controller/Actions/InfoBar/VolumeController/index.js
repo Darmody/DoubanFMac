@@ -47,7 +47,7 @@ const VolumeIconContainer = styled.a`
 
 // TODO: 貌似 styled-components 有 bug
 const sliderBarStyle = {
-  'background-color': 'rgb(151, 151, 151)',
+  backgroundColor: 'rgb(151, 151, 151)',
   height: '.125rem',
   width: `${sliderBarWidth}rem`,
 }

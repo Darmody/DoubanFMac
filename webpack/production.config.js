@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const srcPath = path.join(__dirname, '..', 'src')
-const assetsPath = path.join(__dirname, '../app/dist')
+const assetsPath = path.join(__dirname, '../app/assets')
 
 const plugins = [
   new HtmlWebpackPlugin({

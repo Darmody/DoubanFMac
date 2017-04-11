@@ -26,7 +26,7 @@ node_modules
 .DS_Store
 
 # App packaged
-dist
+dist/
 release
 build/
 /app/
