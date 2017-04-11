@@ -6,9 +6,9 @@ import {
   // Download as IconDownload,
   // Lyrics as IconLyrics,
   // Share as IconShare,
-  Volume as IconVolume,
 } from 'components/Icons'
 import { selectCurrent as selectCurrentSong } from 'selectors/songs'
+import VolumeController from './VolumeController'
 // import Link from './Link'
 
 const InfoBar = styled.div`
@@ -16,11 +16,10 @@ const InfoBar = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: .625rem 0 .3rem;
+  margin: 1.125rem 0 .3rem;
 `
 
 const Header = styled.div`
-  display: inline-block;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,8 +43,11 @@ const Links = styled.span`
 `
 
 type Props = {
+  toggleMuted: Function,
   total: number,
+  setVolume: Function,
   step: number,
+  volume: number,
 }
 
 class InfoBarComponent extends PureComponent {
@@ -63,7 +65,11 @@ class InfoBarComponent extends PureComponent {
       <InfoBar>
         <Header>
           <Time>{this.formatTime()}</Time>
-          <IconVolume />
+          <VolumeController
+            toggleMuted={this.props.toggleMuted}
+            volume={this.props.volume}
+            setVolume={this.props.setVolume}
+          />
         </Header>
         <Links>
           {/* <Link><IconLyrics /></Link>

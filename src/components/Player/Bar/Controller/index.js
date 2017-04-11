@@ -95,6 +95,12 @@ export default class ControllerComponent extends PureComponent {
       .subscribe(data => this.setState(data))
   }
 
+  setVolume = (volume: number) => {
+    if (this.audio) {
+      this.audio.volume = volume
+    }
+  }
+
   progressWatcher = undefined
   audio = {}
   props: Props
@@ -111,6 +117,14 @@ export default class ControllerComponent extends PureComponent {
     }
   }
 
+  toggleMuted = () => {
+    if (this.audio) {
+      this.audio.muted = !this.audio.muted
+    }
+  }
+
+  volume = () => (this.audio ? this.audio.volume : 0)
+
   render() {
     const { song } = this.props
     const { songBuffer, playing, playingStep } = this.state
@@ -126,9 +140,12 @@ export default class ControllerComponent extends PureComponent {
         <Artist href="javascript:void(0);">{song.artist}</Artist>
         <Actions
           togglePlaying={this.togglePlaying}
+          toggleMuted={this.toggleMuted}
           playing={playing}
           playingStep={playingStep || 0}
           songBuffer={songBuffer || 0}
+          volume={this.volume()}
+          setVolume={this.setVolume}
         />
       </Controller>
     )
