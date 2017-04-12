@@ -10,6 +10,7 @@ export default class IconArrow extends PureComponent {
   render() {
     return (
       <Icon
+        className={this.props.className}
         styles={this.props.styles}
         title="Arrow" viewBox="0 0 16 16" height="16" width="16"
       >

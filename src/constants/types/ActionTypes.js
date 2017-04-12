@@ -2,6 +2,7 @@
 export const LOGIN_REQUEST: ActionType = 'LOGIN/REQUEST'
 export const LOGIN_SUCCESS: ActionType = 'LOGIN/SUCCESS'
 export const LOGIN_FAILURE: ActionType = 'LOGIN/FAILURE'
+export const LOGOUT: ActionType = 'LOGOUT'
 
 // users
 export const USER_CURRENT_REQUEST: ActionType = 'USER/CURRENT/REQUEST'
@@ -23,3 +24,5 @@ export const SONG_LIKE_REQUEST: ActionType = 'SONGS/LIKE/REQUEST'
 export const SONG_LIKE_SUCCESS: ActionType = 'SONGS/LIKE/SUCCESS'
 export const SONG_DISLIKE_REQUEST: ActionType = 'SONGS/DISLIKE/REQUEST'
 export const SONG_DISLIKE_SUCCESS: ActionType = 'SONGS/DISLIKE/SUCCESS'
+export const SONG_PLAYED_REQUEST: ActionType = 'SONGS/PLAYED/REQUEST'
+export const SONG_PLAYED_SUCCESS: ActionType = 'SONGS/PLAYED/SUCCESS'

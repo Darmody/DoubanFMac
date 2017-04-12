@@ -51,3 +51,11 @@ export const mark = (channel: number, sid: number): Action => ({
     channel,
   }
 })
+
+export const playedList = (start: number = 0, limit?: number = 10): Action => ({
+  type: types.SONG_PLAYED_REQUEST,
+  payload: {
+    start,
+    limit,
+  }
+})

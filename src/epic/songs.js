@@ -4,18 +4,23 @@ import * as types from 'constants/types/ActionTypes'
 import type { Epic } from 'constants/types/Redux'
 import * as API from 'clients/doubanRxClient'
 import { current } from 'actions/songs'
-import { update as updateEntities } from 'actions/entities'
+import {
+  update as updateEntities,
+  save as saveEntities,
+} from 'actions/entities'
 import { normalizeResponse, getToken, fullfilled } from 'utils/operators'
-import { SONG } from 'schemas'
+import { SONG, SONG_ARRAY } from 'schemas'
 
 const fetchSong = (type, api) => (action$, store) => action$
   .ofType(type)
   .pluck('payload')
   .switchMap(payload => api(getToken(store), payload))
   .pluck('response', 'song')
-  .mergeMap(([song]) => Rx$.merge(
-    Rx$.of(normalizeResponse(song, SONG)),
-    Rx$.of(current(song)),
+  .map(([song]) => song)
+  .map(normalizeResponse(SONG))
+  .mergeMap(({ result, entities }) => Rx$.merge(
+    Rx$.of(saveEntities(entities)),
+    Rx$.of(current(entities.songs[result]))
   ))
 
 const nextEpic: Epic = fetchSong(types.SONG_NEXT_REQUEST, API.nextSong)
@@ -58,6 +63,17 @@ const dislikeEpic: Epic = (action$, store) => {
     )
 }
 
+const playedListEpic: Epic = (action$, store) => action$
+  .ofType(types.SONG_PLAYED_REQUEST)
+  .pluck('payload')
+  .switchMap(payload => API.playedSongList(getToken(store), payload))
+  .pluck('response', 'songs')
+  .map(normalizeResponse(SONG_ARRAY))
+  .mergeMap(({ result, entities }) => Rx$.merge(
+    Rx$.of(saveEntities(entities)),
+    Rx$.of(fullfilled(types.SONG_PLAYED_SUCCESS)(result)),
+  ))
+
 export default [
   banEpic,
   dislikeEpic,
@@ -65,4 +81,5 @@ export default [
   listenEpic,
   markEpic,
   nextEpic,
+  playedListEpic,
 ]

@@ -4,6 +4,7 @@ import * as types from 'constants/types/ActionTypes'
 import type { Epic } from 'constants/types/Redux'
 import * as API from 'clients/doubanRxClient'
 import { listen } from 'actions/songs'
+import { save as saveEntities } from 'actions/entities'
 import { normalizeResponse, getToken, rejected } from 'utils/operators'
 import { USER } from 'schemas'
 
@@ -15,7 +16,8 @@ const current: Epic = (action$, store) => action$
     API
       .me(getToken(store))()
       .pluck('response')
-      .map(response => normalizeResponse(response, USER))
+      .map(normalizeResponse(USER))
+      .map(({ entities }) => saveEntities(entities))
       .catch(rejected(types.USER_CURRENT_FAILURE)),
     startListen(store),
   )

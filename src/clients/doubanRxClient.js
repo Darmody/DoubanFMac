@@ -16,6 +16,11 @@ type Token = string
 */
 type SongActionType = 'n' | 'p' | 'e' | 'r' | 'u' | 'b'
 
+const QUERY = {
+  app_name: 'radio_iphone',
+  version: 116,
+}
+
 const rxClient: Client = ({ query = {}, url, ...restParams }) => ajax({
   responseType: 'json',
   crossDomain: true,
@@ -95,14 +100,13 @@ export const songAction = (
   method: 'GET',
   url: 'https://api.douban.com/v2/fm/playlist',
   query: {
-    app_name: 'radio_iphone',
+    ...QUERY,
     channel,
     kbps: 192,
     pt: 0.0,
     sid,
     type,
     udid: token,
-    version: 116,
   }
 })
 
@@ -133,3 +137,18 @@ export const nextSong = (token: Token, payload: {
   channel: number,
   sid?: number,
 }) => songAction(token, payload.channel, 'p', payload.sid)
+
+export const playedSongList = (token: Token, payload: {
+  limit: number,
+  start: number,
+}) => authedClient(token)({
+  method: 'GET',
+  url: 'https://api.douban.com/v2/fm/recent_played_tracks',
+  query: {
+    ...QUERY,
+    limit: payload.limit,
+    start: payload.start,
+    type: 'played',
+    udid: token,
+  }
+})
