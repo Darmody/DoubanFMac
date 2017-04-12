@@ -85,6 +85,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "humps": "^2.0.0",
+    "node-machine-id": "^1.1.4",
     "normalize.css": "^5.0.0",
     "normalizr": "^3.2.2",
     "ramda": "^0.23.0",

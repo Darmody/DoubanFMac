@@ -1,5 +1,6 @@
 // @flow
 import qs from 'qs'
+import { machineIdSync } from 'node-machine-id'
 import type { Client } from 'constants/types/Client'
 import { ajax } from 'rxjs/observable/dom/ajax'
 import config from 'constants/configuration'
@@ -19,6 +20,7 @@ type SongActionType = 'n' | 'p' | 'e' | 'r' | 'u' | 'b'
 const QUERY = {
   app_name: 'radio_iphone',
   version: 116,
+  udid: machineIdSync(),
 }
 
 const rxClient: Client = ({ query = {}, url, ...restParams }) => ajax({
@@ -106,7 +108,6 @@ export const songAction = (
     pt: 0.0,
     sid,
     type,
-    udid: token,
   }
 })
 
@@ -149,6 +150,5 @@ export const playedSongList = (token: Token, payload: {
     limit: payload.limit,
     start: payload.start,
     type: 'played',
-    udid: token,
   }
 })
