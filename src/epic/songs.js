@@ -31,7 +31,18 @@ const markEpic: Epic = (action$, store) => action$
   .ofType(types.SONG_MARK_REQUEST)
   .pluck('payload')
   .mergeMap(payload => API.markSong(getToken(store), payload))
-  .map(fullfilled(types.SONG_MARK_SUCCESS))
+  .mergeMap(response => {
+    const userId = store.getState().auth.id
+    const playedNum = store.getState().entities.users[userId].playedNum
+
+    return Rx$.merge(
+      Rx$.of(fullfilled(types.SONG_MARK_SUCCESS)(response)),
+      Rx$.of(updateEntities([{
+        field: ['users', store.getState().auth.id, 'playedNum'],
+        value: playedNum + 1,
+      }])),
+    )
+  })
 
 const likeEpic: Epic = (action$, store) => {
   const likeFullfilled = sid => () => Rx$.of(updateEntities([{

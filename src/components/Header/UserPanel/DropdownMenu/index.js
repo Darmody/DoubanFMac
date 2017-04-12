@@ -172,7 +172,7 @@ class DropdownMenuComponent extends PureComponent {
         </MenuItem>
         <SongMenuItem>
           {playedSongs.map(song => (
-            <SongInfo key={song.sid}>
+            <SongInfo key={song.sid + Math.random()}>
               <IconLink href="javascript:void(0);" onClick={this.handleJump(song)}>
                 <IconPlay size={8} color="#A8A8A8" />
               </IconLink>

@@ -67,7 +67,7 @@ class UserPanelComponent extends PureComponent {
     this.panelSubscription = Rx$
       .fromEvent(element, 'mouseover')
       .throttleTime(1000 * 5)
-      .subscribe(() => this.props.fetchPlayedList(0, 5))
+      .subscribe(() => this.props.fetchPlayedList(0, 7))
   }
 
   componentWillUnmount() {
