@@ -3,6 +3,7 @@ import { Observable as Rx$ } from 'rxjs'
 import * as types from 'constants/types/ActionTypes'
 import type { Epic } from 'constants/types/Redux'
 import * as API from 'clients/doubanRxClient'
+import { logout } from 'actions/auth'
 import { listen } from 'actions/songs'
 import { save as saveEntities } from 'actions/entities'
 import { normalizeResponse, getToken, rejected } from 'utils/operators'
@@ -18,7 +19,10 @@ const current: Epic = (action$, store) => action$
       .pluck('response')
       .map(normalizeResponse(USER))
       .map(({ entities }) => saveEntities(entities))
-      .catch(rejected(types.USER_CURRENT_FAILURE)),
+      .catch(error => Rx$.merge(
+        rejected(types.USER_CURRENT_FAILURE)(error),
+        Rx$.of(logout()),
+      )),
     startListen(store),
   )
 )

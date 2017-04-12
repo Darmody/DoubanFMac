@@ -3,6 +3,8 @@ export const LOGIN_REQUEST: ActionType = 'LOGIN/REQUEST'
 export const LOGIN_SUCCESS: ActionType = 'LOGIN/SUCCESS'
 export const LOGIN_FAILURE: ActionType = 'LOGIN/FAILURE'
 export const LOGOUT: ActionType = 'LOGOUT'
+export const AUTH_REQUEST: ActionType = 'AUTH/REQUEST'
+export const AUTH_FAILURE: ActionType = 'AUTH/FAILURE'
 
 // users
 export const USER_CURRENT_REQUEST: ActionType = 'USER/CURRENT/REQUEST'

@@ -19,3 +19,8 @@ export const logined = (response: Object): Action => ({
   type: types.LOGIN_SUCCESS,
   payload: response,
 })
+
+export const auth = (): Action => ({
+  type: types.AUTH_REQUEST,
+  payload: undefined,
+})

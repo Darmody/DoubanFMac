@@ -59,7 +59,7 @@ class HeaderComponent extends PureComponent {
   handleVisitOfficial = () => shell.openExternal('https://douban.fm')
 
   renderUserPanel = () => {
-    if (this.props.me) {
+    if (this.props.me && this.props.me.userId) {
       return <UserPanel me={this.props.me} />
     }
 

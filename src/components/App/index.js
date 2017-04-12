@@ -1,9 +1,11 @@
 // @flow
+import { Observable as Rx$ } from 'rxjs'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 import { Body, Footer, Header } from 'components'
 import { current as fetchMe } from 'actions/users'
+import { auth } from 'actions/auth'
 import 'normalize.css'
 import './app.css'
 
@@ -18,6 +20,7 @@ const App = styled.div`
 `
 
 type Props = {
+  auth: Function,
   fetchMe: Function,
 }
 
@@ -28,8 +31,18 @@ class AppComponent extends PureComponent {
 
   componentDidMount() {
     this.props.fetchMe()
+    this.authSubscribtion = Rx$
+      .interval(1000 * 60 * 4)
+      .subscribe(() => this.props.auth())
   }
 
+  componentWillUnmount() {
+    if (this.authSubscribtion) {
+      this.authSubscribtion.unsubscribe()
+    }
+  }
+
+  authSubscribtion = undefined
   props: Props
 
   render() {
@@ -45,4 +58,4 @@ class AppComponent extends PureComponent {
   }
 }
 
-export default connect(null, { fetchMe })(AppComponent)
+export default connect(null, { fetchMe, auth })(AppComponent)
