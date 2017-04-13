@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { ipcRenderer } from 'electron'
 import {
   Love as IconLove,
   Pause as IconPause,
@@ -51,6 +52,32 @@ type Props = {
 }
 
 class ActionBarComponent extends PureComponent {
+  componentDidMount() {
+    this.shortcutListner = (_event, event) => {
+      switch (event) {
+        case 'likeSong':
+          return this.props.like(this.props.channelId, this.props.song.sid)
+        case 'dislikeSong':
+          return this.props.dislike(this.props.channelId, this.props.song.sid)
+        case 'banSong':
+          return this.props.ban(this.props.channelId, this.props.song.sid)
+        case 'nextSong':
+          return this.props.next(this.props.channelId, this.props.song.sid)
+        default:
+          return ''
+      }
+    }
+
+    ipcRenderer.on('shortcut-pressed', this.shortcutListner)
+  }
+
+  componentWillUnmount() {
+    if (this.shortcutListner) {
+      ipcRenderer.removeListener('shortcut-pressed', this.shortcutListner)
+    }
+  }
+
+  shortcutListner = undefined
   props: Props
 
   isLike = () => this.props.song.like && this.props.song.like !== DISLIKE_CODE

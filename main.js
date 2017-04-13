@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, globalShortcut } = require('electron')
 
 let mainWin
 
@@ -32,6 +32,22 @@ app.on('ready', () => {
     titleBarStyle: 'hidden',
     resizable: false,
     webPreferences: { webSecurity: false },
+  })
+
+  // set global shortcut
+  const shortcuts = [
+    { key: 'ctrl+alt+p', event: 'playSong' },
+    { key: 'ctrl+alt+l', event: 'likeSong' },
+    { key: 'ctrl+alt+u', event: 'dislikeSong' },
+    { key: 'ctrl+alt+n', event: 'nextSong' },
+    { key: 'ctrl+alt+b', event: 'banSong' },
+  ]
+
+  const shortcutPressed = event => () => {
+    mainWin.webContents.send('shortcut-pressed', event)
+  }
+  shortcuts.forEach((shortcut) => {
+    globalShortcut.register(shortcut.key, shortcutPressed(shortcut.event))
   })
 
   if (process.platform === 'darwin') {

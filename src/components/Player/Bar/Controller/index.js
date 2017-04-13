@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { Observable as Rx$ } from 'rxjs'
 import styled from 'styled-components'
+import { ipcRenderer } from 'electron'
 import Actions from './Actions'
 
 const Controller = styled.div`
@@ -69,7 +70,24 @@ export default class ControllerComponent extends PureComponent {
 
   state: States
 
+  componentDidMount() {
+    this.shortcutListner = (_event: Object, event: string) => {
+      switch (event) {
+        case 'playSong':
+          return this.togglePlaying()
+        default:
+          return ''
+      }
+    }
+
+    ipcRenderer.on('shortcut-pressed', this.shortcutListner)
+  }
+
   componentWillUnmount() {
+    if (this.shortcutListner) {
+      ipcRenderer.removeListener('shortcut-pressed', this.shortcutListner)
+    }
+
     if (this.progressWatcher) {
       this.progressWatcher.unsubscribe()
     }
@@ -106,6 +124,7 @@ export default class ControllerComponent extends PureComponent {
     }
   }
 
+  shortcutListner = undefined
   progressWatcher = undefined
   audio = {}
   props: Props
