@@ -19,6 +19,7 @@ const Title = styled.h2`
 `
 
 const FieldWrapper = styled.div`
+  position: relative;
   height: 2.5rem;
   margin-top: .875rem;
   overflow: hidden;
@@ -52,6 +53,14 @@ const Input = styled(ReduxInput)`
   box-shadow: inset 0 0 4px rgba(0,0,0,0.06);
 `
 
+const ErrorMessage = styled.span`
+  position: absolute;
+  line-height: 40px;
+  font-size: .813rem;
+  color: #EF2617;
+  right: .938rem;
+`
+
 const Button = styled.input`
   display: block;
   border: none;
@@ -65,8 +74,9 @@ const Button = styled.input`
 
 type Props = {
   authed: boolean,
-  handleSubmit: Function,
   closeModal: Function,
+  handleSubmit: Function,
+  loginFailed: boolean,
 }
 
 class LoginFormComponent extends PureComponent {
@@ -78,18 +88,25 @@ class LoginFormComponent extends PureComponent {
 
   props: Props
 
+  renderUsernameField = ({ meta, ...restProps }) => (
+    <FieldWrapper>
+      <Input meta={meta} {...restProps} />
+      {this.props.loginFailed && (
+        <ErrorMessage>用户名或密码错误</ErrorMessage>
+      )}
+    </FieldWrapper>
+  )
+
   render() {
     return (
       <LoginForm>
         <Title>欢迎来到豆瓣, 请登录</Title>
-        <FieldWrapper>
-          <Field
-            name="username"
-            type="text"
-            placeholder="手机号/邮箱/用户名"
-            component={Input}
-          />
-        </FieldWrapper>
+        <Field
+          name="username"
+          type="text"
+          placeholder="手机号/邮箱/用户名"
+          component={this.renderUsernameField}
+        />
         <FieldWrapper>
           <Field
             name="password"
@@ -114,6 +131,7 @@ export default R.compose(
   connect(
     state => ({
       authed: state.auth.id,
+      loginFailed: state.auth.loginFailed,
     })
   )
 )(LoginFormComponent)

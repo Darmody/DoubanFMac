@@ -8,6 +8,7 @@ const initialState = Immutable({
   token: '',
   refreshToken: '',
   expiredAt: null,
+  loginFailed: false,
 })
 
 const reducer: Reducer = (state = initialState, { type, payload }) => {
@@ -17,7 +18,9 @@ const reducer: Reducer = (state = initialState, { type, payload }) => {
       refreshToken: payload.refreshToken,
       id: payload.doubanUserId,
       expiredAt: payload.expiresIn,
+      loginFailed: false,
     })
+    case types.LOGIN_FAILURE: return Immutable.merge(state, { loginFailed: true })
     case types.LOGOUT: return Immutable.merge(state, initialState)
     default: return state
   }
