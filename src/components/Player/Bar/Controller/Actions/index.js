@@ -9,12 +9,13 @@ const Actions = styled.div`
 `
 
 type Props = {
+  muted: boolean,
+  playing: boolean,
+  playingStep: number,
+  setVolume: Function,
+  songBuffer: number,
   toggleMuted: Function,
   togglePlaying: Function,
-  playingStep: number,
-  playing: boolean,
-  songBuffer: number,
-  setVolume: Function,
   volume: number,
 }
 
@@ -29,6 +30,7 @@ export default class ActionsComponent extends PureComponent {
           toggleMuted={this.props.toggleMuted}
           volume={this.props.volume}
           setVolume={this.props.setVolume}
+          muted={this.props.muted}
         />
         <ProcessBar
           buffer={this.props.songBuffer}

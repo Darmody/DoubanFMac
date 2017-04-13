@@ -53,6 +53,7 @@ const sliderBarStyle = {
 }
 
 type Props = {
+  muted: boolean,
   setVolume: Function,
   toggleMuted: Function,
   volume: number,
@@ -63,7 +64,7 @@ export default class VolumeControllerComponent extends PureComponent {
 
   props: Props
 
-  volumeIconCount = () => this.props.volume * 4
+  volumeIconCount = () => (this.props.muted ? 1 : (this.props.volume * 4))
 
   handleVolumeClick = event => {
     const total = sliderBarWidth * 16 // rem to pixel

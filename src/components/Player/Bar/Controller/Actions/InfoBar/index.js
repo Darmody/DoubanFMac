@@ -43,10 +43,11 @@ const Links = styled.span`
 `
 
 type Props = {
-  toggleMuted: Function,
-  total: number,
+  muted: boolean,
   setVolume: Function,
   step: number,
+  toggleMuted: Function,
+  total: number,
   volume: number,
 }
 
@@ -69,6 +70,7 @@ class InfoBarComponent extends PureComponent {
             toggleMuted={this.props.toggleMuted}
             volume={this.props.volume}
             setVolume={this.props.setVolume}
+            muted={this.props.muted}
           />
         </Header>
         <Links>

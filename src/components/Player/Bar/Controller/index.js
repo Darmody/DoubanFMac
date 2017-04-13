@@ -50,6 +50,8 @@ type States = {
   playing: boolean,
   playingStep: number,
   songBuffer: number,
+  volume: number,
+  muted: boolean,
 }
 
 export default class ControllerComponent extends PureComponent {
@@ -60,6 +62,8 @@ export default class ControllerComponent extends PureComponent {
       playing: false,
       songBuffer: 0,
       playingStep: 0,
+      volume: 1,
+      muted: false,
     }
   }
 
@@ -98,6 +102,7 @@ export default class ControllerComponent extends PureComponent {
   setVolume = (volume: number) => {
     if (this.audio) {
       this.audio.volume = volume
+      this.setState({ volume })
     }
   }
 
@@ -120,14 +125,13 @@ export default class ControllerComponent extends PureComponent {
   toggleMuted = () => {
     if (this.audio) {
       this.audio.muted = !this.audio.muted
+      this.setState({ muted: this.audio.muted })
     }
   }
 
-  volume = () => (this.audio ? this.audio.volume : 0)
-
   render() {
     const { song } = this.props
-    const { songBuffer, playing, playingStep } = this.state
+    const { songBuffer, playing, playingStep, muted, volume } = this.state
     return (
       <Controller>
         <audio
@@ -139,13 +143,14 @@ export default class ControllerComponent extends PureComponent {
         <Name href="javascript:void(0);">{song.title}</Name>
         <Artist href="javascript:void(0);">{song.artist}</Artist>
         <Actions
-          togglePlaying={this.togglePlaying}
-          toggleMuted={this.toggleMuted}
+          muted={muted}
           playing={playing}
           playingStep={playingStep || 0}
-          songBuffer={songBuffer || 0}
-          volume={this.volume()}
           setVolume={this.setVolume}
+          songBuffer={songBuffer || 0}
+          toggleMuted={this.toggleMuted}
+          togglePlaying={this.togglePlaying}
+          volume={volume}
         />
       </Controller>
     )
