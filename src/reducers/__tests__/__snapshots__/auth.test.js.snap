@@ -4,6 +4,7 @@ exports[`reducer::auth initialize state 1`] = `
 Object {
   "expiredAt": null,
   "id": null,
+  "loginFailed": false,
   "refreshToken": "",
   "token": "",
 }
@@ -13,7 +14,28 @@ exports[`reducer::auth 存储认证信息 1`] = `
 Object {
   "expiredAt": 123456,
   "id": "id",
+  "loginFailed": false,
   "refreshToken": "refresh token",
   "token": "token",
+}
+`;
+
+exports[`reducer::auth 标记登录失败 1`] = `
+Object {
+  "expiredAt": null,
+  "id": null,
+  "loginFailed": true,
+  "refreshToken": "",
+  "token": "",
+}
+`;
+
+exports[`reducer::auth 登出后重置 state 1`] = `
+Object {
+  "expiredAt": null,
+  "id": null,
+  "loginFailed": false,
+  "refreshToken": "",
+  "token": "",
 }
 `;

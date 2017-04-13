@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`action::entities 创建一个保存 entities action 1`] = `
+Object {
+  "payload": Object {
+    "user": Object {
+      "1": Object {
+        "id": 1,
+      },
+    },
+  },
+  "type": "ENTITIES/SAVE",
+}
+`;
+
+exports[`action::entities 创建一个更新 entity 字段 action 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "field": Array [
+        "users",
+        "1",
+        "id",
+      ],
+      "value": 2,
+    },
+  ],
+  "type": "ENTITIES/UPDATE",
+}
+`;

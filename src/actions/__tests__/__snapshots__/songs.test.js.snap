@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`action::songs 创建一个 ban action 1`] = `
+Object {
+  "payload": Object {
+    "channel": 1,
+    "sid": 2,
+  },
+  "type": "SONGS/BAN/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 current action 1`] = `
+Object {
+  "payload": Object {
+    "sid": 1,
+  },
+  "type": "SONGS/CURRENT",
+}
+`;
+
+exports[`action::songs 创建一个 dislike action 1`] = `
+Object {
+  "payload": Object {
+    "channel": 1,
+    "sid": 2,
+  },
+  "type": "SONGS/DISLIKE/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 like action 1`] = `
+Object {
+  "payload": Object {
+    "channel": 1,
+    "sid": 2,
+  },
+  "type": "SONGS/LIKE/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 listen action 1`] = `
+Object {
+  "payload": 1,
+  "type": "SONGS/LISTEN/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 mark action 1`] = `
+Object {
+  "payload": Object {
+    "channel": 1,
+    "sid": 2,
+  },
+  "type": "SONGS/MARK/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 next action 1`] = `
+Object {
+  "payload": Object {
+    "channel": 1,
+    "sid": 2,
+  },
+  "type": "SONGS/NEXT/REQUEST",
+}
+`;
+
+exports[`action::songs 创建一个 playedList action 1`] = `
+Object {
+  "payload": Object {
+    "limit": 10,
+    "start": 0,
+  },
+  "type": "SONGS/PLAYED/REQUEST",
+}
+`;

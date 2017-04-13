@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`action::auth 创建一个登出 action 1`] = `
+Object {
+  "payload": undefined,
+  "type": "LOGOUT",
+}
+`;
+
 exports[`action::auth 创建一个登录 action 1`] = `
 Object {
   "payload": Object {
@@ -16,5 +23,12 @@ Object {
     "access_token": "token",
   },
   "type": "LOGIN/SUCCESS",
+}
+`;
+
+exports[`action::auth 创建一个认证 action 1`] = `
+Object {
+  "payload": undefined,
+  "type": "AUTH/REQUEST",
 }
 `;

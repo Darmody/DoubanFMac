@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`action::users 创建一个 current action 1`] = `
+Object {
+  "payload": undefined,
+  "type": "USER/CURRENT/REQUEST",
+}
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer::entities initialize state 1`] = `Object {}`;
+
+exports[`reducer::entities 存储 entity 1`] = `
+Object {
+  "users": Object {
+    "1": Object {
+      "id": 1,
+    },
+  },
+}
+`;
+
+exports[`reducer::entities 更新 entity 字段 1`] = `
+Object {
+  "users": Object {
+    "1": Object {
+      "name": "new name",
+    },
+  },
+}
+`;

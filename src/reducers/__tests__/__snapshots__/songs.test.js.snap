@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer::songs initialize state 1`] = `
+Object {
+  "id": undefined,
+  "playedIds": Array [],
+}
+`;
+
+exports[`reducer::songs 切换当前歌曲 1`] = `
+Object {
+  "id": 1,
+  "playedIds": Array [],
+}
+`;
+
+exports[`reducer::songs 记录已播放的歌曲 ids 1`] = `
+Object {
+  "id": undefined,
+  "playedIds": Array [
+    1,
+    2,
+  ],
+}
+`;
