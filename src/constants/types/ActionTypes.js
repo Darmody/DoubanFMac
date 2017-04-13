@@ -4,6 +4,7 @@ export const LOGIN_SUCCESS: ActionType = 'LOGIN/SUCCESS'
 export const LOGIN_FAILURE: ActionType = 'LOGIN/FAILURE'
 export const LOGOUT: ActionType = 'LOGOUT'
 export const AUTH_REQUEST: ActionType = 'AUTH/REQUEST'
+export const AUTH_SUCCESS: ActionType = 'AUTH/SUCCESS'
 export const AUTH_FAILURE: ActionType = 'AUTH/FAILURE'
 
 // users

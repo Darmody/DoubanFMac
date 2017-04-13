@@ -5,7 +5,7 @@ import type { Epic } from 'constants/types/Redux'
 import * as API from 'clients/doubanRxClient'
 import { logined, logout } from 'actions/auth'
 import { current } from 'actions/users'
-import { rejected, getToken, normalizeResponse } from 'utils/operators'
+import { fullfilled, rejected, getToken, normalizeResponse } from 'utils/operators'
 
 const loginEpic: Epic = action$ => action$
   .ofType(types.LOGIN_REQUEST)
@@ -27,6 +27,9 @@ const authEpic: Epic = (action$, store) => action$
   .ofType(types.AUTH_REQUEST)
   .mergeMap(() => API
     .me(getToken(store))()
+    .pluck('response')
+    .map(normalizeResponse())
+    .map(fullfilled(types.AUTH_SUCCESS))
     .catch(error => Rx$.merge(
       rejected(types.USER_CURRENT_FAILURE)(error),
       Rx$.of(logout()),

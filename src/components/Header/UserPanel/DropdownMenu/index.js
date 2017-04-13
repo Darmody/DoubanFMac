@@ -1,4 +1,5 @@
 // @flow
+import R from 'ramda'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -171,7 +172,7 @@ class DropdownMenuComponent extends PureComponent {
           </FMInfo>
         </MenuItem>
         <SongMenuItem>
-          {playedSongs.map(song => (
+          {R.take(5, playedSongs).map(song => (
             <SongInfo key={song.sid + Math.random()}>
               <IconLink href="javascript:void(0);" onClick={this.handleJump(song)}>
                 <IconPlay size={8} color="#A8A8A8" />
